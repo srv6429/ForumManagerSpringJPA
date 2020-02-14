@@ -21,13 +21,13 @@ Le fichiers 'forum_spring_creation_secript.sql' peut servir pour générer la ba
 
 Pour créer la base de données et insérer les entrées dans es atbles on doit avoir les privilèges nécessaires
 
-Création de la base "forum_spring" et les tables on exécute le fichier forum_spring_creation_script.sql:
+Création de la base "forum_spring" et les tables on exécute le fichier forum_spring_creation_script.sql qui se trouve dans le réertoire  'files':
 
 On doit démarrer le client mysql du répertoire où se trouve les fichiers de création
 
 Pour cérer la base de donnée et les tables:
 
-	mysql > source forum_spring_creation_script.sql.sql;
+	mysql > source forum_spring_creation_script.sql;
 
 
 Pour pouvoir se connecter avec l'application, nous avons créer un utilisateur 'springuser'
