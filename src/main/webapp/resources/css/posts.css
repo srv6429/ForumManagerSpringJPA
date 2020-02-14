@@ -1,0 +1,170 @@
+
+/**
+Style pour la page posts.jsp
+*/
+
+#main_container {
+	width: 1000px;
+	margin: 30px auto;
+	border: 5px #1984b6;
+	border-style: double;
+	border-radius: 5px;
+	text-align: center;
+	padding: 5px 5px;
+}
+
+#topic_title{
+	color: #006699;
+	margin: 15px auto;
+	padding: 5px 5px;	
+	font-size: 20px;
+	text-align: left;
+	width: 90%;
+					
+}
+#posts_container {
+	margin: 20px auto;
+	padding: 15px;
+}
+
+#posts_table {
+	margin: 15px auto;
+	background: none;
+	border: 1px solid #999;
+	border-radius: 3px;
+}
+
+#posts_table  tr {
+	background: #efefef;
+	margin: 10px 10px;
+	padding: 5px;
+	border: 1px solid #006699;
+}
+
+#posts_table tr th, #posts_table tr td {
+	text-align: left;
+	margin: 5px 5px;
+	padding: 10px 10px;
+	border: 1px solid #006699;
+}
+
+#posts_table tr th {
+	background: #667e99;
+}
+
+#posts_table tr td {
+	border: 0px solid #006699;
+	border-radius: 5px;
+}
+
+#posts_table .post {
+	background: none;
+	border-top: 1px dotted #006699;
+	border-radius: 5px;
+	margin: 10px 10px;
+}
+
+.post_body {
+	margin: 10px 10px;
+	padding: 5px 5px;
+	text-align: left;
+	color: #999999;
+	font-style: italic;	
+	border: 0px solid #ccc;	
+	width: 90%;
+	float: left;	
+}
+.post_num {
+	margin: 5px 10px;
+	padding: 5px 5px;
+	width: 30px;	
+}
+.post_title {
+	margin: 5px 10px;
+	padding: 5px 5px;
+	width: 200px;
+}
+.post_user {
+	margin: 5px 10px;
+	padding: 5px 5px;
+	width: 100px;
+}
+.post_creation_date {
+	margin: 5px 10px;
+	padding: 5px 5px;
+	width: 130px;
+}
+.post_update_date {
+	margin: 5px 10px;
+	padding: 5px 5px;
+	width: 130px;
+}
+
+.post_button {
+	margin: 10px 10px;
+	padding: 5px 5px;
+	width: 150px;
+	text-align: end;
+}
+
+#post_header span, #post_wrapper span {
+	float: left;
+	border: 0px solid #ccc;
+}
+
+
+.button_wrapper {
+	margin: 5px 10px;
+	text-align: right;
+}
+.post_button button {
+	margin: 5px 5px;
+}
+
+
+.post {
+	text-align: left;
+	font-family: Verdana;
+	font-size: 14px;
+	font-style: italic;
+	color: #006699;
+	margin: 10px 10px;
+	padding: 0px;
+}
+
+
+
+.post_form {
+	display: none;
+}
+
+.post_form input {
+	width: 200px;
+	margin: 10px 0px;
+}
+
+.post_form textarea {
+	width: 600px;
+	margin: 10px 0px;
+}
+
+.visible {
+	display: inline;
+}
+
+.hidden {
+	display: none;
+}
+
+#new_post_form {
+	margin: 10px 0px;
+	border: 0px solid #006699;
+	border-radius: 5px;
+	padding: 10px;
+	display: none;
+}
+#new_post_form .error{
+	font-size: 11pt;
+	margin: 0px 10px;
+}
+

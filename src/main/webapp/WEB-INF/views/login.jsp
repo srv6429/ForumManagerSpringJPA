@@ -9,12 +9,6 @@
 		<link rel="stylesheet" type="text/css" href="<c:url value="resources/css/style.css"/>"  />
 		<script type="text/javascript" src="<c:url value="resources/scripts/jquery-3.4.1.min.js" />" ></script>	
 		
-		<style>
-			.error{
-				color: #cc0000;
-				font-style: italic;
-			}
-		</style>
 		
 		<script type="text/javascript">
 		//	jQuery(function(){

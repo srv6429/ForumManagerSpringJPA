@@ -5,176 +5,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>"  />
-		<script type="text/javascript" src="<c:url value="/resources/scripts/jquery-3.4.1.min.js" />" ></script>
-		
-		<style type="text/css">
-	
-			#main_container {
-				width: 1000px;
-				margin: 30px auto;
-				border: 5px #1984b6;
-				border-style: double;
-				border-radius: 5px;
-				text-align: center;
-				padding: 5px 5px;
-			}
-		
-			#users_table {
-				width: 950px;
-				margin: 5px auto;
-				border: 3px solid #006699;
-				background: #efefef;
-			}
-			
-			#users_table tr th, #users_table tr td {
-				border: 0px solid #ccc;
-				background: #667e99;
-				text-align: left;
-				margin: 5px 5px;
-				padding: 10px 10px;
-			}
-			
-			#users_table tr td {
-				border: 0px solid #006699;
-				background: #efefef;
-			}
-			
-			.user_id {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 20px;				
-			}
-						
-			.user_name {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 100px;
-				word-wrap: break-word;
-			}
-			
-			.user_email {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 200px;
-				word-wrap: break-word;
-			}
-						
-			.user_creation_date {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 90px;
-			}
-						
-			.user_update_date {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 90px;
-			}
-						
-			.user_role {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 20px;
-			}
-			
-			.user_active {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 20px;
-			}
-			
-			
-			.topic_editor_button {
-				margin: 5px 10px;
-				padding: 5px 5px;
-				width: 100px;
-			}
-			
-			.button_wrapper{
-				margin: 5px 10px;
-				padding: 5px;
-			}
-			
-						
-			#user_header span, #user_wrapper span {
-				float: left;
-				border: 0px solid #ccc;
-			}
-			
-			
-			.left {
-				float: left;
-			}
-			
-			.right {
-				float: right;
-			}
-		</style>
-		
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>"  />	
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/users.css"/>"  />	
 		<script type="text/javascript">
 
-			jQuery(function(){
-
-				//alert("ready");
-				
-				var contextPath = "${pageContext.request.contextPath}";
-
-				//Clic sur le bouton "Activer/Désactiver"
-				jQuery(".edit_user_button").click(function(e){
-
-					//Empêcher la soumission du formualire
-					e.preventDefault();
-
-					//récupérer l'identifiant de l'utilisateur sélectionné
-					var userId = this.id.substr(2);
-					//var topicId = jQuery(".post_topic_id").val();
-
-					console.log("click toggle user id: " + userId);	
-
-					//var params = "?postId="+postId+"&userId="+userId;
-					
-					//envoyer la requêt AJAX avec la méthode PUT
-					var request = jQuery.ajax({
-						  url: contextPath+"/toggleUser/"+ userId,
-						  type: "put",
-						//  data: {"postId": postId, "postTitle":postTitle, "postBody": postBody, "topicId": topicId, "userId": userId},
-						  dataType: "text"
-						});
-
-					//Succès: réponse du serveur
-					request.done(function(data) {
-						console.log("Done: " + data);
-						var jsonData = jQuery.parseJSON(data);
-						console.log("jsonData.status: " + jsonData.status);
-                        console.log("Success");
-
-                        //Succès de la mise à jour
-						if(jsonData["status"] && jsonData.status == "ok"){
-							//refresh
-							console.log("refresh page: " + jsonData.profile);
-							console.log("Profile deleted with success");
-							document.location.href = contextPath+"/users"; //refresh
-                         } else{
-                        	 console.log("Profile error");
-                            jQuery("#error").append(jQuery("<div>").html("Error  with method " + this.type));
-                          }
-                     
-
-					});
-
-					//Échec: réponse su serveur
-					request.fail(function(jqXHR, textStatus) {
-						  console.log( "Request failed: " + textStatus );
-
-						  jQuery("#error").append(jQuery("<div>").html("Une erreur est survenue lors de la tentative de mise à jour."));
-
-						  
-						});
-					
-				});
-			});
-
+			var contextPath = "${pageContext.request.contextPath}";
 
 		</script>
 	</head>
@@ -231,5 +66,8 @@
 				</c:forEach>
 			</table>
 		</div>
+		<script type="text/javascript" src="<c:url value="/resources/scripts/jquery-3.4.1.min.js" />" ></script>
+		<script type="text/javascript" src="<c:url value="/resources/scripts/main.js" />" ></script>
+		<script type="text/javascript" src="<c:url value="/resources/scripts/users.js" />" ></script>	
 	</body>
 </html>

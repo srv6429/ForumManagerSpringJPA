@@ -1,0 +1,122 @@
+/**
+Style pour la page topics.jsp
+*/
+
+#main_container {
+	width: 1000px;
+	margin: 30px auto;
+	border: 5px #1984b6;
+	border-style: double;
+	border-radius: 5px;
+	text-align: center;
+	padding: 5px 5px;
+}
+
+#topics_table {
+	width: 960px;
+	margin: 5px auto;
+	border: 3px solid #006699;
+	background: #efefef;
+}
+
+#topics_table tr th, #topics_table tr td {
+	border: 0px solid #ccc;
+	background: #667e99;
+	text-align: left;
+	margin: 5px 5px;
+	padding: 10px 10px;
+}
+
+#topics_table tr td {
+	border: 0px solid #006699;
+	background: #efefef;
+}
+
+
+.topic_num {
+	margin: 5px 0px;
+	padding: 5px 5px;
+	width: 30px;				
+}
+			
+.topic_title {
+	margin: 5px 0px;
+	padding: 5px 5px;
+	width: 200px;
+}
+			
+.topic_creation_date {
+	margin: 5px 0px;
+	padding: 5px 5px;
+	width: 160px;
+}
+			
+.topic_update_date {
+	margin: 5px 0px;
+	padding: 5px 5px;
+	width: 160px;
+}
+			
+.topic_creator{
+	margin: 5px 0px;
+	padding: 5px 5px;
+	width: 140px;
+}
+
+.topic_editor_button {
+	margin: 5px 0px;
+	padding: 5px 5px;
+	width: 120px;
+}
+
+#topic_header span, #topic_wrapper span {
+	float: left;
+	border: 0px solid #ccc;
+}
+
+.topic_form {
+	display: none;
+	margin: 10px 25px;
+}
+
+.topic_form input {
+	width: 200px;
+	margin: 10px 0px;
+}
+
+.topic_form textarea {
+	width: 600px;
+	margin: 10px 0px;
+}
+
+			
+.visible {
+	display: inline;
+}
+
+.hidden {
+	display: none;
+}
+
+.button_wrapper {
+	margin: 5px 10px;
+	text-align: right;
+	width: 100px;
+}
+
+.update_button_wrapper {
+	margin: 5px 10px;
+	text-align: right;
+	width: 200px;
+}
+
+#new_button_wrapper{
+	width: 200px;
+}
+
+button {
+	margin: 5px 2px;
+}
+
+
+

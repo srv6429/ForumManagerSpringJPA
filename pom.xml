@@ -188,11 +188,12 @@
  			<artifactId>spring-security-crypto</artifactId>
  			<version>5.2.2.RELEASE</version>
  		</dependency>
- 		<dependency>
+ <!--   		<dependency>
  			<groupId>maven</groupId>
  			<artifactId>maven-war-plugin</artifactId>
  			<version>1.6.3</version>
  		</dependency>
+ -->
  </dependencies>
     <build>
         <plugins>
@@ -210,10 +211,8 @@
                     <downloadJavadocs>true</downloadJavadocs>
                 </configuration>
             </plugin>
-            <!-- 
             <plugin>
  				<artifactId>maven-war-plugin</artifactId>
- 				 <version>1.6.3</version>
         		<executions>
 	          		<execution>
 	           		 	<id>default-war</id>
@@ -224,7 +223,6 @@
 	          		</execution>
        			</executions>
       		</plugin>
-      		 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -287,5 +287,8 @@ a.topnavbar-localicons {
 	float: right;
 }
 
-
+.error{
+	color: #cc0000;
+	font-style: italic;
+}
 

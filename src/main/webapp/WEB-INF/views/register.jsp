@@ -9,21 +9,16 @@
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>"  />
 		<script type="text/javascript" src="<c:url value="/resources/scripts/jquery-3.4.1.min.js" />"></script>	
 		
-		<style>
-			.error{
-				color: #cc0000;
-				font-style: italic;
-			}
-		</style>
-		
 		
 		<script type="text/javascript">
-
+			//récupérer le context path
+			var contextPath = "${pageContext.request.contextPath}";
+			console.log("contextPath: "+ contextPath);
+			
 			jQuery(function(){
 
-				//récupérer le context path
-				var contextPath = "${pageContext.request.contextPath}";
-				//alert("ready: context path: " + contextPath);
+
+				//alert("ready: context path: ");
 
 				//Clic sur le bouton "Vérifier login"
 				jQuery("#login_verif").click(function(){
