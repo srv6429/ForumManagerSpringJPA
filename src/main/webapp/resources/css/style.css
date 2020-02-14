@@ -1,0 +1,291 @@
+@CHARSET "UTF-8";
+
+
+body{
+	
+	background-color: #efefef;
+	color: #006699;
+	font-family: arial;
+	font-size: 11pt;
+    color:#353833;
+    font-family:'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-size:14px;
+    margin:0;
+}
+a:link, a:visited {
+    text-decoration: none;
+    color: #4A6782;
+    font-style: italic;
+}
+a:hover, a:focus {
+    text-decoration: none;
+    color: #bb7a2a;
+}
+a:active {
+    text-decoration: none;
+    color: #4A6782;
+}
+
+table#horaire{
+	width: 1200px;
+	border: 1px solid #ccc;
+	font-size: 14px;
+	color: #666;
+}
+
+table tr th, table tr td{
+	border: 1px solid #ccc;
+	margin: 1px 1px;
+	padding: 5px 5px;
+	color: #333;
+	font-style: italic;
+	font-weight: bold;
+	text-align: left;
+	
+}
+
+table tr th{
+	color: #006699;
+	
+}
+
+
+table tr td, table tr th.plage{
+	text-align: center;
+}
+
+
+input[type=submit]{
+	font-size: 12px;
+	font-style: italic;
+	color: #666;
+	cursor: pointer;
+}
+
+button{
+	font-size: 12px;
+	font-style: italic;
+	color: #666;
+	cursor: pointer;
+	
+}
+
+.reserved{
+	color: #666;
+	font-size: 14px;
+	font-style: italic;
+}
+
+.res_button[disabled=disabled]{
+	cursor: default;
+	color: #aaa;
+}
+
+
+
+div.header{
+	width: 100%;
+	text-align: right;
+	font-family: Verdana;
+	font-size: 14px;
+	font-style: italic;
+	color: #006699;
+}
+
+div.legend{
+	color: #006699;
+	font-size: 12px;
+	font-style: italic;
+	
+}
+
+.error{
+	color: #cc0000;
+	font-family : Verdana;
+   	font-size : 8pt;
+	font-style: italic;
+	margin: 2px 5px;
+}
+
+.valid{
+	color: #008000;
+	font-family : Verdana;
+   	font-size : 8pt;
+	font-style: italic;
+	margin: 2px 5px;
+}
+
+
+
+table#user{
+	border: 2px outset #006699;
+}
+
+table#user tr th, table#user tr td{
+	border: 2px outset #006699;
+	padding: 2px 2px;
+}
+
+table#users{
+	width: 800px;
+	
+}
+
+
+.main_container{
+	
+	width: 800px;
+	margin: 100px auto;
+	padding: 20px;
+	background-color: #e0e0e0 ;
+	color: #2a6496;
+	text-align: center;
+	border: 3px solid #2a6496;
+	border-radius: 10px;
+}
+
+.login_container{
+	width: 460px;
+}
+
+
+.message_container{
+	width: 700px;
+	text-align: left;
+
+}
+
+.message_container label{
+	width: 200px;
+	margin: 10px 10px;
+}
+
+.schedule_container, .manage_container{	
+	width: 1000px;
+	text-align: left;
+
+}
+.manage_container form {
+	margin: 10px 10px;
+}
+table#users tr td{
+	text-align: left;
+}
+
+form {
+	width: 440px;
+	margin: 10px;
+	padding: 5px;
+	text-align: left;
+}
+
+#register_form {
+	width: 540px;
+	margin: 10px;
+	padding: 5px;
+	text-align: left;
+}
+
+form label {
+	margin: 10px;
+	paddin: 5px;
+}
+
+form input {
+	margin: 10px;
+	paddin: 5px;
+}
+
+button#display_users{
+	
+	background-color: #efefef; 
+}
+
+/******************************************************/
+/** Menu **/
+
+.topnavbar {
+	background-color: #006699;
+	color: #efefef;
+	width: 100%;
+	height: 35px;
+	padding: 5px 30px;
+	position: relative;
+	top: 0px;
+	letter-spacing: 1pt;
+	overflow: auto;
+	z-index: 2;
+	overflow: hidden;
+	font-size: 13px;
+    line-height: 1.4;
+}
+
+.topnavbar .button {
+	outline: 0;
+	border: none;
+	padding: 10px 15px;
+	color: #efefef;
+	color: #dfe0df;
+	background-color: inherit;
+	text-align: center;	
+	display: inline-block;
+	overflow: hidden;
+	text-decoration: none;
+	cursor: pointer;
+	white-space: nowrap;
+	margin: 0px 30px;
+}
+
+
+.topnavbar .welcome {
+	pointer-events: none;	
+}
+
+.topnavbar a {
+	padding: 10px 15px !important;
+}
+
+.topnavbar a:hover {
+	background-color: #00aadd !important;
+	color: #ccc !important;
+	border-radius: 15px 5px 15px 5px;
+}
+
+.topnavbar a.active:hover {
+    background-color: orange !important;
+}
+
+
+.topnavbar a.active {
+    background-color: orange;
+    color: #ffffff;
+    border-radius: 15px 5px 15px 5px;
+}
+
+a.topnavbar-icons {
+	width: 52px !important;
+	font-size: 20px !important;
+	padding-top: 11px !important;
+	padding-bottom: 13px !important;
+}
+
+a.topnavbar-icons.fa-home {
+	font-size: 22px !important
+}
+
+a.topnavbar-localicons {
+	font-size: 20px !important;
+	padding-top: 6px !important;
+	padding-bottom: 12px !important;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+
+
