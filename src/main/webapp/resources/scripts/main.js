@@ -7,7 +7,7 @@
 
 var sendAJAXRequest = function(requestUrl, method, errorMessage){
 	
-	alert("in sendAjaxRequest: url: " + requestUrl + "; method: " + method + "; message: " + errorMessage);
+	//alert("in sendAjaxRequest: url: " + requestUrl + "; method: " + method + "; message: " + errorMessage);
 	
 	var request = jQuery.ajax({
 		  url: requestUrl,

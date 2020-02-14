@@ -11,7 +11,7 @@
 
 jQuery(function(){
 
-	alert("ready in profile.js");
+	//alert("ready in profile.js");
 	
 	jQuery("#profile_form").submit(function( event ) {
 
