@@ -29,7 +29,7 @@ import org.springframework.stereotype.Repository;
  * 
  * @author D. Michon
  * 
- * @Description:
+ * Description:
  *  
  * Classe qui permet d'accéder à la base de données pour créer, mettre à jour et récupérer les données de la table 'user' concernant tous les utilisateurs
  * 
@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "User.findAll" définie dans la classe User.class
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: une liste contenant des Objets de type User qui on été instanciés pour chaque tuple de la table 'user'
 	 * 
@@ -118,7 +118,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "User.findAllActive" définie dans la classe User.class
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: une liste contenant des Objets de type User qui on été instanciés pour chaque tuple retourné de la table 'user'
 	 * 
@@ -164,7 +164,7 @@ public class UserDAOImpl implements UserDAO{
 	 * de vérifier le type à la compilation
 	 * 
 	 * 
-	 * @param: id (int) représentant l'identifiant de l'utilisateur
+	 * @param id :(int) représentant l'identifiant de l'utilisateur
 	 * 
 	 * @return: - un objet de type User instancié si L'utilisateur a été trouvé dans la table user
 	 * 			- null si l'id n'est pas trouvé
@@ -202,7 +202,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "User.findByUsername" définie dans la classe User.class
 	 * 
-	 * @param: username (String) représetnant le nom d'utilisateur
+	 * @param username: (String) représetnant le nom d'utilisateur
 	 * 
 	 * @return: - un objet de type User instancié si l'utilisateur a été trouvé dans la table user
 	 * 			- null si le 'username' n'est pas trouvé
@@ -266,8 +266,8 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "User.findByUsernameAndPassword" définie dans la classe User.class
 	 * 
-	 * @param: 	- username (String) représetnant le nom d'utilisateur
-	 * 			- password (String) représentant le mot de passe de l'utilisateur
+	 * @param username: (String) représetnant le nom d'utilisateur
+	 * @param password: (String) représentant le mot de passe de l'utilisateur
 	 * @return: - un objet de type User instancié si l'utilisateur a été trouvé dans la table user
 	 * 			- null si le 'username' n'est pas trouvé
 	 * 
@@ -337,8 +337,9 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "User.findActiveByUsernameAndPassword" définie dans la classe User.class
 	 * 
-	 * @param: 	- username (String) représetnant le nom d'utilisateur
-	 * 			- password (String) représentant le mot de passe de l'utilisateur
+	 * @param username: (String) représetnant le nom d'utilisateur
+	 * @param password: (String) représentant le mot de passe de l'utilisateur
+	 *  
 	 * @return: - un objet de type User instancié si l'utilisateur a été trouvé dans la table user
 	 * 			- null si le 'username' n'est pas trouvé
 	 * 
@@ -400,7 +401,7 @@ public class UserDAOImpl implements UserDAO{
 	 * Utilisation d'une requête naturelle du langae SQL et la fonction max() pour obtenir l'id qui possède la plus grande valeur,
 	 * étant donc le dernier utilisateur inséré dans la base de données
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: - un entier représentant l'identifiant de l'utilisateur
 	 * 
@@ -456,7 +457,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactoryné
 	 * 
-	 * @param: User user: un objet de type User initialisé avec les champs username, email et password  
+	 * @param user User: un objet de type User initialisé avec les champs username, email et password  
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -535,9 +536,9 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: 	- username(String): le nom du nouvel utilisateur 
-	 * 			- email(String): le courriel
-	 * 			- password(String): le mot de passe  
+	 * @param username: (String): le nom du nouvel utilisateur 
+	 * @param email: (String): le courriel
+	 * @param password: (String): le mot de passe  
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -614,7 +615,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: User user: 	un objet de type User initialisé avec les champs username, email et password 
+	 * @param user: User: 	un objet de type User initialisé avec les champs username, email et password 
 	 * 						tels que modifiés par l'utilisateur
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
@@ -695,10 +696,10 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: 	- id(int): l'identifiant de l'utilisateur
-	 * 			- username(String): le nom de l'utilisateur 
-	 * 			- email(String): le courriel
-	 * 			- password(String): le mot de passe
+	 * @param id: (int): l'identifiant de l'utilisateur
+	 * @param username: (String): le nom de l'utilisateur 
+	 * @param email: (String): le courriel
+	 * @param password: (String): le mot de passe
 	 *   
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -777,8 +778,8 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: 	- userId (int): l'identifiant de l'utilisateur
-	 * 			- status(byte): tsatut avec valeur 0 pour désactiver, ou 1 pour activer 
+	 * @param userId: (int): l'identifiant de l'utilisateur
+	 * @param status: (byte): statut avec valeur 0 pour désactiver, ou 1 pour activer 
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -858,7 +859,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: 	- userId(int): l'identifiant de l'utilisateur
+	 * @param userId: (int): l'identifiant de l'utilisateur
 
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
@@ -933,9 +934,9 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 * Utilisé pour encrypter les mots de passe des utilisateurs  
 	 * 
-	 * @param: 	- str (String): la chaîne à encrypter
-	 * 			- algorithme (String): l'algorithme utilisé pour l'encryptage
-
+	 * @param str: (String): la chaîne à encrypter
+	 * @param algorithme: (String): l'algorithme utilisé pour l'encryptage
+	 * 
 	 * 
 	 * @return: - un objet de type String qui représente la chaîne encryptée 
 	 * 

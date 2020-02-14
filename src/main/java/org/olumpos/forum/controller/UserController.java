@@ -74,7 +74,7 @@ public class UserController {
 	 * 
 	 * La méthode se contente d'instancier la variable de session 'user' sans initialiser les champs
 	 * 	  
-	 * @param: - model (Model): représente le modèle de l'application permettant d"ajouter des variables de session	
+	 * @param model: (Model): représente le modèle de l'application permettant d"ajouter des variables de session	
 	 * 							utilisable durant toute la session
 	 * 
 	 * @return: String "login": une chaîne de caractères indiquant la vue, i.e. login.jsp, vers laquelle on doit être dirigé
@@ -117,8 +117,8 @@ public class UserController {
 	 * On remplace alors la variable de session "user" par le nouvel objet User retourné avec le profile complet de l'utilisateur.
 	 * 
 	 * 	  
-	 * @param: 	- user (User): repésente l'attribut de session 'user' avec les champ username et password initialisés
-	 * 			- model (Model): le modèle de l'application 
+	 * @param user: (User): repésente l'attribut de session 'user' avec les champ username et password initialisés
+	 * @param model: (Model): le modèle de l'application 
 	 * 
 	 * @return: - String: "redirect:topics": une chaîne de caractères indiquant la redirection vers la vue  "topics.jsp", 
 	 * 					si l'utilisateur est un utilisateur valide dans la base de données
@@ -182,8 +182,8 @@ public class UserController {
 	 * 	- si l'utilisateur est trouvé dans la table 'user' de la bd, alors le nom d'utilisateur n'est pas disponible et est donc réservé
 	 * 	- si l'utilisateur n'est pas trouvé dans la table 'user', alors il est disponible et peut être utilisé 
 	 * 	  
-	 * @param: 	- login (String): e 'username' passé dans l'url
-	 * 			- model (Model): le modèle de l'application 
+	 * @param login: (String): e 'username' passé dans l'url
+	 * @param model: (Model): le modèle de l'application 
 	 * 
 	 * @return: - String "{login:taken}": une chaîne de caractères indiquant que le nom d'utilisateur est réservé, 
 	 * 			- String "{login:free}: une chaîne de caractères indiquant que le nom d'utilisateur est disponible, 
@@ -222,7 +222,7 @@ public class UserController {
 	 * Permet de fermer la session de l'utilisateur en remplaçant la valeur de session 'user'
 	 *  par un nouvel objet instancié avec des champs vides	 
 	 *  
-	 * @param: 	- model (Model): le modèle de l'application 
+	 * @param model: (Model): le modèle de l'application 
 	 * @return: - String "redirect:login": une chaîne de caractères indiquant la redirection vers la vue  "login.jsp", 
 	 * 
 	 **********************************************************************************************************************/
@@ -249,7 +249,7 @@ public class UserController {
 	 * 
 	 * La méthode se contente d'instancier la variable de session 'user' sans initialiser les champs
 	 * 	  
-	 * @param: - model (Model): représente le modèle de l'application permettant d"ajouter des variables de session	
+	 * @param model: (Model): représente le modèle de l'application permettant d"ajouter des variables de session	
 	 * 							utilisable durant toute la session
 	 * 
 	 * @return: String "register": une chaîne de caractères indiquant la vue, i.e. register.jsp, vers laquelle on doit être dirigée
@@ -292,8 +292,8 @@ public class UserController {
 	 * On remplace alors la variable de session "user" par le nouvel objet User retourné avec le profile complet de l'utilisateur.
 	 * 
 	 * 	  
-	 * @param: 	- User user: repésente l'attribut de session 'user' avec les champs 'username', email' et 'password' initialisés
-	 * 			- model (Model): le modèle de l'application 
+	 * @param user: User: repésente l'attribut de session 'user' avec les champs 'username', email' et 'password' initialisés
+	 * @param model: (Model): le modèle de l'application 
 	 * 
 	 * @return: - String: "redirect:topics": une chaîne de caractères indiquant la redirection vers la vue  "topics.jsp", 
 	 * 					si l'utilisateur a été enregistré avec succès dans la base de données
@@ -346,7 +346,7 @@ public class UserController {
 	 * La méthode ne fait rien d'utre que de reoutner la vue
 	 * Les champs 'username' et 'email' du formulaire sont rempli par les valeurs appropriées de l'utilisateur
 	 * 	  
-	 * @param: - model (Model): représente le modèle de l'application 
+	 * @param model: (Model): représente le modèle de l'application 
 	 * 
 	 * @return: String "profile": une chaîne de caractères indiquant la vue, i.e. profile.jsp, vers laquelle on doit être dirigée
 	 * 
@@ -378,11 +378,11 @@ public class UserController {
 	 * 
 	 * Les valeurs des paramètre sont initialisées par les valeurs passées dans l'url
 	 * 
-	 * @param: 	- id (int): l'identifiant de l'utilisateur
-	 * 			- username (String): le nouveau nom de l'utilisateur
-	 * 			- email (String): le nouveu courriel de l'utilisateur
-	 * 			- password (String): le nouveu mot de passe de l'utilisateur
-	 * 			- model (Model): représente le modèle de l'application 
+	 * @param id: (int): l'identifiant de l'utilisateur
+	 * @param username: (String): le nouveau nom de l'utilisateur
+	 * @param email: (String): le nouveu courriel de l'utilisateur
+	 * @param password: (String): le nouveu mot de passe de l'utilisateur
+	 * @param model: (Model): représente le modèle de l'application 
 	 * 
 	 * @return: - String: "{profile:update}": un objet json indiquant le succès de la mise à jour
 	 * 			- String: "{profile:failure}": un objet json indiquant l'échec de la mise à jour
@@ -438,8 +438,8 @@ public class UserController {
 	 * 
 	 * Les valeurs des paramètre sont initialisées par les valeurs passées dans l'url
 	 * 
-	 * @param: 	- user (User): repésente l'attribut de session 'user' 
-	 * 			- model (Model): représente le modèle de l'application 
+	 * @param user: (User): repésente l'attribut de session 'user' 
+	 * @param model: (Model): représente le modèle de l'application 
 	 * 
 	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs
 	 * 			- String: "redirect:topics": la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté
@@ -485,9 +485,9 @@ public class UserController {
 	 * 
 	 * La valeur du paramètre id est par la valeur transmise dans l'url
 	 * 
-	 * @param: 	- user (User): repésente l'attribut de session 'user' 
-	 * 			- id (int): l'identifiant de l'utilisateur
-	 * 			- model (Model): représente le modèle de l'application 
+	 * @param user: (User): repésente l'attribut de session 'user' 
+	 * @param id: (int): l'identifiant de l'utilisateur
+	 * @param model: (Model): représente le modèle de l'application 
 	 * 
 	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs
 	 * 			- String: "{profile:deleted}": une chaîne représentant un objet json indiquant le succès la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté
@@ -534,9 +534,9 @@ public class UserController {
 	 * 
 	 * La valeurs du paramètre id est par la valeur transmise dans l'url
 	 * 
-	 * @param: 	- User user: repésente l'attribut de session 'user' 
-	 * 			- int id: l'identifiant de l'utilisateur
-	 * 			- model (Model): représente le modèle de l'application 
+	 * @param user: User: repésente l'attribut de session 'user' 
+	 * @param id: int: l'identifiant de l'utilisateur
+	 * @param model: (Model): représente le modèle de l'application 
 	 * 
 	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs
 	 *

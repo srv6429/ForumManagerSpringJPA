@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  * 
  * @author Donald Michon
  * 
- * @Description:
+ * Description:
  *  
  *  Classe qui permet d'accéder à la base de données pour créer, mettre à jour et récupérer les données des 'posts' (commentaire)
  * 
@@ -66,7 +66,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "Post.findAll" définie dans la classe Post
 	 * 
-	 * @param: aucun
+	 * paramètre: aucun
 	 * 
 	 * @return: une liste contenant des Objets de type Post qui ont été instanciés pour chaque tuple de la table 'post'
 	 * 
@@ -108,7 +108,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: une liste contenant des Objets de type Post qui ont été instanciés pour chaque tuple de la table 'post'
 	 * 
@@ -152,7 +152,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post
 	 * 
-	 * @param: - int topicId: l'identifiant du topic
+	 * @param topicId: (int) l'identifiant du topic
 	 * 
 	 * @return: une liste contenant des Objets de type Post provenant de la table 'post' et dont le topic_id = topicId
 	 * 
@@ -198,7 +198,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post
 	 * 
-	 * @param: - int topicId: l'identifiant du topic
+	 * @param topicId: (int): l'identifiant du topic
 	 * 
 	 * @return: une liste contenant des Objets de type Post provenant de la table 'post' et dont le topic_id = topicId et qui sont actifs
 	 * 
@@ -244,7 +244,7 @@ public class PostDAOImpl implements PostDAO{
 	 * Utilisation de la fonction EntityManager.'find()'  avec le paramètre id et le nom de la classe pour vérifier le type
 	 * 
 	 * 
-	 * @param: postId (int): l'identifiant du post
+	 * @param postId: (int): l'identifiant du post
 	 * 
 	 * @return: - un objet de type Topic
 	 * 			- null si l'id n'est pas trouvé dans la bd
@@ -284,7 +284,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: - un entier représentant l'identifiant (id) du post
 	 * 
@@ -347,7 +347,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: - un entier représentant l'identifiant (id) du post
 	 * 
@@ -400,7 +400,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné
 	 * 
-	 * @param: Post post: un objet de type Post initialisé avec les champs 'title', 'body' et topicId par l'utilisateur créant le post  
+	 * @param post: Post: un objet de type Post initialisé avec les champs 'title', 'body' et topicId par l'utilisateur créant le post  
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le topic  a été créé avec succès
@@ -470,7 +470,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager
 	 * 
-	 * @param: 	- post (Post): un objet de type Post qui contient les informations modifiées
+	 * @param post (Post): un objet de type Post qui contient les informations modifiées
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -544,7 +544,7 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager
 	 * 
-	 * @param: 	- postId (int): un objet de type Post avec l'id 
+	 * @param postId: (int): un objet de type Post avec l'id 
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -614,7 +614,8 @@ public class PostDAOImpl implements PostDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager
 	 * 
-	 * @param: 	- Post post: un objet de type Post avec l'id 
+	 * @param postId: (int): l'identifiant du post
+	 * @param status: (byte): 0 ou 1 pour désactiver ou activer
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès

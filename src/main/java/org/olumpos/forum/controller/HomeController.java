@@ -25,6 +25,9 @@ public class HomeController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * @param locale : default system locale
+	 * @param model: modèle
+	 * @return : Une string correspondant au nom de la vue: login
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {

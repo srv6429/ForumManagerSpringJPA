@@ -81,12 +81,12 @@ public class PostController {
 	 * 
 	 * retourne la liste des posts trouvés
 	 * 
-	 * @param:  - id (int): l'identifiant du topic contenant les posts
-	 * 			- model (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - List<Post>List postList: la liste contenant tous les posts ouverts associés au topic (id)
+	 * @param id :  -(int): l'identifiant du topic contenant les posts 
+	 * @param model: représente le modèle de l'application
+	 * @return: - List(Post) postList: la liste contenant tous les posts ouverts associés au topic (id)
 	 * 
 	 **********************************************************************************************************************/
+
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String getPosts (@PathVariable int id, Model model) {
@@ -134,11 +134,11 @@ public class PostController {
 	 * 
 	 * L'appel à la fonction postDAO.addPost(Post) retourne un entier (1) si l'opération est réussie, (0) sinon
 	 * 	  
-	 * @param: 	- String title: le titre du post
-	 * 			- String comment: le commentaire du post
-	 * 			- int topicId: l'identifiant du topic
-	 * 			- int userId: l'identifiant de l'utilisateur
-	 * 			- Model model: le modèle de l'application 
+	 * @param title: le titre du post
+	 * @param comment: le commentaire du post
+	 * @param topicId: l'identifiant du topic
+	 * @param userId: l'identifiant de l'utilisateur
+	 * @param model: le modèle de l'application 
 	 * 
 	 * @return: - String "{status:ok}": une chaîne représentant un objet de type json, si le post a été enregistré avec succès
 	 * 			- String "{status:error}" sinon
@@ -182,12 +182,12 @@ public class PostController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction addPost(Map<String, String>, Model)
+	 * Fonction addPost(Map(String, String), Model)
 	 * 
 	 * Permet de gérer un requête '/addPost/' avec la méthode POST
 	 * 
 	 * Variante de la précédent mais les paramètres sont trasmis dans un objet json par la fonction javascript AJAX 
-	 * et sont enregistrés dans une collection Map<String, String> annotée avec @PathVariable en tant que paramètre formel de la fonction
+	 * et sont enregistrés dans une collection Map(String, String) annotée avec @PathVariable en tant que paramètre formel de la fonction
 	 * 
 	 * On peut récupérer les paramètres transmis avec les clés-valeurs de la collection
 	 * 
@@ -195,9 +195,9 @@ public class PostController {
 	 * 	 
 	 * L'appel à la fonction postDAO.addPost(Post) retourne un entier (1) si l'opération est réussie, (0) sinon
 	 * 	  
-	 * @param: 	- params (Map<String, String>) : 	une collection de type Map contenant les paramètre (titre du post, commentaire, 
+	 * @param params: (Map(String, String)) : 	une collection de type Map contenant les paramètre (titre du post, commentaire, 
 	 * 											l'identifiant du topic, l'identifiant de l'utilisateur)
-	 * 			- model (Model): le modèle de l'application 
+	 * @param model: : le modèle de l'application 
 	 * 
 	 * @return: - String "{post:success}" une chaîne représetnant un objet de type json, si le post a été enregistré avec succès
 	 * 			- String "{post:failure}" sinon
@@ -259,10 +259,10 @@ public class PostController {
 	 * 	 
 	 * L'appel à la fonction postDAO.updatePost() retourne un entier (1) si l'opération est réussie, (0) sinon
 	 * 	  
-	 * @param: 	- id (int): l'identifiant du post
-	 * 			- title (String): le titre du post
-	 * 			- comment (String): le commentaire du post
-	 * 			- model (Model): le modèle de l'application 
+	 * @param id: (int): l'identifiant du post
+	 * @param title: (String): le titre du post
+	 * @param comment: (String): le commentaire du post
+	 * @param model: (Model): le modèle de l'application 
 	 * 
 	 * @return: - String "{status:ok}": une chaîne représetnant un objet de type json, si le post est modifié avec succès
 	 * 			- String "{status:error}" sinon
@@ -303,26 +303,26 @@ public class PostController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction updatePost(Map<String, String>, Model)
+	 * Fonction updatePost(Map(String, String), Model)
 	 * 
 	 * Permet de gérer un requête '/updatePost' avec la méthode PUT
 	 * 
 	 * Variante de la précédente mais les paramètres sont trasmis dans un objet json par la fonction javascript AJAX 
-	 * et sont enregistrés dans une collection Map<String, String> annotée avec @PathVariable en tant que paramètre formel de la fonction
+	 * et sont enregistrés dans une collection Map(String, String) annotée avec PathVariable en tant que paramètre formel de la fonction
 	 * 
 	 * On peut récupérer les paramètres transmis avec les clés-valeurs de la collection
 	 * 
 	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente
 	 * 
 	 * Le titre du post et le commentaire sont enregistrés dans les paramètres transmis dans l'url
-	 * par la fonction javascipt AJAX: url: "/posts/updatePost?postId="+postId+"&postTitle="+postTitle+"&postBody="+postBody;
+	 * par la fonction javascipt AJAX: url: "/posts/updatePost?postId="+postId+"&amp;postTitle="+postTitle+"&amp;postBody="+postBody;
 	 * 
 	 * 
 	 * L'appel à la fonction postDAO.addPost() retourne un entier (1) si l'opération est réussie, (0) sinon
 	 * 	  
-	 * @param: 	- params (Map<String, String>) : une collection de type Map contenant les paramètre (titre du post, commentaire, 
+	 * @param params: (Map(String, String)) : une collection de type Map contenant les paramètre (titre du post, commentaire, 
 	 * 											l'identifiant du topic, l'identifiant de l'utilisateur)
-	 * 			- model (Model): le modèle de l'application 
+	 * @param model: (Model): le modèle de l'application 
 	 * 
 	 * @return: - String "{status:ok}": une chaîne représetnant un objet de type json, si le post est modifié avec succès
 	 * 			- String "{status:error}" sinon
@@ -386,8 +386,8 @@ public class PostController {
 	 * On désactive le post en modifiant la valeur de la variable isActive qui est mise à 0 (on ne l'efface pas)
 	 *  
 	 * 	  
-	 * @param: 	- id (int): un entier qui représente l'identifiant du topic
-	 * 			- model (Model): le modèle de l'application 
+	 * @param id (int): un entier qui représente l'identifiant du topic
+	 * @param model (Model): le modèle de l'application 
 	 * 
 	 * @return: - String "{status:ok}" une chaîne représentant un objet de type json, si le post est modifié avec succès
 	 * 			- String "{status:error}" sinon
@@ -445,8 +445,8 @@ public class PostController {
 	 * On désactive le post en modifiant la valeur de la variable isActive qui est mise à 0 (on ne l'efface pas)
 	 *  
 	 * 	  
-	 * @param: 	- id (String): une chaîne qui représente l'identifiant du topic
-	 * 			- model (Model):  le modèle de l'application 
+	 * @param postId: (String): une chaîne qui représente l'identifiant du topic
+	 * @param model: (Model):  le modèle de l'application 
 	 * 
 	 * @return: - String "{status:ok}" une chaîne représentant un objet de type json, si le post est modifié avec succès
 	 * 			- String "{status:error}" sinon

@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
  * 
  * @author daristote
  * 
- * @Description:
+ * Description:
  *  
  *  Classe qui permet d'accéder à la base de données pour créer, mettre à jour et récupérer les données des 'topics' (thèmes de discussion)
  * 
@@ -69,7 +69,7 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "Topic.findAll" définie dans la classe Topic
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: une liste contenant des Objets de type Topic qui ont été instanciés pour chaque tuple de la table 'topic'
 	 * 
@@ -124,7 +124,7 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Utilisation de la @NamedQuery  "Topic.findAll" définie dans la classe Topic
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: une liste contenant des objets de type Topic dont le statut ('is_open = 1') est ouvert
 	 * 
@@ -180,7 +180,7 @@ public class TopicDAOImpl implements TopicDAO{
 	 * Utilisation de la fonction EntityManager.'find()'  avec le paramètre id et le nom de la classe pour vérifier le type
 	 * 
 	 * 
-	 * @param: id (int): l'identifiant du topic
+	 * @param id :(int): l'identifiant du topic
 	 * 
 	 * @return: - un objet de type Topic
 	 * 			- null si l'id n'est pas trouvé dans la bd
@@ -234,7 +234,7 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: - un entier représentant l'identifiant (id) du topic
 	 * 
@@ -293,7 +293,7 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Utilisation d'une requête SQL pour obtnir l'identifiant le plus grand (max)
 	 * 
-	 * @param: aucun
+	 * param: aucun
 	 * 
 	 * @return: - un entier représentant l'identifiant (id) du topic
 	 * 
@@ -347,7 +347,7 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: Topic topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  
+	 * @param topic: Topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le topic  a été créé avec succès
@@ -431,8 +431,8 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: - Topic topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  
-	 * 			- Post post: un objet de type Post initialisé avec les champs 'title', 'body' et userId
+	 * @param topic: Topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  
+	 * @param post: Post: un objet de type Post initialisé avec les champs 'title', 'body' et userId
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le topic et post ont été créés avec succès
@@ -529,8 +529,8 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: 	- int topicId: un entier représentant l'identifiant du topic à mettre à jour
-	 * 			- String title: le titre à modifier
+	 * @param topicId: int:  un entier représentant l'identifiant du topic à mettre à jour
+	 * @param title: String : le titre à modifier
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -604,7 +604,7 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: 	- Topic topic: le topic avec le titre modifé et l'identifiant du topic à mettre à jour
+	 * @param topic: Topic: le topic avec le titre modifé et l'identifiant du topic à mettre à jour
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
@@ -677,8 +677,8 @@ public class TopicDAOImpl implements TopicDAO{
 	 * 
 	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
 	 * 
-	 * @param: 	- topicId (int): l'identifiant du topic
-	 * 			- status(byte): tsatut avec valeur 0 pour désactiver, ou 1 pour activer 
+	 * @param topicId (int): l'identifiant du topic
+	 * @param status: (byte): tsatut avec valeur 0 pour désactiver, ou 1 pour activer 
 	 * 
 	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
 	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
