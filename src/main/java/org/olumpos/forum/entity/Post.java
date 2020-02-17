@@ -11,59 +11,58 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * The persistent class for the post database table.
- * 
- * Créée par JPA tool de Eclipse
- * Modifié par: Donald Michon
- * 
- * @Description:
- * 
- * Classe de type Entity associée à la table 'post' du schema 'blog' 
- * 
- * Le champs représentent ceux de la table
- * 
- * Les méthodes ('getter' et 'setter') sont utilisées pour initialiser les valeurs et les récupérer lorsque nécessaire
- *
- * Lorsque le nom des champs n'est pas le même que celui du champ correspondant de la table, 
- * l'annotation @Column est placée devant la déclaration avec le nom approprié de la table
- * 
- * Les champs annotés avec @Transient signifient qu'ils ne sont pas associés à un champ de la table
- * 
- * Le type des champs qui correspondent à des dates (i.e. creationDate et updateDate) ont été modifiés
- * 
- * Lors de la création automatique de la classe, ce type était 'sql.Timestamp', ce qui correspont 
- * au type approprié défini dans la table de la base de données.
- *  
- * Toufetois, il s'est avéré plus facile de gérer ces champs en modifiant le type en String.
- * 
- * Les requêtes définies ici en tant que @NamedQuery sont utiliés dans le fichier d'accès à la bd, (e.g. postDAO) et 
- * sont référencées directement par le nom associé en utilisant l'instruction: "query.createNamedQuery(name, class)" 
- * où  'name' est le nom donné pour référencer la requête,  et 'class' le nom de la classe qui conserve la requête nommée, 
- * en l'occurrence Post.class
- * 
- * La classe doit implémenter l'interface 'Serializable' pour permettre le transfert des données (valeurs des champs) d'un objet sous forme de texte sérialisé vers la bd
- * 
- * Chaque post de la base de données possèdent deux clés étrangères: 
- * 		1. une première, 'user_id', reliant le topic à son créateur par la clé primaire (id) de la table 'user'
- * 		2.une seconde, 'topic_id' reliant le post à un topic par la clé primaire de la table topic
- * 
- * Il s'agit des noms des tables de la base de données. Ces noms ici on été redéfinis par userId et topicId
- * 
- * Ainsi chaque post ne peut avoir qu'un seul créateur er ne peut appartenir qu'à un seul topic
- * 
- * Les annotations @ManytoOne permettent de relier un post à son créateur et à son topic, étant donnée qu'un utilisateur peut publier plusieurs posts 
- * et un topic peut contenir plusieurs posts
- * 
- * Ainsi lorsqu'on recherhe les posts on obtient du même coup l'utilisateur et le topic par leur identifiant et 
- * des objets de type User et Topic sont créés automatiquement alors que les champs sont initialisés avec ces objets
- * 
- * On peut ainsi obtenir toutes les données concernant les utilisateurs et les topic
- * Heureusement, pour des questions de sécurité les mots de passe sont encodés.
- * 
- * On pourrait également ignorer le champs 'password' ou l'annoter avec @Transient et utiliser une Native Query (requête SQL) au lieu d'une pseudo requête HQL
- * pour idenitifer un utilisateur lors de la connection avec le mot de passe.
- * 
- * 
+ * The persistent class for the post database table.<br>
+ * <br>
+ * Créée par JPA tool de Eclipse<br>
+ * Modifié par: Donald Michon<br>
+ * <br>
+ * Description:<br>
+ * <br>
+ * Classe de type Entity associée à la table 'post' du schema 'blog'<br> 
+ * <br>
+ * Le champs représentent ceux de la table<br>
+ * <br>
+ * Les méthodes ('getter' et 'setter') sont utilisées pour initialiser les valeurs et les récupérer lorsque nécessaire<br>
+ *<br>
+ * Lorsque le nom des champs n'est pas le même que celui du champ correspondant de la table,<br> 
+ * l'annotation @Column est placée devant la déclaration avec le nom approprié de la table<br>
+ * <br>
+ * Les champs annotés avec @Transient signifient qu'ils ne sont pas associés à un champ de la table<br>
+ * <br>
+ * Le type des champs qui correspondent à des dates (i.e. creationDate et updateDate) ont été modifiés<br>
+ * <br>
+ * Lors de la création automatique de la classe, ce type était 'sql.Timestamp', ce qui correspont<br> 
+ * au type approprié défini dans la table de la base de données.<br>
+ *  <br>
+ * Toufetois, il s'est avéré plus facile de gérer ces champs en modifiant le type en String.<br>
+ * <br>
+ * Les requêtes définies ici en tant que @NamedQuery sont utiliés dans le fichier d'accès à la bd, (e.g. postDAO) et<br> 
+ * sont référencées directement par le nom associé en utilisant l'instruction: "query.createNamedQuery(name, class)" <br>
+ * où  'name' est le nom donné pour référencer la requête,  et 'class' le nom de la classe qui conserve la requête nommée,<br> 
+ * en l'occurrence Post.class<br>
+ * <br>
+ * La classe doit implémenter l'interface 'Serializable' pour permettre le transfert des données (valeurs des champs) d'un objet sous forme de texte sérialisé vers la bd<br>
+ * <br>
+ * Chaque post de la base de données possèdent deux clés étrangères:<br> 
+ * 		1. une première, 'user_id', reliant le topic à son créateur par la clé primaire (id) de la table 'user'<br>
+ * 		2.une seconde, 'topic_id' reliant le post à un topic par la clé primaire de la table topic<br>
+ * <br>
+ * Il s'agit des noms des tables de la base de données. Ces noms ici on été redéfinis par userId et topicId<br>
+ * <br>
+ * Ainsi chaque post ne peut avoir qu'un seul créateur er ne peut appartenir qu'à un seul topic<br>
+ * <br>
+ * Les annotations @ManytoOne permettent de relier un post à son créateur et à son topic, étant donnée qu'un utilisateur peut publier plusieurs posts<br> 
+ * et un topic peut contenir plusieurs posts<br>
+ * <br>
+ * Ainsi lorsqu'on recherhe les posts on obtient du même coup l'utilisateur et le topic par leur identifiant et<br> 
+ * des objets de type User et Topic sont créés automatiquement alors que les champs sont initialisés avec ces objets<br>
+ * <br>
+ * On peut ainsi obtenir toutes les données concernant les utilisateurs et les topic<br>
+ * Heureusement, pour des questions de sécurité les mots de passe sont encodés.<br>
+ * <br>
+ * On pourrait également ignorer le champs 'password' ou l'annoter avec @Transient et utiliser une Native Query (requête SQL) au lieu d'une pseudo requête HQL<br>
+ * pour idenitifer un utilisateur lors de la connection avec le mot de passe.<br>
+ * <br>
  * 
  */
 @Entity(name = "Post")  //nom de l'entité, facultatif si le nom correspond au nom de la classe 

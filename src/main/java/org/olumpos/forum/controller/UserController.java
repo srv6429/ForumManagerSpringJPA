@@ -17,31 +17,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
-/**
- * 
- * @author daristote
- * 
- * Classe qui définit des méthodes qui prennent en charge les requêtes quio concernent l'inscription, la connexion et la gestion des utilisateurs 
- * 
- * Annotée avec @Controller elle indique au gestionnaire central (Servlet) que les requêtes peuvent être gérées par des méthodes de cette classe
- * 
- * Le chemin (Path) de base est "/" soit la racine du projet à partir du contexte de l'application
- * 
- * Les autres chemins définis dans cette classe sont relatifs à celui-ci
- * 
- * Une variable de session 'user' est définie et est active tant que la session de l'utilsateur demeure valide
- * 
- * Le constructeur est annoté avec @Autowired indiquant qu'il doit être appelé lors du déploiement del'application par le serveur
- * Cet appel permet d'initialiser la variable globale 'UserDAO userDAO' utilisée pour accéder à la base de données 
- * 
- * Remarque: on aurait pu simplement placé l'annotattion @Autowired devant la déclaration de la variable 'userDAO' ce qui aurait assuré 
- * l'injection, i.e. l'initialisation de la variable
- * 
- * Mais pour tester avec JUnit, on doit initialiser manuellement la variable, ce qui est fait en appelant le contructeur de UserController 
- * qui permet, lors de son instanciation d'initialiser la variable.
- * 
- *
- */
+/********************************************************************************************************************************************************
+ * <br>
+ * @author daristote<br>
+ * <br>
+ * Classe qui définit des méthodes qui prennent en charge les requêtes quio concernent l'inscription, la connexion et la gestion des utilisateurs <br>
+ * <br>
+ * Annotée avec @Controller elle indique au gestionnaire central (Servlet) que les requêtes peuvent être gérées par des méthodes de cette classe<br>
+ * <br>
+ * Le chemin (Path) de base est "/" soit la racine du projet à partir du contexte de l'application<br>
+ * <br>
+ * Les autres chemins définis dans cette classe sont relatifs à celui-ci<br>
+ * <br>
+ * Une variable de session 'user' est définie et est active tant que la session de l'utilsateur demeure valide<br>
+ * <br>
+ * Le constructeur est annoté avec @Autowired indiquant qu'il doit être appelé lors du déploiement del'application par le serveur<br>
+ * Cet appel permet d'initialiser la variable globale 'UserDAO userDAO' utilisée pour accéder à la base de données <br>
+ * <br>
+ * Remarque: on aurait pu simplement placé l'annotattion @Autowired devant la déclaration de la variable 'userDAO' ce qui aurait assuré<br> 
+ * l'injection, i.e. l'initialisation de la variable<br>
+ * <br>
+ * Mais pour tester avec JUnit, on doit initialiser manuellement la variable, ce qui est fait en appelant le contructeur de UserController<br> 
+ * qui permet, lors de son instanciation d'initialiser la variable.<br>
+ * <br>
+ *<br>
+ **********************************************************************************************************************************************************/
 
 //
 @Controller
@@ -66,19 +66,18 @@ public class UserController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction login(Model)
-	 * 
-	 * Permet de gérer la requête '/login' avec la méthode GET
-	 * 
-	 * En général L'utilisateur est redirigé vers cette page au départ avant d'être connecté
-	 * 
-	 * La méthode se contente d'instancier la variable de session 'user' sans initialiser les champs
-	 * 	  
-	 * @param model: (Model): représente le modèle de l'application permettant d"ajouter des variables de session	
-	 * 							utilisable durant toute la session
-	 * 
-	 * @return: String "login": une chaîne de caractères indiquant la vue, i.e. login.jsp, vers laquelle on doit être dirigé
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer la requête '/login' avec la méthode GET<br>
+	 * <br>
+	 * En général L'utilisateur est redirigé vers cette page au départ avant d'être connecté<br>
+	 * <br>
+	 * La méthode se contente d'instancier la variable de session 'user' sans initialiser les champs<br>
+	 * 	 <br>
+	 * @param model: (Model): représente le modèle de l'application permettant d"ajouter des variables de session	<br>
+	 * 							utilisable durant toute la session<br>
+	 * <br>
+	 * @return: String "login": une chaîne de caractères indiquant la vue, i.e. login.jsp, vers laquelle on doit être dirigé<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
@@ -96,34 +95,32 @@ public class UserController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction doLogin(User, Model)
-	 * 
-	 * Permet de gérer un requête '/login' avec la méthode POST
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire de connexion de la page login.jsp
-	 * 
-	 * Les champs  'username' et 'password' du formulaire ont été remplis et les valeurs ont été automatiquement placées 
-	 * dans les variables correspondantes de l'objet User qui a été préalablement placé dans une variable de session
-	 * 
-	 * L'annotation @ModelAttribute("user") devant le paramètre 'user' indique que cette variable est associée
-	 * à l'attribut de session du même nom  
-	 * 
-	 * On peut ainsi récupérer les champs 'username' et 'password' initialisés après la soumission du formulaire
-	 *  et vérifier si les champs correspondent à un utilisateur enregistré dans la base de données.
-	 *  
-	 *  La fonction userDAO.getUser() est appelée et si les valeurs sont valides elle retourne une instance de User avec toutes
-	 *  les informations liés à l'utilisateur
-	 *  
-	 * On remplace alors la variable de session "user" par le nouvel objet User retourné avec le profile complet de l'utilisateur.
-	 * 
-	 * 	  
-	 * @param user: (User): repésente l'attribut de session 'user' avec les champ username et password initialisés
-	 * @param model: (Model): le modèle de l'application 
-	 * 
-	 * @return: - String: "redirect:topics": une chaîne de caractères indiquant la redirection vers la vue  "topics.jsp", 
-	 * 					si l'utilisateur est un utilisateur valide dans la base de données
-	 * 			- String login: la vue en cas d'échec de la validation de l'utilisateur
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/login' avec la méthode POST<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire de connexion de la page login.jsp<br>
+	 * <br>
+	 * Les champs  'username' et 'password' du formulaire ont été remplis et les valeurs ont été automatiquement placées <br>
+	 * dans les variables correspondantes de l'objet User qui a été préalablement placé dans une variable de session<br>
+	 * <br>
+	 * L'annotation @ModelAttribute("user") devant le paramètre 'user' indique que cette variable est associée<br>
+	 * à l'attribut de session du même nom<br>  
+	 * <br>
+	 * On peut ainsi récupérer les champs 'username' et 'password' initialisés après la soumission du formulaire<br>
+	 *  et vérifier si les champs correspondent à un utilisateur enregistré dans la base de données.<br>
+	 *  <br>
+	 *  La fonction userDAO.getUser() est appelée et si les valeurs sont valides elle retourne une instance de User avec toutes<br>
+	 *  les informations liés à l'utilisateur<br>
+	 *  <br>
+	 * On remplace alors la variable de session "user" par le nouvel objet User retourné avec le profile complet de l'utilisateur.<br>
+	 * <br> 
+	 * @param user: (User): repésente l'attribut de session 'user' avec les champ username et password initialisés<br>
+	 * @param model: (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: - String: "redirect:topics": une chaîne de caractères indiquant la redirection vers la vue  "topics.jsp", <br>
+	 * 					si l'utilisateur est un utilisateur valide dans la base de données<br>
+	 * 			- String login: la vue en cas d'échec de la validation de l'utilisateur<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	
@@ -158,36 +155,35 @@ public class UserController {
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction verify(String, Model)
-	 * 
-	 * fonction appelée par l'utilisateur à partir de la page d'inscription register.jsp lorsque l'utilisateur clique sur le bouton
-	 * pour vérifier si le nom d'utilisateur entré dans le champ approprié du formulaire est disponible
-	 * 
-	 * Puisque le champ 'username' doit être unique, deux utilisateurs ne peuvant pas utiliser le même
-	 * 
-	 * Donc on vérifie  ou s'il est déjà enregistré dans la bd
-	 * 
-	 * La valeur entrée dans le champ du formulaire est placée dans la variable {login} de l'url
-
-	 * L'annotation @PathVariable indique que le paramètre doit être associé avec cette valeur
-	 * 
-	 * Puisque la requête est envoyée par un script javascript de manière asynchrone (AJAX),  la fonction retourne 
-	 * une chaîne qui représente on objet javascript(JSON)
-	 *  
-	 * Pour indiquer qu'il s'agit non pas d'un vue mais d'un objet json, onajoute l'attribut produces dans l'annotation @RequestMapping
-	 * en indiquant le type de données retourné
-	 * De plus, on place l'annotation @ResponseBody devant le type de retour (String) de la fonction
-	 * 
-	 * La valeur retournée dépend de la valeur de retour que la fonction  userDAO.getUserbyUsername(login) renvoie
-	 * 	- si l'utilisateur est trouvé dans la table 'user' de la bd, alors le nom d'utilisateur n'est pas disponible et est donc réservé
-	 * 	- si l'utilisateur n'est pas trouvé dans la table 'user', alors il est disponible et peut être utilisé 
-	 * 	  
-	 * @param login: (String): e 'username' passé dans l'url
-	 * @param model: (Model): le modèle de l'application 
-	 * 
-	 * @return: - String "{login:taken}": une chaîne de caractères indiquant que le nom d'utilisateur est réservé, 
-	 * 			- String "{login:free}: une chaîne de caractères indiquant que le nom d'utilisateur est disponible, 
-	 * 
+	 * <br>
+	 * Méthode qui est appelée par l'utilisateur à partir de la page d'inscription register.jsp lorsque l'utilisateur clique sur le bouton<br>
+	 * pour vérifier si le nom d'utilisateur entré dans le champ approprié du formulaire est disponible<br>
+	 * <br>
+	 * Puisque le champ 'username' doit être unique, deux utilisateurs ne peuvant pas utiliser le même<br>
+	 * <br>
+	 * Donc on vérifie  ou s'il est déjà enregistré dans la bd<br>
+	 * <br>
+	 * La valeur entrée dans le champ du formulaire est placée dans la variable {login} de l'url<br>
+	 * <br>
+	 * L'annotation @PathVariable indique que le paramètre doit être associé avec cette valeur<br>
+	 * <br>
+	 * Puisque la requête est envoyée par un script javascript de manière asynchrone (AJAX),  la fonction retourne<br> 
+	 * une chaîne qui représente on objet javascript(JSON)<br>
+	 *  <br>
+	 * Pour indiquer qu'il s'agit non pas d'un vue mais d'un objet json, onajoute l'attribut produces dans l'annotation @RequestMapping<br>
+	 * en indiquant le type de données retourné<br>
+	 * De plus, on place l'annotation @ResponseBody devant le type de retour (String) de la fonction<br>
+	 * <br>
+	 * La valeur retournée dépend de la valeur de retour que la fonction  userDAO.getUserbyUsername(login) renvoie<br>
+	 * 	- si l'utilisateur est trouvé dans la table 'user' de la bd, alors le nom d'utilisateur n'est pas disponible et est donc réservé<br>
+	 * 	- si l'utilisateur n'est pas trouvé dans la table 'user', alors il est disponible et peut être utilisé<br> 
+	 * <br>	  
+	 * @param login: (String): e 'username' passé dans l'url<br>
+	 * @param model: (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{login:taken}": une chaîne de caractères indiquant que le nom d'utilisateur est réservé, <br>
+	 * 			- String "{login:free}: une chaîne de caractères indiquant que le nom d'utilisateur est disponible,<br> 
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value="/verifyLogin/{login}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
@@ -216,15 +212,14 @@ public class UserController {
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction logout(Model)
-	 * 
-	 * Fonction appelée lorsque l'utilisateur clique sur l'option 'Déconnexion' à partir du menu 
-	 * Permet de fermer la session de l'utilisateur en remplaçant la valeur de session 'user'
-	 *  par un nouvel objet instancié avec des champs vides	 
-	 *  
-	 * @param model: (Model): le modèle de l'application 
-	 * @return: - String "redirect:login": une chaîne de caractères indiquant la redirection vers la vue  "login.jsp", 
-	 * 
+	 * <br>
+	 * Méthode appelée lorsque l'utilisateur clique sur l'option 'Déconnexion' à partir du menu<br> 
+	 * Permet de fermer la session de l'utilisateur en remplaçant la valeur de session 'user'<br>
+	 *  par un nouvel objet instancié avec des champs vides	 <br>
+	 *  <br>
+	 * @param model: (Model): le modèle de l'application<br> 
+	 * @return: - String "redirect:login": une chaîne de caractères indiquant la redirection vers la vue  "login.jsp",<br> 
+	 * <br>
 	 **********************************************************************************************************************/
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logout(Model model) {
@@ -240,20 +235,19 @@ public class UserController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction register(Model)
-	 * 
-	 * Permet de gérer la requête '/register' avec la méthode GET
-	 * 
-	 * En général l'urtilisateur appelle cette requête lorsqu'il n'est âs connecté et qu'il clique sur le bouton 'Inscription'
-	 * du menu en tête de la page
-	 * 
-	 * La méthode se contente d'instancier la variable de session 'user' sans initialiser les champs
-	 * 	  
-	 * @param model: (Model): représente le modèle de l'application permettant d"ajouter des variables de session	
-	 * 							utilisable durant toute la session
-	 * 
-	 * @return: String "register": une chaîne de caractères indiquant la vue, i.e. register.jsp, vers laquelle on doit être dirigée
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer la requête '/register' avec la méthode GET<br>
+	 * <br>
+	 * En général l'urtilisateur appelle cette requête lorsqu'il n'est âs connecté et qu'il clique sur le bouton 'Inscription'<br>
+	 * du menu en tête de la page<br>
+	 * <br>
+	 * La méthode se contente d'instancier la variable de session 'user' sans initialiser les champs<br>
+	 * 	  <br>
+	 * @param model: (Model): représente le modèle de l'application permettant d"ajouter des variables de session<br>	
+	 * 							utilisable durant toute la session<br>
+	 * <br>
+	 * @return: String "register": une chaîne de caractères indiquant la vue, i.e. register.jsp, vers laquelle on doit être dirigée<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
@@ -271,34 +265,32 @@ public class UserController {
 	//*********************************************************************************************************************
 
 	/**********************************************************************************************************************
-	 * Fonction doRegister(User, Model)
-	 * 
-	 * Permet de gérer un requête '/register' avec la méthode POST
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'inscription de la page register.jsp
-	 * 
-	 * Les champs  'username', 'email' et 'password' du formulaire ont été remplis et les valeurs ont été automatiquement placées 
-	 * dans les variables correspondantes de l'objet User qui a été préalablement placé dans une variable de session
-	 * 
-	 * L'annotation @ModelAttribute("user") devant le paramètre 'user' indique que cette variable est associée
-	 * à l'attribut de session du même nom  
-	 * 
-	 * On peut ainsi récupérer les champs 'username', 'email' et 'password' initialisés après la soumission du formulaire
-	 *  et enregistrer le nouvel utilisateur
-	 *  
-	 *  La fonction userDAO.createUser() est appelée et si les valeurs sont valides elle retourne une instance de User avec toutes
-	 *  les informations liés à l'utilisateur
-	 *  
-	 * On remplace alors la variable de session "user" par le nouvel objet User retourné avec le profile complet de l'utilisateur.
-	 * 
-	 * 	  
-	 * @param user: User: repésente l'attribut de session 'user' avec les champs 'username', email' et 'password' initialisés
-	 * @param model: (Model): le modèle de l'application 
-	 * 
-	 * @return: - String: "redirect:topics": une chaîne de caractères indiquant la redirection vers la vue  "topics.jsp", 
-	 * 					si l'utilisateur a été enregistré avec succès dans la base de données
-	 * 			- String "register": la vue en cas d'échec de la validation de l'utilisateur, i.e. on reste sur la page "register.jsp"
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer une requête '/register' avec la méthode POST<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'inscription de la page register.jsp<br>
+	 * <br>
+	 * Les champs  'username', 'email' et 'password' du formulaire ont été remplis et les valeurs ont été automatiquement placées<br> 
+	 * dans les variables correspondantes de l'objet User qui a été préalablement placé dans une variable de session<br>
+	 * <br>
+	 * L'annotation @ModelAttribute("user") devant le paramètre 'user' indique que cette variable est associée<br>
+	 * à l'attribut de session du même nom  <br>
+	 * <br>
+	 * On peut ainsi récupérer les champs 'username', 'email' et 'password' initialisés après la soumission du formulaire<br>
+	 *  et enregistrer le nouvel utilisateur<br>
+	 *  <br>
+	 *  La fonction userDAO.createUser() est appelée et si les valeurs sont valides elle retourne une instance de User avec toutes<br>
+	 *  les informations liés à l'utilisateur<br>
+	 *  <br>
+	 * On remplace alors la variable de session "user" par le nouvel objet User retourné avec le profile complet de l'utilisateur.<br>
+	 * <br>
+	 * @param user: User: repésente l'attribut de session 'user' avec les champs 'username', email' et 'password' initialisés<br>
+	 * @param model: (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: - String: "redirect:topics": une chaîne de caractères indiquant la redirection vers la vue  "topics.jsp",<br> 
+	 * 					si l'utilisateur a été enregistré avec succès dans la base de données<br>
+	 * 			- String "register": la vue en cas d'échec de la validation de l'utilisateur, i.e. on reste sur la page "register.jsp"<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	
@@ -337,19 +329,18 @@ public class UserController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction profile(Model)
-	 * 
-	 * Permet de gérer la requête '/profile' avec la méthode GET
-	 * 
-	 * L'utilisateur connecté atteint cette page lorsqu'il clique sur le bouton 'Profil' du menu
-	 * 
-	 * La méthode ne fait rien d'utre que de reoutner la vue
-	 * Les champs 'username' et 'email' du formulaire sont rempli par les valeurs appropriées de l'utilisateur
-	 * 	  
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: String "profile": une chaîne de caractères indiquant la vue, i.e. profile.jsp, vers laquelle on doit être dirigée
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer la requête '/profile' avec la méthode GET<br>
+	 * <br>
+	 * L'utilisateur connecté atteint cette page lorsqu'il clique sur le bouton 'Profil' du menu<br>
+	 * <br>
+	 * La méthode ne fait rien d'utre que de reoutner la vue<br>
+	 * Les champs 'username' et 'email' du formulaire sont rempli par les valeurs appropriées de l'utilisateur<br>
+	 * 	  <br>
+	 * @param model: (Model): représente le modèle de l'application<br> 
+	 * <br>
+	 * @return: String "profile": une chaîne de caractères indiquant la vue, i.e. profile.jsp, vers laquelle on doit être dirigée<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	@RequestMapping(value="/profile", method = RequestMethod.GET)
 	public String profile(Model model) {
@@ -363,30 +354,29 @@ public class UserController {
 	
 
 	/**********************************************************************************************************************
-	 * Fonction update(User, Model)
-	 * 
-	 * Permet de gérer un requête '/profile' avec la méthode PUT
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire de mise à jour du profile de la page 'profile.jsp"
-	 * 
-	 * Les champs  'username', 'email' et 'password' du formulaire ont été remplis et les valeurs sont trnasmises dans l'url
-	 *  
-	 *  La fonction userDAO.updateUser() est appelée et si les valeurs sont mises à jour avec succès elle retourne '1'
-	 *  
-	 *  On récupère le User avec la méthode userDAO.getyUserById(int) et on remplace alors la variable de session "user" 
-	 *  par le nouvel objet User retourné 
-	 * 
-	 * Les valeurs des paramètre sont initialisées par les valeurs passées dans l'url
-	 * 
-	 * @param id: (int): l'identifiant de l'utilisateur
-	 * @param username: (String): le nouveau nom de l'utilisateur
-	 * @param email: (String): le nouveu courriel de l'utilisateur
-	 * @param password: (String): le nouveu mot de passe de l'utilisateur
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String: "{profile:update}": un objet json indiquant le succès de la mise à jour
-	 * 			- String: "{profile:failure}": un objet json indiquant l'échec de la mise à jour
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer une requête '/profile' avec la méthode PUT<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire de mise à jour du profile de la page 'profile.jsp"<br>
+	 * <br>
+	 * Les champs  'username', 'email' et 'password' du formulaire ont été remplis et les valeurs sont trnasmises dans l'url<br>
+	 *  <br>
+	 *  La fonction userDAO.updateUser() est appelée et si les valeurs sont mises à jour avec succès elle retourne '1'<br>
+	 *  <br>
+	 *  On récupère le User avec la méthode userDAO.getyUserById(int) et on remplace alors la variable de session "user"<br> 
+	 *  par le nouvel objet User retourné <br>
+	 * <br>
+	 * Les valeurs des paramètre sont initialisées par les valeurs passées dans l'url<br>
+	 * <br>
+	 * @param id: (int): l'identifiant de l'utilisateur<br>
+	 * @param username: (String): le nouveau nom de l'utilisateur<br>
+	 * @param email: (String): le nouveu courriel de l'utilisateur<br>
+	 * @param password: (String): le nouveu mot de passe de l'utilisateur<br>
+	 * @param model: (Model): représente le modèle de l'application <br>
+	 * <br>
+	 * @return: - String: "{profile:update}": un objet json indiquant le succès de la mise à jour<br>
+	 * 			- String: "{profile:failure}": un objet json indiquant l'échec de la mise à jour<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	@RequestMapping(value="/profile/{id}/{username}/{email}/{password}", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody String update(@PathVariable int id, @PathVariable String username, @PathVariable String email, @PathVariable String password, Model model) {
@@ -426,24 +416,23 @@ public class UserController {
 	//*********************************************************************************************************************	
 
 	/**********************************************************************************************************************
-	 * Fonction getUsers(User, Model)
-	 * 
-	 * Permet de gérer un requête '/users' avec la méthode GET
-	 * 
-	 * Cette méthode permet de récupérer la liste de tous les utilisateurs de bd pour un administrateur
-	 * 
-	 * On vérifie sir l'utilisateur a bien le role "A"
-	 * 
-	 * S'il sagit d'un utilisateur régulier il est redirigé vers la page des topics
-	 * 
-	 * Les valeurs des paramètre sont initialisées par les valeurs passées dans l'url
-	 * 
-	 * @param user: (User): repésente l'attribut de session 'user' 
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs
-	 * 			- String: "redirect:topics": la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer une requête '/users' avec la méthode GET<br>
+	 * <br>
+	 * Cette méthode permet de récupérer la liste de tous les utilisateurs de bd pour un administrateur<br>
+	 * <br>
+	 * On vérifie sir l'utilisateur a bien le role "A"<br>
+	 * <br>
+	 * S'il sagit d'un utilisateur régulier il est redirigé vers la page des topics<br>
+	 * <br>
+	 * Les valeurs des paramètre sont initialisées par les valeurs passées dans l'url<br>
+	 * <br>
+	 * @param user: (User): repésente l'attribut de session 'user'<br> 
+	 * @param model: (Model): représente le modèle de l'application <br>
+	 * <br>
+	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs<br>
+	 * 			- String: "redirect:topics": la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value="/users", method = RequestMethod.GET)
@@ -467,38 +456,37 @@ public class UserController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction deleteUser(User, Model)
-	 * 
-	 * Permet de gérer un requête '/deleteUser' avec la méthode DELETE
-	 * 
-	 * Cette méthode permet uniquement à un administrateur de désactiver un utilisateur de la bd
-	 * On n'efface par l'utilisateur de la bd; on ne fait que mettre le champ 'is_active' à 0
-	 * 
-	 * Cette commande est envoyée à partir d'une requête javascipt AJAX
-	 * La méthode retourne donc un objet de type JSON
-	 *  
-	 * S'il sagit d'un utilisateur régulier la méthode retourne un objet json idiquant un échec
-	 * 
-	 * Mais en principe un utilisateur réglier ne devrait pas pouvoir effectuer cette requête ...
-	 * bien qu'un petit malin pourrait facilement le faire, donc on fait une vérification de routine
-	 * pour vérifier qu'il s'agit bien d'un administrateur connecté avant de communiquer avec la bd 
-	 * 
-	 * La valeur du paramètre id est par la valeur transmise dans l'url
-	 * 
-	 * @param user: (User): repésente l'attribut de session 'user' 
-	 * @param id: (int): l'identifiant de l'utilisateur
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs
-	 * 			- String: "{profile:deleted}": une chaîne représentant un objet json indiquant le succès la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer une requête '/deleteUser' avec la méthode DELETE<br>
+	 * <br>
+	 * Cette méthode permet uniquement à un administrateur de désactiver un utilisateur de la bd<br>
+	 * On n'efface par l'utilisateur de la bd; on ne fait que mettre le champ 'is_active' à 0<br>
+	 * <br>
+	 * Cette commande est envoyée à partir d'une requête javascipt AJAX<br>
+	 * La méthode retourne donc un objet de type JSON<br>
+	 *  <br>
+	 * S'il sagit d'un utilisateur régulier la méthode retourne un objet json idiquant un échec<br>
+	 * <br>
+	 * Mais en principe un utilisateur réglier ne devrait pas pouvoir effectuer cette requête ...<br>
+	 * bien qu'un petit malin pourrait facilement le faire, donc on fait une vérification de routine<br>
+	 * pour vérifier qu'il s'agit bien d'un administrateur connecté avant de communiquer avec la bd <br>
+	 * <br>
+	 * La valeur du paramètre id est par la valeur transmise dans l'url<br>
+	 * <br>
+	 * @param user: (User): repésente l'attribut de session 'user'<br> 
+	 * @param id: (int): l'identifiant de l'utilisateur<br>
+	 * @param model: (Model): représente le modèle de l'application<br> 
+	 * <br>
+	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs<br>
+	 * 			- String: "{profile:deleted}": une chaîne représentant un objet json indiquant le succès la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value="/deleteUser/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
 	public @ResponseBody String deleteUser(@ModelAttribute("user") User user, @PathVariable int id, Model model){
 		
-		logger.log(Level.INFO, "in deleteUser annotated with RequestMapping method.DELETE");
-		
+		logger.log(Level.INFO, "in userController.deleteUser() annotated with RequestMapping method.DELETE _+_+_+_+_+_+_+ >user: " + user);
+		//vérifier que l'utilisteur est connecté et qu'il s'agit d'un administrateur
 		if(user != null && user.getRole() != null && "A".equals(user.getRole())) {
 		
 			//désactive l'utilisateur dans la table user
@@ -519,29 +507,28 @@ public class UserController {
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction toggleUser(User, Model)
-	 * 
-	 * Permet de gérer un requête '/toggleUser' avec la méthode PUT
-	 * 
-	 * Cette méthode permet uniquement à un administrateur d'activer ou désactiver un utilisateur de la bd
-	 * On n'efface par l'utilisateur de la bd; on ne fait que mettre le champ 'is_active' à 0 ou à 1
-	 * 	
-	 * La page d'utilisateur permet à un administrateur de cliquer sur un bouton qui alternativement active ou désactive un utilisateur
-	 * 
-	 * On ne fait donc que changer la valeur du champ 'is_active' de la db
-	 * 	- si la valeur est 1, elle est changée pour 0
-	 * 	- si la valeur est 0, elle est changée pour 1
-	 * 
-	 * La valeurs du paramètre id est par la valeur transmise dans l'url
-	 * 
-	 * @param user: User: repésente l'attribut de session 'user' 
-	 * @param id: int: l'identifiant de l'utilisateur
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs
-	 *
-	 * 			- String: "{profile:deleted}": une chaîne représentant un objet json indiquant le succès la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté
-	 * 
+	 *<br>
+	 * Méthode qui permet de gérer une requête '/toggleUser' avec la méthode PUT<br>
+	 * <br>
+	 * Cette méthode permet uniquement à un administrateur d'activer ou désactiver un utilisateur de la bd<br>
+	 * On n'efface par l'utilisateur de la bd; on ne fait que mettre le champ 'is_active' à 0 ou à 1<br>
+	 * 	<br>
+	 * La page d'utilisateur permet à un administrateur de cliquer sur un bouton qui alternativement active ou désactive un utilisateur<br>
+	 * <br>
+	 * On ne fait donc que changer la valeur du champ 'is_active' de la db<br>
+	 * 	- si la valeur est 1, elle est changée pour 0<br>
+	 * 	- si la valeur est 0, elle est changée pour 1<br>
+	 * <br>
+	 * La valeurs du paramètre id est par la valeur transmise dans l'url<br>
+	 * <br>
+	 * @param user: User: repésente l'attribut de session 'user'<br> 
+	 * @param id: int: l'identifiant de l'utilisateur<br>
+	 * @param model: (Model): représente le modèle de l'application<br> 
+	 * <br>
+	 * @return: - String: "users": la vue users.jsp affichant la liste des utilisateurs<br>
+	 *<br>
+	 * 			- String: "{profile:deleted}": une chaîne représentant un objet json indiquant le succès la page topics.jsp si l'utilisateur n'est pas un administrateur ou s'lil n'est pas connecté<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value="/toggleUser/{id}", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")

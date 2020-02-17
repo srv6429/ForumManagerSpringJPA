@@ -47,7 +47,36 @@ public class UserDAOTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testGet() {
+	public void getAllUsersTest() {
+		
+		
+		logger.log(Level.INFO, "in UserDAOTest.getAllUsersTest() ");
+		
+		List<User> users = userDAO.getAllUsers();
+		
+		assertNotNull(users);
+		
+		int allUsersSize = users.size();
+		
+		assertTrue(allUsersSize > 0);
+		
+		List<User> activeUsers = userDAO.getAllActiveUsers();
+		
+		assertNotNull(activeUsers);
+		
+		int activeUsersSize = activeUsers.size();
+		
+		assertTrue(activeUsersSize > 0);
+		
+		assertTrue(activeUsersSize <= allUsersSize);
+		
+	}
+	
+	//*************************************************************************************************************************************************
+	//*************************************************************************************************************************************************
+	
+	@Test
+	public void getUserTest() {
 		
 		logger.log(Level.INFO, "in UserDAOTest.testGet()");
 
@@ -74,88 +103,84 @@ public class UserDAOTest {
 		user =  userDAO.getUserByUsername(email);
 		assertNotNull(user);
 		
-		assertEquals(new Integer(userId), user.getId());
+		assertEquals(Integer.valueOf(userId), user.getId());
 		assertEquals(username, user.getUsername());		
 		
 		
 		////test login with username and password
 
-		user =  userDAO.getUserByUsername("dummy");
+		//add user first
 		
-		assertNotNull(user);
+		//create user first
+		User newUser =  new User();
+		newUser.setUsername("ulysses");
+		newUser.setPassword("ulysses123");
+		newUser.setEmail("ulysses@ithaque.org");
+		newUser.setIsActive((byte) 1);
 		
-		String dummyUsername =  "dummy";
-		String dummyPassword =  "dummy123";
-		String dummyEmail = "dummy@olumpos.org";
+		int createUserResult = userDAO.createUser(newUser);
 		
-		User dummyUser =  userDAO.getUser(dummyUsername, dummyPassword);
-		assertNotNull(dummyUser);
+		assertTrue(createUserResult > 0);
 		
-		assertEquals(dummyUser.getId(), user.getId());
+		int lastUserId =  userDAO.getLastInsertedUserId();
+		
+		assertTrue(lastUserId > 0);
+		
+		User createdUser = userDAO.getUserById(lastUserId);
+		
+		assertNotNull(createdUser);
+		
+		
+		User loggedUser =  userDAO.getUser(newUser.getUsername(), newUser.getPassword());
+		assertNotNull(loggedUser);
+		
+		assertEquals(loggedUser.getId(), createdUser.getId());
 		
 		//test login with email and password
-		user =  userDAO.getUser(dummyEmail, dummyPassword);
+		loggedUser =  userDAO.getUser(newUser.getEmail(), newUser.getPassword());
 		
-		assertNotNull(user);
+		assertNotNull(loggedUser);
 		
-		assertEquals(dummyUser.getId(), user.getId());
+		assertEquals(createdUser.getId(), loggedUser.getId());
 		
 		//logger.log(Level.INFO, "in UserDAOTest.testGet() ===========> getActiveUser with  username: " + dummyUsername);
 		
-		//test active user
-		dummyUser =  userDAO.getActiveUser(dummyUsername, dummyPassword);
-		assertNotNull(dummyUser);
+		//test active user with username and password
+		loggedUser =  userDAO.getActiveUser(newUser.getUsername(), newUser.getPassword());
+		assertNotNull(loggedUser);
 		
-		assertEquals(dummyUser.getId(), user.getId());
+		assertEquals(createdUser.getId(), loggedUser.getId());
 		
 		//logger.log(Level.INFO, "in UserDAOTest.testGet() ===========> getActiveUser with email: " + dummyEmail);
 		//test login with email and password
-		dummyUser =  userDAO.getActiveUser(dummyEmail, dummyPassword);
+		loggedUser =  userDAO.getActiveUser(newUser.getEmail(), newUser.getPassword());
+		assertNotNull(loggedUser);
 		
-		assertNotNull(user);
+		assertEquals(createdUser.getId(), loggedUser.getId());
 		
-		assertEquals(dummyUser.getId(), user.getId());	
+		//delete user from db
+		int deletedUserResult = userDAO.deleteUserFromDB(lastUserId);
+		
+		assertTrue(deletedUserResult > 0);
+		
+		User deletedUser =  userDAO.getUserById(lastUserId);
+		
+		assertNull(deletedUser);
 		
 	}
 	
-	//*********************************************************************************************************************
-	//*********************************************************************************************************************
-	
-	@Test
-	public void testGetUserList() {
 
-		
-		logger.log(Level.INFO, "in UserDAOTest.testGetUserList() ");
-		
-		//get all users
-		List<User> users =  userDAO.getAllUsers();
-		assertNotNull(users);
-		
-		int nbUsers =  users.size();
-		
-	//	logger.log(Level.INFO, "in UserDAOTest.testGetUserList() nbUsers: " + nbUsers);
-		//get all active users
-		
-		List<User> activeUsers =  userDAO.getAllActiveUsers();
-		assertNotNull(users);
-		
-		int nbActiveUsers =  activeUsers.size();
-		
-		//logger.log(Level.INFO, "in UserDAOTest.testGetUserList() nbActiveUsers: " + nbActiveUsers);
-		
-		assertTrue(nbActiveUsers <= nbUsers);
-		
-	}
 	
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testCreateUpdateUser() {
+	public void updateUserTest() {
 
 		
 		logger.log(Level.INFO, "in UserDAO Test.testCreateUpdateUser() ");
 
+		//create new user
 		User newUser = new User();
 		newUser.setUsername("heracles");
 		newUser.setEmail("heracles@olympus.org");
@@ -169,14 +194,13 @@ public class UserDAOTest {
 		
 		assertNotEquals(0, result);
 		
-		User user =  userDAO.getUser(newUser.getUsername(), newUser.getPassword());
+		User createdUser =  userDAO.getUser(newUser.getUsername(), newUser.getPassword());
 		
-		assertNotNull(user);
+		assertNotNull(createdUser);
 		
-		assertEquals(Integer.valueOf(lastUserId), user.getId());
-		assertEquals(newUser.getUsername(), user.getUsername());
-		assertEquals(newUser.getEmail(), user.getEmail());
-		assertEquals(Integer.valueOf(lastUserId), user.getId());
+		assertEquals(Integer.valueOf(lastUserId), createdUser.getId());
+		assertEquals(newUser.getUsername(), createdUser.getUsername());
+		assertEquals(newUser.getEmail(), createdUser.getEmail());
 			
 		
 		//logger.log(Level.INFO, "in UserDAOTest.testUpdateUser() ");
@@ -187,36 +211,34 @@ public class UserDAOTest {
 		String newPassword = "hercule123";
 
 		
-		user.setUsername(newUsername);
-		user.setEmail(newEmail);
-		user.setPassword(newPassword);
+		createdUser.setUsername(newUsername);
+		createdUser.setEmail(newEmail);
+		createdUser.setPassword(newPassword);
 				
-		result =  userDAO.updateUser(user);
+		int updatedUserResult =  userDAO.updateUser(createdUser);
 		
-		assertEquals(1, result);
+		assertEquals(1, updatedUserResult);
 		
-		user =  userDAO.getUserById(user.getId());
+		User updatedUser =  userDAO.getUserById(lastUserId);
 		
-		assertNotNull(user);
+		assertNotNull(updatedUser);
 		
-		assertEquals(newUsername, user.getUsername());
-		assertEquals(newEmail, user.getEmail());
+		assertEquals(newUsername, updatedUser.getUsername());
+		assertEquals(newEmail, updatedUser.getEmail());
+	
 		
-		newUsername = "herculus";
-		newEmail = "herculus@olympus.org";
-		newPassword = "herculus123";
+		//delete user from db
+		int deletedUserResult = userDAO.deleteUserFromDB(lastUserId);
 		
-		result = userDAO.updateUser(user.getId(), newUsername, newEmail, newPassword);
+		assertTrue(deletedUserResult > 0);
 		
-		user =  userDAO.getUserById(user.getId());
+		User deletedUser =  userDAO.getUserById(lastUserId);
 		
-		assertNotNull(user);
+		assertNull(deletedUser);
 		
-		assertEquals(newUsername, user.getUsername());
-		assertEquals(newEmail, user.getEmail());
 		
-		//for retesting
-		userDAO.deleteUserFromDB(user.getId());
+		
+		
 	}
 	
 	//*********************************************************************************************************************
@@ -227,63 +249,58 @@ public class UserDAOTest {
 		logger.log(Level.INFO, "in UserDAOTest.testDeactivateUser() ");
 		
 		//deactivate user
+		
+		//create new user
+		User newUser = new User();
+		newUser.setUsername("heracles");
+		newUser.setEmail("heracles@olympus.org");
+		newUser.setPassword("heracles123");
+		newUser.setIsActive((byte) 1);
+		
+		int result = userDAO.createUser(newUser);
+		
+		assertEquals(1, result);
+		
 		int lastUserId =  userDAO.getLastInsertedUserId();
+		
+		assertNotEquals(0, result);
+		
+		User createdUser =  userDAO.getUser(newUser.getUsername(), newUser.getPassword());
+		
+		assertNotNull(createdUser);
 
-		User user =  userDAO.getUserById(lastUserId);
-		
-		//make sure user is activated
-		int result =  userDAO.activateDeactivateUser(user.getId(), (byte)1);
-		assertEquals(1, result);
-		
-		//logger.log(Level.INFO, "in UserDAOTest.testUpdateUser() activate result " + result);
-		
-		//get all users
-		List<User> allUsers =  userDAO.getAllUsers();
-		assertNotNull(allUsers);
-		
-		int nbUsers =  allUsers.size();
-		assertNotEquals(0, nbUsers);
-
-		
-		//get only active users
-		List<User> activeUsers =  userDAO.getAllActiveUsers();
-		
-		assertNotNull(activeUsers);
-		
-		int nbActiveUsers =  activeUsers.size();
-
-		assertTrue(nbActiveUsers <= nbUsers);
-		
-		
-		result =  userDAO.activateDeactivateUser(user.getId(), (byte)0);
-		assertEquals(1, result);
+		assertEquals(1, createdUser.getIsActive());
 	
-		activeUsers =  userDAO.getAllActiveUsers();
-		assertNotNull(activeUsers);
-		assertEquals(nbActiveUsers - 1, activeUsers.size());
+	
+		//deactivate user
 		
-		allUsers =  userDAO.getAllUsers();
-		assertNotNull(allUsers);
-		assertEquals(nbUsers, allUsers.size());
+		int deactivatedUserResult =  userDAO.activateDeactivateUser(lastUserId, (byte)0);
+		assertEquals(1, deactivatedUserResult);
+	
+		User deactivatedUser =  userDAO.getUserById(lastUserId);
 		
+		assertNotNull(deactivatedUser);
+		assertEquals(0, deactivatedUser.getIsActive() );
 		
 		//reactivate user
 		
-		user =  userDAO.getUserById(lastUserId);
+		int activatedUserResult =  userDAO.activateDeactivateUser(lastUserId, (byte)1);
+		assertEquals(1, activatedUserResult);
+	
+		User activatedUser =  userDAO.getUserById(lastUserId);
 		
-		result =  userDAO.activateDeactivateUser(user.getId(), (byte)1);
-		assertEquals(1, result);
-		
-		activeUsers =  userDAO.getAllActiveUsers();
-		assertNotNull(activeUsers);
-		assertEquals(nbActiveUsers, activeUsers.size());
-		
-		allUsers =  userDAO.getAllUsers();
-		assertNotNull(allUsers);
-		assertEquals(nbUsers, allUsers.size());
+		assertNotNull(activatedUser);
+		assertEquals(1, activatedUser.getIsActive() );
 		
 		
+		//delete user from db
+		int deletedUserResult = userDAO.deleteUserFromDB(lastUserId);
 		
+		assertTrue(deletedUserResult > 0);
+		
+		User deletedUser =  userDAO.getUserById(lastUserId);
+		
+		assertNull(deletedUser);
 
 	}
 	
@@ -291,7 +308,7 @@ public class UserDAOTest {
 	//*********************************************************************************************************************
 	//
 	@Test
-	public void testErrors() {
+	public void errorsTest() {
 
 		logger.log(Level.INFO, "in UserDAOTest.testErrors() ");
 		

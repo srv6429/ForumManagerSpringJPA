@@ -24,10 +24,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * 
- * @author daristote
- * 
- * Tests pour les fonction d'accès à la base de données de PostDAO utilisant JPA: 
- *
+ * @author daristote<br>
+ * <br>
+ * Tests pour les fonction d'accès à la base de données de PostDAO utilisant JPA <br>
+ *<br>
  */
 
 //@RunWith(SpringRunner.class)
@@ -56,7 +56,7 @@ public class PostDAOTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testGet() {
+	public void getAllPostsTest() {
 		
 		logger.log(Level.INFO, "in PostDAOTest.testGet(): postDAO: " + postDAO);
 		logger.log(Level.INFO, "in PostDAOTest.testGet(): topicDAO: " + topicDAO);
@@ -110,7 +110,7 @@ public class PostDAOTest {
 		
 		assertNotNull(lastPost);
 		
-		assertEquals(new Integer(lastInsertedPostId), lastPost.getId());
+		assertEquals(Integer.valueOf(lastInsertedPostId), lastPost.getId());
 		
 		
 	}
@@ -120,15 +120,15 @@ public class PostDAOTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testInsert() {
+	public void insertPostTest() {
 
 		logger.log(Level.INFO, "in PostDAOTest.testInsert(): postDAO: " + postDAO);
 		
 		Post post =  new Post();
 		post.setTitle("A new post to add");
 		post.setBody("A new comment");
-		post.setUserId(3);
-		post.setTopicId(5);
+		post.setUserId(1);
+		post.setTopicId(1);
 		
 		List<Post> posts =  postDAO.getAllPosts();
 		
@@ -136,20 +136,17 @@ public class PostDAOTest {
 		
 		int postsSize =  posts.size();
 		
-		
 		logger.log(Level.INFO, "posts size: " + postsSize);
-
 		
 		int result = postDAO.addPost(post);
 
 		assertEquals(1, result);		
 		
-	
 		int lastPostId =  postDAO.getLastInsertedPostId();
 		
 		Post lastPostInserted =  postDAO.getPost(lastPostId);
 		
-		assertEquals(new Integer(lastPostId), lastPostInserted.getId());
+		assertEquals(Integer.valueOf(lastPostId), lastPostInserted.getId());
 		
 		posts =  postDAO.getAllPosts();
 		
@@ -157,33 +154,47 @@ public class PostDAOTest {
 		
 		assertEquals(postsSize+1, posts.size());
 		
+		
+	    //delete from db
+	    int deleted =  postDAO.deletePostFromDB(lastPostId);
+	    
+		logger.log(Level.INFO, "in addPostTest() deleted: " + deleted);
+	    
+	    assertTrue(deleted > 0);
+	    
+	    Post deletedPost =  postDAO.getPost(lastPostId);
+	    
+	    assertNull(deletedPost);
+		
 	}
 	
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testUpdate() {
+	public void updatePostTest() {
 
 		logger.log(Level.INFO, "in PostDAOTest.testUpdate(): postDAO: " + postDAO);
 		
 		Post post =  new Post();
-		post.setTitle("A new post 2983");
-		post.setBody("A new comment 2983");
-		post.setUserId(3);
-		post.setTopicId(5);
+		post.setTitle("A new post ");
+		post.setBody("A new comment");
+		post.setUserId(1);
+		post.setTopicId(1);
 		
+		//add new post first
 		int result = postDAO.addPost(post);
 		
-		assertEquals(1, result);
-		int lastpostId =  postDAO.getLastInsertedPostId();
+		assertTrue(result > 0);
+		
+		int lastPostId =  postDAO.getLastInsertedPostId();
 
-		assertNotEquals(0, lastpostId);
+		assertTrue(lastPostId > 0);
 		
-		//get the just added topic 
-		post =  postDAO.getPost(lastpostId);
+		//get the just added post 
+		Post addedPost =  postDAO.getPost(lastPostId);
 		
-		assertNotNull(post);
+		assertNotNull(addedPost);
 		
 		String titleBeforeUpdate =  post.getTitle();
 		String bodyBeforeUpdate =  post.getBody();
@@ -192,32 +203,32 @@ public class PostDAOTest {
 		String updatedTitle = titleBeforeUpdate + " updated";
 		String updatedComment =  bodyBeforeUpdate + " updated";
 		
-		post.setTitle(updatedTitle);
-		post.setBody(updatedComment);
+		addedPost.setTitle(updatedTitle);
+		addedPost.setBody(updatedComment);
+			
+		//update post
+		int updatedResult = postDAO.updatePost(addedPost);
 		
-		//Delay for 3 seconds to be sure that the update date will be different from the previous one
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		assertTrue(updatedResult > 0);
 		
-		//update topic
-		result = postDAO.updatePost(post);
-		
-		assertEquals(1, result);
-		
-		Post updatedPost =  postDAO.getPost(lastpostId);
+		Post updatedPost =  postDAO.getPost(lastPostId);
 		
 		assertNotNull(updatedPost);
 		
-		assertEquals(updatedPost.getTitle(), updatedTitle);
-		assertEquals(updatedPost.getBody(), updatedComment);
-
-		//verify that
-	//	assertNotEquals(updatedPost.getUpdateDate(), updateDate);
-
+		assertEquals(updatedTitle, updatedPost.getTitle());
+		assertEquals(updatedComment, updatedPost.getBody());
+		
+	    //delete from db
+	    int deleted =  postDAO.deletePostFromDB(lastPostId);
+	    
+		logger.log(Level.INFO, "in addPostTest() deleted: " + deleted);
+	    
+	    assertTrue(deleted > 0);
+	    
+	    Post deletedPost =  postDAO.getPost(lastPostId);
+	    
+	    assertNull(deletedPost);
+		
 		
 	}
 	
@@ -226,69 +237,56 @@ public class PostDAOTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testDelete() {
+	public void deletePostTest() {
 		
 		logger.log(Level.INFO, "in PostDAOTest.tesDelete(): postDAO: " + postDAO);
 		
-		int lastTopicId = topicDAO.getLastInsertedTopicId();
-		int userId = userDAO.getLastInsertedUserId();
-		
-		List<Post> activePosts =  postDAO.getAllActivePosts(lastTopicId);
-		int nbActivePostsBeforeInsert =  activePosts.size();
-		
-		List<Post> allPosts =  postDAO.getAllPosts(lastTopicId);
-		int nbAllPostsBeforeInsert =  allPosts.size();
-		
 		Post post =  new Post();
-		post.setTitle("A new post to add");
+		post.setTitle("A new post");
 		post.setBody("A new comment");
-		post.setUserId(userId);
-		post.setTopicId(lastTopicId);
+		post.setUserId(1);
+		post.setTopicId(1);
+		post.setIsActive((byte) 1);
 		
-		//add new Post
+		//add new post first
 		int result = postDAO.addPost(post);
 		
-		assertEquals(1, result);
+		assertTrue(result > 0);
 		
-		//get last inserted
 		int lastPostId =  postDAO.getLastInsertedPostId();
 
-		assertNotEquals(0, lastPostId);
+		assertTrue(lastPostId > 0);
 		
-		//get active posts
-		activePosts =  postDAO.getAllActivePosts(lastTopicId);
+		//get the just added post 
+		Post addedPost =  postDAO.getPost(lastPostId);
 		
-		assertNotNull(activePosts);
-		
-		//should have one more active post
-		assertEquals(nbActivePostsBeforeInsert+1, activePosts.size());
-	
+		assertNotNull(addedPost);
+
+		assertTrue(lastPostId > 0);
 		
 		//deactivate last inserted post
-		result = postDAO.deletePost(lastPostId);
+		int deletedResult = postDAO.deletePost(lastPostId);
 
-		assertEquals(1, result);
+		assertEquals(1, deletedResult);
 		
-		activePosts =  postDAO.getAllActivePosts(lastTopicId);
+		//get the just updated post 
+		Post deletedPost =  postDAO.getPost(lastPostId);
 		
-		//should be back to the same after deactivation of the last post inserted
-		assertEquals(nbActivePostsBeforeInsert, activePosts.size());
+		assertNotNull(deletedPost);
+	
+		assertEquals(0, deletedPost.getIsActive());
 		
-		//verify the total number of posts is one more despite deactivation
-		allPosts = postDAO.getAllPosts(lastTopicId);
-		
-		assertEquals(nbAllPostsBeforeInsert+1, allPosts.size());
-		
-		//ractivate post
-		result = postDAO.activateDeactivatePost(lastPostId, (byte)1);
-		
-		assertEquals(1, result);
-		
-		activePosts =  postDAO.getAllActivePosts(lastTopicId);
-		
-		//verify the number of active posts is one more withe the new inserted post
-		assertEquals(nbActivePostsBeforeInsert+1, activePosts.size());
-
+	    //delete from db
+	    int deleted =  postDAO.deletePostFromDB(lastPostId);
+	    
+		logger.log(Level.INFO, "in addPostTest() deleted: " + deleted);
+	    
+	    assertTrue(deleted > 0);
+	    
+	    //really delete post
+	    deletedPost =  postDAO.getPost(lastPostId);
+	    
+	    assertNull(deletedPost);
 	}
 	
 	//*********************************************************************************************************************
@@ -299,8 +297,6 @@ public class PostDAOTest {
 
 		
 		logger.log(Level.INFO, "in PostDAOTest.testErrors(): postDAO: " + postDAO);
-		
-		
 		
 		//1. get post with a non valid id
 		Post post =  postDAO.getPost(0);

@@ -20,13 +20,12 @@ import org.springframework.stereotype.Repository;
 
 /********************************************************************************************************************************************
  * 
- * @author Donald Michon
- * 
- * Description:
- *  
- *  Classe qui permet d'accéder à la base de données pour créer, mettre à jour et récupérer les données des 'posts' (commentaire)
- * 
- *  
+ * @author daristote<br>
+ * <br>
+ * Description:<br>
+ * <br>
+ * Classe qui permet d'accéder à la base de données pour créer, mettre à jour et récupérer les données des 'posts' (commentaire)<br>
+ * <br>
  *
  ********************************************************************************************************************************************/
 
@@ -56,19 +55,18 @@ public class PostDAOImpl implements PostDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction getAllPosts()
-	 * 
-	 * Permet d'obtenir tous les tuples de la table post
-	 * 
-	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné
-	 * 
-	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation
-	 * 
-	 * Utilisation de la @NamedQuery  "Post.findAll" définie dans la classe Post
-	 * 
-	 * paramètre: aucun
-	 * 
-	 * @return: une liste contenant des Objets de type Post qui ont été instanciés pour chaque tuple de la table 'post'
+	 * Méthode qui permet d'obtenir tous les tuples de la table post<br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné<br>
+	 * <br>
+	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation<br>
+	 * <br>
+	 * Utilisation de la @NamedQuery  "Post.findAll" définie dans la classe Post<br>
+	 * <br>
+	 * paramètre: aucun<br>
+	 * <br>
+	 * @return: une liste contenant des Objets de type Post qui ont été instanciés pour chaque tuple de la table 'post'<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	@Override
@@ -98,19 +96,18 @@ public class PostDAOImpl implements PostDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction getAllActivePosts()
-	 * 
-	 * Permet d'obtenir tous les posts actifs de la table post
-	 * 
-	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné
-	 * 
-	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation
-	 * 
-	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post
-	 * 
-	 * param: aucun
-	 * 
-	 * @return: une liste contenant des Objets de type Post qui ont été instanciés pour chaque tuple de la table 'post'
+	 * Méthode qui permet d'obtenir tous les posts actifs de la table post<br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné<br>
+	 * <br>
+	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation<br>
+	 * <br>
+	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post<br>
+	 * <br>
+	 * param: aucun<br>
+	 * <br>
+	 * @return: une liste contenant des Objets de type Post qui ont été instanciés pour chaque tuple de la table 'post'<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -142,19 +139,18 @@ public class PostDAOImpl implements PostDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction getAllPosts(int)
-	 * 
-	 * Permet d'obtenir tous les posts de la table post qui sont associés au topic dont l'identifiant est spécifié en paramètre
-	 * 
-	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné
-	 * 
-	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation
-	 * 
-	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post
-	 * 
-	 * @param topicId: (int) l'identifiant du topic
-	 * 
-	 * @return: une liste contenant des Objets de type Post provenant de la table 'post' et dont le topic_id = topicId
+	 * Méthode qui permet d'obtenir tous les posts de la table post qui sont associés au topic dont l'identifiant est spécifié en paramètre<br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné<br>
+	 * <br>
+	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation<br>
+	 * <br>
+	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post<br>
+	 * <br>
+	 * @param topicId: (int) l'identifiant du topic<br>
+	 * <br>
+	 * @return: une liste contenant des Objets de type Post provenant de la table 'post' et dont le topic_id = topicId<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -188,19 +184,18 @@ public class PostDAOImpl implements PostDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction getAllPosts(int)
-	 * 
-	 * Permet d'obtenir tous les posts sctifs de la table post qui sont associés au topic dont l'identifiant est spécifié en paramètre
-	 * 
-	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné
-	 * 
-	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation
-	 * 
-	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post
-	 * 
-	 * @param topicId: (int): l'identifiant du topic
-	 * 
-	 * @return: une liste contenant des Objets de type Post provenant de la table 'post' et dont le topic_id = topicId et qui sont actifs
+	 * Méthode qui permet d'obtenir tous les posts sctifs de la table post qui sont associés au topic dont l'identifiant est spécifié en paramètre<br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné<br>
+	 * <br>
+	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation<br>
+	 * <br>
+	 * Utilisation de la @NamedQuery  "Post.findAllActive" définie dans la classe Post<br>
+	 * <br>
+	 * @param topicId: (int): l'identifiant du topic<br>
+	 * <br>
+	 * @return: une liste contenant des Objets de type Post provenant de la table 'post' et dont le topic_id = topicId et qui sont actifs<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	@Override
@@ -235,32 +230,28 @@ public class PostDAOImpl implements PostDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction getPost(int)
-	 * 
-	 * Permet d'obtenir un post de la table 'post' dont l'identifiant est le paramètre 'postId' 
-	 * 
-	 * Obtention d'un objet de type EntityManager
-	 * 
-	 * Utilisation de la fonction EntityManager.'find()'  avec le paramètre id et le nom de la classe pour vérifier le type
-	 * 
-	 * 
-	 * @param postId: (int): l'identifiant du post
-	 * 
-	 * @return: - un objet de type Topic
-	 * 			- null si l'id n'est pas trouvé dans la bd
-	 * 
+	 * Méthode qui permet d'obtenir un post de la table 'post' dont l'identifiant est le paramètre 'postId'<br> 
+	 * <br>
+	 * Obtention d'un objet de type EntityManager<br>
+	 * <br>
+	 * Utilisation de la fonction EntityManager.'find()'  avec le paramètre id et le nom de la classe pour vérifier le type<br>
+	 * <br>
+	 * @param id: (int): l'identifiant du post<br>
+	 * <br>
+	 * @return: - un objet de type Topic, null si l'id n'est pas trouvé dans la bd<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@Override
-	public Post getPost(int postId){
+	public Post getPost(int id){
 		
-		logger.log(Level.INFO, "in postDAO.getPost -> postId: " + postId);
+		logger.log(Level.INFO, "in postDAO.getPost -> post id: " + id);
 		
 		//Obtention d'un objet de type EntityManager
 		EntityManager em =  entityManagerFactoryBean.getEntityManagerfactory().createEntityManager();		
 		
 		//Recherche le post avec l'identifiant postId
-		Post post = em.find(Post.class, postId);
+		Post post = em.find(Post.class, id);
 		
 		//logger.log(Level.INFO, "in postDAO.getPosts annotated: posts: " + post);
 		
@@ -276,17 +267,16 @@ public class PostDAOImpl implements PostDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction getLastInsertedActivePostId()
-	 * 
-	 * Permet d'obtenir l'identifiant du dernier post actif inséré dans de la table 'post' 
-	 * 
-	 * Obtention d'un objet de type EntityManager
-	 * 
-	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)
-	 * 
-	 * param: aucun
-	 * 
-	 * @return: - un entier représentant l'identifiant (id) du post
+	 * Méthode qui permet d'obtenir l'identifiant du dernier post actif inséré dans de la table 'post' <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager<br>
+	 * <br>
+	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)<br>
+	 * <br>
+	 * param: aucun<br>
+	 * <br>
+	 * @return: - un entier représentant l'identifiant (id) du post<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -339,17 +329,16 @@ public class PostDAOImpl implements PostDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction getLastInsertedPostId()
-	 * 
-	 * Permet d'obtenir l'identifiant du dernier post inséré dans de la table 'post' 
-	 * 
-	 * Obtention d'un objet de type EntityManager
-	 * 
-	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)
-	 * 
-	 * param: aucun
-	 * 
-	 * @return: - un entier représentant l'identifiant (id) du post
+	 * Méthode qui permet d'obtenir l'identifiant du dernier post inséré dans de la table 'post' <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager<br>
+	 * <br>
+	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)<br>
+	 * <br>
+	 * param: aucun<br>
+	 * <br>
+	 * @return: - un entier représentant l'identifiant (id) du post<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -395,16 +384,14 @@ public class PostDAOImpl implements PostDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction addPost(Post)
-	 * Permet d'obtenir d'insérer un nouveau post dans la bd 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné
-	 * 
-	 * @param post: Post: un objet de type Post initialisé avec les champs 'title', 'body' et topicId par l'utilisateur créant le post  
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le topic  a été créé avec succès
-	 * 					- 0 sinon	
+	 * Méthode qui permet d'obtenir d'insérer un nouveau post dans la bd <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné<br>
+	 * <br>
+	 * @param post: Post: un objet de type Post initialisé avec les champs 'title', 'body' et topicId par l'utilisateur créant le post  <br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête, i.e.: 1 si le topic  a été créé avec succès, 0 sinon	
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	@Override
@@ -465,16 +452,15 @@ public class PostDAOImpl implements PostDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction updatePost(Post)
-	 * Permet de modifier les infos (title, body) d'un post 
-	 * 
-	 * Obtention d'un objet de type EntityManager
-	 * 
-	 * @param post (Post): un objet de type Post qui contient les informations modifiées
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
-	 * 					- 0 sinon	
+	 * Méthode qui permet de modifier les infos (title, body) d'un post <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager<br>
+	 * <br>
+	 * @param post (Post): un objet de type Post qui contient les informations modifiées<br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête <br>
+	 * i.e.: 1 si le changement a été effectué avec succès, 0 sinon	
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	@Override
@@ -538,24 +524,22 @@ public class PostDAOImpl implements PostDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction deletePost(int)
-	 * 
-	 * Permet d'effacer (désactiver) un post 
-	 * 
-	 * Obtention d'un objet de type EntityManager
-	 * 
-	 * @param postId: (int): un objet de type Post avec l'id 
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
-	 * 					- 0 sinon	
+	 * Méthode qui permet qui permet d'effacer (désactiver) un post <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager<br>
+	 * <br>
+	 * @param id: (int) l'identifiant du post <br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête,<br> 
+	 * i.e.: 1 si le changement a été effectué avec succès, 0 sinon<br>	
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
 	@Override
-	public int deletePost(int postId) {
+	public int deletePost(int id) {
 
-		logger.log(Level.INFO,"deleting post id: " + postId);
+		logger.log(Level.INFO,"deleting post id: " + id);
 		
 		//Obtention d'un objet de type EntityManager
 		EntityManager em =  entityManagerFactoryBean.getEntityManagerfactory().createEntityManager();
@@ -579,7 +563,7 @@ public class PostDAOImpl implements PostDAO{
 			//Initialisation des paramètres
 			query.setParameter("isActive", (byte)0);
 			query.setParameter("updateDate", null);
-			query.setParameter("id", postId);
+			query.setParameter("id", id);
 					
 			//exécution de la requête
 			result =  query.executeUpdate();
@@ -608,25 +592,23 @@ public class PostDAOImpl implements PostDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction activateDeactivatePost(int)
+	 * Méthode qui permet d'activer/désactiver un post <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager<br>
+	 * <br>
+	 * @param id: (int): l'identifiant du post<br>
+	 * @param status: (byte): 0 ou 1 pour désactiver ou activer<br>
 	 * 
-	 * Permet (d'activer/désactiver) un post 
-	 * 
-	 * Obtention d'un objet de type EntityManager
-	 * 
-	 * @param postId: (int): l'identifiant du post
-	 * @param status: (byte): 0 ou 1 pour désactiver ou activer
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
-	 * 					- 0 sinon	
-	 * 
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête, <br>
+	 * 			i.e.: 	- 1 si le changement a été effectué avec succès<br>
+	 * 					- 0 sinon	<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@Override
-	public int activateDeactivatePost (int postId, byte status) {
+	public int activateDeactivatePost (int id, byte status) {
 
-		logger.log(Level.INFO,"activateDeactivatePost post id: " + postId + "; status: " + status);
+		logger.log(Level.INFO,"activateDeactivatePost post id: " + id + "; status: " + status);
 		
 		//Obtention d'un objet de type EntityManager
 		EntityManager em =  entityManagerFactoryBean.getEntityManagerfactory().createEntityManager();
@@ -650,7 +632,7 @@ public class PostDAOImpl implements PostDAO{
 			//Initialisation des paramètres
 			query.setParameter("isActive", status);
 			query.setParameter("updateDate", null);
-			query.setParameter("id", postId);
+			query.setParameter("id", id);
 					
 			//exécution de la requête
 			result =  query.executeUpdate();
@@ -673,5 +655,72 @@ public class PostDAOImpl implements PostDAO{
 			
 		return result;
 	}
+	
+	
+	//*************************************************************************************************************************************************
+	//*************************************************************************************************************************************************
+	
+	/**********************************************************************************************************************
+	 * Méthode qui permet qui permet d'effacer  un post <br>
+	 * <br>
+	 * Utilisée seulement popur les tests<br>
+	 * <br>
+	 * @param id: (int) l'identifiant du post <br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête,<br> 
+	 * i.e.: 1 si le changement a été effectué avec succès, 0 sinon<br>	
+	 * <br>
+	 * 
+	 **********************************************************************************************************************/
+	
+	@Override
+	public int deletePostFromDB(int id) {
+
+		logger.log(Level.INFO,"deleting post id: " + id);
+		
+		//Obtention d'un objet de type EntityManager
+		EntityManager em =  entityManagerFactoryBean.getEntityManagerfactory().createEntityManager();
+		
+ 		int result = 0;
+		EntityTransaction transaction = null;
+		
+		try {
+		
+			//obtention d'une transaction
+			transaction =  em.getTransaction();
+			//début de transaction
+			transaction.begin();
+				
+			//Requête native SQL
+			final String sql =  "delete from post where id=:id";
+	
+			//création de la Query
+			Query query = em.createNativeQuery(sql);
+			
+			//Initialisation des paramètres
+			query.setParameter("id", id);
+					
+			//exécution de la requête
+			result =  query.executeUpdate();
+			
+			//persiste
+			transaction.commit();
+			
+		} catch (Exception e) {
+			transaction.rollback();
+			logger.log(Level.SEVERE, "Une erreur est survenue lors de la tentative de mise à jour du post");
+			//e.printStackTrace();
+		}
+		
+		finally {
+			//fermeture de l'EntityManager
+			if(em !=null){
+				em.close();	
+			}
+		}
+			
+		return result;
+	}
+	
 	
 }

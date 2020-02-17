@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Handles requests for the application home page.
+ * <br>
+ * Handles requests for the application home page.<br>
+ * <br>
  */
 @Controller
 public class HomeController {

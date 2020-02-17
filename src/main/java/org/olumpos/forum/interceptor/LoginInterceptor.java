@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,28 +15,28 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * 
- * @author daristote
- * 
- * Classe qui permet d'interceper les requêtes http de vérifier si l,utilisateur est connecté 
- * et de le rediriger de manière appropirée s'il ne l'est pas
- * 
- * Étend (extends) la classe 'org.springframework.web.servlet.handler.HandlerInterceptorAdapter' 
- * et redéfinit (@Override )la méthode prehandle
- * 
- * Pour que la méthode soit appelée à chaque requête, on doit spécifier le nom de la classe en tant que "bean" 
- * dans le fichier "WEB-INF/spring/appServler/servlet-context.xml"
- * à l'intérieur de la balise : <interceptor> en définissant l'attribut path="/**" 
- * pour spécifier que toute requête appelée à l'intérieur du contexte de l'application doit nécessairement passée par l'intercepteur
- * 
- * On veut rediriger un utilisateur vers la page de login s'il n'est aps encore connecté
- * 
- * Par contre on ignore la redirection si la requête est soit login, register ou verifyLogin
- * effectuée avec la méthode GET car ces requêtes sont acceptées pour un utilisateur non connecté
- * - la requête /login avec GET envoie l'utilisateur vers la page de connection (login), ce qui est désiré
- * - la requête /register avec GET, envoie l'utilisateur vers la page d'inscription, qui permet à un utilisteurce qui est désiré
- * - la requête /verifyLogin permet de vérifier, à partir de la page d'inscription, si un nom d'utilisateur est disponible ou non
- * 
+ * <br>
+ * @author daristote<br>
+ * <br>
+ * Classe qui permet d'interceper les requêtes http de vérifier si l,utilisateur est connecté <br>
+ * et de le rediriger de manière appropirée s'il ne l'est pas<br>
+ * <br>
+ * Étend (extends) la classe 'org.springframework.web.servlet.handler.HandlerInterceptorAdapter'<br> 
+ * et redéfinit (@Override )la méthode prehandle<br>
+ * <br>
+ * Pour que la méthode soit appelée à chaque requête, on doit spécifier le nom de la classe en tant que "bean"<br> 
+ * dans le fichier "WEB-INF/spring/appServler/servlet-context.xml"<br>
+ * à l'intérieur de la balise : interceptor en définissant l'attribut path="/**"<br> 
+ * pour spécifier que toute requête appelée à l'intérieur du contexte de l'application doit nécessairement passée par l'intercepteur<br>
+ * <br>
+ * On veut rediriger un utilisateur vers la page de login s'il n'est pas encore connecté<br>
+ * <br>
+ * Par contre on ignore la redirection si la requête est soit login, register ou verifyLogin<br>
+ * effectuée avec la méthode GET car ces requêtes sont acceptées pour un utilisateur non connecté<br>
+ * - la requête /login avec GET envoie l'utilisateur vers la page de connection (login), ce qui est désiré<br>
+ * - la requête /register avec GET, envoie l'utilisateur vers la page d'inscription, qui permet à un utilisteurce qui est désiré<br>
+ * - la requête /verifyLogin permet de vérifier, à partir de la page d'inscription, si un nom d'utilisateur est disponible ou non<br>
+ * <br>
  */
 
 @Component

@@ -13,16 +13,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 
 import org.olumpos.forum.entity.User;
 import org.olumpos.forum.factory.EntityManagerFactoryBean;
 import org.olumpos.forum.util.ForumDateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 /********************************************************************************************************************************************
@@ -306,7 +303,7 @@ public class UserDAOImpl implements UserDAO{
 			//obtention d'un résultat unique
 			user = query.getSingleResult();
 			
-			//logger.log(Level.INFO, "user from database: ==========================> " + user);
+			logger.log(Level.INFO, "user from database: ==========================> " + user);
 			
 		}
 		catch(Exception e) {
@@ -467,7 +464,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public int createUser(User user) {
 		
 		if(user == null) {
@@ -547,7 +544,7 @@ public class UserDAOImpl implements UserDAO{
 	 **********************************************************************************************************************/
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public int createUser(String username, String email, String password) {
 
 		logger.log(Level.INFO, "creating a new user: with username: " + username + "; email: " + email);
@@ -624,7 +621,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 
 	 **********************************************************************************************************************/
 	
-	@Transactional
+//	@Transactional
 	@Override
 	public int updateUser(User user) {
 		
@@ -706,7 +703,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 					- 0 sinon	
 	 * 
 	 **********************************************************************************************************************/
-	@Transactional
+	//@Transactional
 	@Override
 	public int updateUser(int id, String username, String email, String password) {
 		
@@ -786,7 +783,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 					- 0 sinon	
 	 * 
 	 **********************************************************************************************************************/
-	@Transactional
+//	@Transactional
 	@Override
 	public int activateDeactivateUser(int userId, byte status) {
 
@@ -867,7 +864,7 @@ public class UserDAOImpl implements UserDAO{
 	 * 					- 0 sinon	
 	 * 
 	 **********************************************************************************************************************/
-	@Transactional
+//	@Transactional
 	@Override
 	public int deleteUserFromDB(int userId) {
 

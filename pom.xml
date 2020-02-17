@@ -194,6 +194,13 @@
  			<version>1.6.3</version>
  		</dependency>
  -->
+ <!-- de spring boot -->
+<!--  		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+-->
  </dependencies>
     <build>
         <plugins>

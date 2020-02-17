@@ -6,6 +6,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,10 +26,10 @@ import org.springframework.web.servlet.view.InternalResourceView;
 
 /**
  * 
- * @author daristote
- * 
- * Tests pour les fonction du contrôleur Spring MVC: UserController
- *
+ * @author daristote<br>
+ * <br>
+ * Tests pour les fonction du contrôleur Spring MVC: UserController<br>
+ *<br>
  */
 
 
@@ -49,7 +52,7 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void getUsers() throws Exception {
+	public void getUsersTest() throws Exception {
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller)
 				.setSingleView(new InternalResourceView("/WEB-INF/views/users.jsp"))
@@ -58,7 +61,6 @@ public class UserControllerTest {
 		
 		//List<User> users = userDAO.getAllUsers();  
 		User user =  userDAO.getUser("admin", "admin123");
-		
 	    
 		mockMvc.perform(get("/users").sessionAttr("user", user))
 	       .andExpect(view().name("users"))
@@ -72,7 +74,7 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	@Test
-	public void login() throws Exception {
+	public void loginTest() throws Exception {
 		
 		logger.log(Level.INFO, "in UseControllerTest.login()") ;
 		UserController controller =  new UserController(userDAO);
@@ -93,7 +95,7 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	@Test
-	public void doLogin() throws Exception {
+	public void doLoginTest() throws Exception {
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller)
 				//.setSingleView(new InternalResourceView("/WEB-INF/views/login.jsp"))
@@ -127,7 +129,7 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	@Test
-	public void verifyLogin() throws Exception {
+	public void verifyLoginTest() throws Exception {
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller)
 				//setSingleView(new InternalResourceView("/WEB-INF/views/login.jsp"))
@@ -148,7 +150,7 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void logout() throws Exception {
+	public void logoutTest() throws Exception {
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller).build();
 		
@@ -164,12 +166,12 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	@Test
-	public void register() throws Exception {
+	public void registerTest() throws Exception {
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller)
 				.setSingleView(new InternalResourceView("/WEB-INF/views/register.jsp"))
 				.build();
-				
+		
 		mockMvc.perform(get("/register"))	
 	       .andExpect(view().name("register"))
 	       .andExpect(model().attributeExists("user"))
@@ -183,7 +185,7 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	@Test
-	public void doRegister() throws Exception {
+	public void doRegisterTest() throws Exception {
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller)
 				//.setSingleView(new InternalResourceView("/WEB-INF/views/register.jsp"))
@@ -194,6 +196,7 @@ public class UserControllerTest {
 		user.setPassword("ulysses123");
 		user.setEmail("ulysses@ithaque.org");
 		
+		//add User
 		mockMvc.perform(post("/register").sessionAttr("user", user))	
 	       .andExpect(model().attributeExists("user"))
 	       .andExpect(model().hasNoErrors())
@@ -201,7 +204,30 @@ public class UserControllerTest {
 	       
 		//to run this test again: delete just inserted user
 		int lastUserId =  userDAO.getLastInsertedUserId();
-		userDAO.deleteUserFromDB(lastUserId);
+		
+		logger.log(Level.INFO, "in UseControllerTest.doRegister() lastUserId: " + lastUserId);
+		
+		assertTrue(lastUserId > 0);
+		
+		User addedUser =  userDAO.getUserById(lastUserId);
+		
+		assertNotNull(addedUser);
+		
+		logger.log(Level.INFO, "in UseControllerTest.doRegister() addedUser: " + addedUser);
+		
+		assertEquals(user.getUsername(), addedUser.getUsername());
+		assertEquals(user.getEmail(), addedUser.getEmail()); 
+		assertNotEquals(user.getPassword(), addedUser.getPassword()); //hashed password with md5
+		
+		//delete user from db
+		int deletedUserResult = userDAO.deleteUserFromDB(lastUserId);
+		
+		assertTrue(deletedUserResult > 0);
+		
+		User deletedUser =  userDAO.getUserById(lastUserId);
+		
+		assertNull(deletedUser);
+		
 		
 	}
 	
@@ -209,39 +235,65 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	@Test
-	public void deleteUser() throws Exception {
+	public void deleteUserTest() throws Exception {
 		
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller)
 				//setSingleView(new InternalResourceView("/WEB-INF/views/login.jsp"))
 				.build();
 		
-		User adminUser =  userDAO.getUser("admin", "admin123");
 		
-		int userId =  userDAO.getLastInsertedUserId();
+		User adminUser = userDAO.getUserById(1);
 		
-		userDAO.activateDeactivateUser(userId, (byte)1); //make sure user is active
+		assertNotNull(adminUser);
 		
-		User user = userDAO.getUserById(userId);
+		assertEquals("A", adminUser.getRole());
 		
-		assertEquals(1, user.getIsActive());
+		//create user first
+		User user =  new User();
+		user.setUsername("ulysses");
+		user.setPassword("ulysses123");
+		user.setEmail("ulysses@ithaque.org");
+		user.setIsActive((byte) 1);
+		
+		int createUserResult = userDAO.createUser(user);
+		
+		assertTrue(createUserResult > 0);
+		
+		int lastUserId =  userDAO.getLastInsertedUserId();
+		
+		assertTrue(lastUserId > 0);
+		
+		User createdUser = userDAO.getUserById(lastUserId);
+		
+		assertNotNull(createdUser);
+		
+		assertEquals(1, createdUser.getIsActive());
 
 		
-	    mockMvc.perform(delete("/deleteUser/"+userId).sessionAttr("user", adminUser))
+	    mockMvc.perform(delete("/deleteUser/"+lastUserId).sessionAttr("user", adminUser))
         			.andExpect(content().contentType("application/json;charset=UTF-8"))
-        			.andReturn().getResponse().getContentAsString().equals("{\"status\":\"ok\"}");
+        			.andReturn()
+        			.getResponse()
+        			.getContentAsString().equals("{\"status\":\"ok\"}");
 	    			
 	    
-		user = userDAO.getUserById(userId);
+		User updatedUser = userDAO.getUserById(lastUserId);
 		
-		assertEquals(0, user.getIsActive());   
+		assertNotNull(updatedUser);
 		
-		//rreaxtivate user for retesting
-		userDAO.activateDeactivateUser(userId, (byte)1); //make sure user is active
+		logger.log(Level.INFO, "in UseControllerTest.deleteUserTest() updatedUser: " + updatedUser) ;
 		
-		user = userDAO.getUserById(userId);
+		assertEquals(0, updatedUser.getIsActive());
 		
-		assertEquals(1, user.getIsActive());
+		//delete user from db
+		int deletedUserResult = userDAO.deleteUserFromDB(lastUserId);
+		
+		assertTrue(deletedUserResult > 0);
+		
+		User deletedUser =  userDAO.getUserById(lastUserId);
+		
+		assertNull(deletedUser);
 	
 		
 	}
@@ -249,7 +301,7 @@ public class UserControllerTest {
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	@Test
-	public void toggleUser() throws Exception {
+	public void toggleUserTest() throws Exception {
 		
 		UserController controller =  new UserController(userDAO);
 		MockMvc mockMvc = standaloneSetup(controller)
@@ -257,28 +309,83 @@ public class UserControllerTest {
 				.build();
 		
 		User adminUser =  userDAO.getUser("admin", "admin123");
+		
+		assertNotNull(adminUser);
+		
+		assertEquals("A", adminUser.getRole());
+		
 		logger.log(Level.INFO, "UserControllerTest.toggleUser(): adminuser: " + adminUser);
+	
+		//create user first
+		User user =  new User();
+		user.setUsername("ulysses");
+		user.setPassword("ulysses123");
+		user.setEmail("ulysses@ithaque.org");
+		user.setIsActive((byte) 1);
 		
+		int createUserResult = userDAO.createUser(user);
 		
-		int userId =  userDAO.getLastInsertedUserId();
+		assertTrue(createUserResult > 0);
 		
-		User user = userDAO.getUserById(userId);
-
-		byte status = user.getIsActive();
+		int lastUserId =  userDAO.getLastInsertedUserId();
+		
+		assertTrue(lastUserId > 0);
+		
+		User createdUser = userDAO.getUserById(lastUserId);
+		
+		assertNotNull(createdUser);
+		
+		byte status = createdUser.getIsActive();
+		
+		assertEquals(1, status);
+	
+		
 		logger.log(Level.INFO, "UserControllerTest.toggleUser(): user status: " + status);
 		
-	    mockMvc.perform(put("/toggleUser/"+userId).sessionAttr("user", adminUser))
+		//deactivate
+	    mockMvc.perform(put("/toggleUser/"+lastUserId).sessionAttr("user", adminUser))
         			.andExpect(content().contentType("application/json;charset=UTF-8"))
-        			.andReturn().getResponse().getContentAsString().equals("{\"status\":\"ok\"}");
+        			.andReturn()
+        			.getResponse()
+        			.getContentAsString().equals("{\"status\":\"ok\"}");
 	    			
 	    
-		user = userDAO.getUserById(userId);
+		User updatedUser = userDAO.getUserById(lastUserId);
 		
-		byte newStatus =  user.getIsActive();
+		assertNotNull(updatedUser);
+		
+		byte newStatus =  updatedUser.getIsActive();
+		
+		logger.log(Level.INFO, "UserControllerTest.toggleUser(): user newStatus: " + newStatus);
+		
+		assertEquals(0, newStatus);
+		
+		//reactivate
+	    mockMvc.perform(put("/toggleUser/"+lastUserId).sessionAttr("user", adminUser))
+        			.andExpect(content().contentType("application/json;charset=UTF-8"))
+        			.andReturn()
+        			.getResponse()
+        			.getContentAsString().equals("{\"status\":\"ok\"}");
+		
+		updatedUser = userDAO.getUserById(lastUserId);
+		
+		assertNotNull(updatedUser);
+		
+		newStatus =  updatedUser.getIsActive();
+		assertEquals(1, newStatus);
+		
 		logger.log(Level.INFO, "UserControllerTest.toggleUser(): user newStatus: " + newStatus);
 		
 		
-		assertNotEquals(status, newStatus);   
+		//delete user from db
+		int deletedUserResult = userDAO.deleteUserFromDB(lastUserId);
+		
+		assertTrue(deletedUserResult > 0);
+		
+		User deletedUser =  userDAO.getUserById(lastUserId);
+		
+		assertNull(deletedUser);
+	
 		
 	}
 	

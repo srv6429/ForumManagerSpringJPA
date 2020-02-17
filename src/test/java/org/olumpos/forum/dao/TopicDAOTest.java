@@ -48,7 +48,7 @@ public class TopicDAOTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testGet() {
+	public void getAllTopicsTest() {
 		
 		logger.log(Level.INFO, "TopicDAOTest.testGet()");
 		
@@ -66,152 +66,150 @@ public class TopicDAOTest {
 		
 		assertTrue(nbOpenTopics <= nbAllTopics);
 		
+
+		
+	}
+	
+	//*************************************************************************************************************************************************
+	//*************************************************************************************************************************************************
+	
+	@Test
+	public void getOneTopicTest() {
+		
+		//test get one topic
 		
 		int lastInsertedTopicId =  topicDAO.getLastInsertedTopicId();
 		
-	//	logger.log(Level.INFO, "last inserted topic id: " + lastInsertedTopicId);
+		logger.log(Level.INFO, "last inserted topic id: " + lastInsertedTopicId);
 		
 		Topic lastTopic = topicDAO.getTopic(lastInsertedTopicId);
 		
 		assertNotNull(lastTopic);
 		
-		assertEquals(new Integer(lastInsertedTopicId), lastTopic.getId());
-		
+		assertEquals(Integer.valueOf(lastInsertedTopicId), lastTopic.getId());
+
 	}
 	
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testInsert() {
+	public void insertTopicTest() {
 
-		logger.log(Level.INFO, "TopicDAOTest.testInsert()");
+		logger.log(Level.INFO, "TopicDAOTest.insertTopicTest()");
 		
+		//add new Topic and post
 		Topic topic =  new Topic();
 		topic.setTitle("A new topic to add");
-		topic.setCreatorId(3);
+		topic.setCreatorId(1);
 		
 		Post post =  new Post();
 		post.setTitle("A new post to add");
 		post.setBody("A new comment");
-		post.setUserId(3);
 		
-		
-		List<Topic> topics =  topicDAO.getAllTopics();
-				
-		assertNotNull(topics);
-		
-		int topicsSize =  topics.size();
-		
-		
-	//	logger.log(Level.INFO, "topics size: " + topicsSize);
-		
-		
-		List<Post> posts =  postDAO.getAllPosts();
-		
-		assertNotNull(posts);
-		
-		int postsSize =  posts.size();
-		
-		
-	//	logger.log(Level.INFO, "posts size: " + postsSize);
 
+		int lastTopicIdBefore =  topicDAO.getLastInsertedTopicId();
+		int lastPostIdBefore =  postDAO.getLastInsertedPostId();
+		
+		assertTrue(lastTopicIdBefore > 0);
+		assertTrue(lastPostIdBefore > 0);
 		
 		
-		int result = topicDAO.addTopic(topic, post);
+		int insertedTopicResult = topicDAO.addTopic(topic, post);
 
-		assertEquals(1, result);
+		assertTrue(insertedTopicResult > 0);
 
 		int lastTopicId =  topicDAO.getLastInsertedTopicId();
 		
+		assertTrue(lastTopicId > lastTopicIdBefore);
+		
 		Topic lastTopicInserted =  topicDAO.getTopic(lastTopicId);
 	
+		assertNotNull(lastTopicInserted);
 		
-		assertEquals(lastTopicInserted.getId(), new Integer(lastTopicId));
 		
+		assertEquals(Integer.valueOf(lastTopicId), lastTopicInserted.getId());
+		assertEquals(topic.getTitle(), lastTopicInserted.getTitle());
 		
 	
 		int lastPostId =  postDAO.getLastInsertedPostId();
+		assertTrue(lastPostId > lastPostIdBefore);
 		
 		Post lastPostInserted =  postDAO.getPost(lastPostId);
 		
-		lastPostInserted.setTopicId(lastTopicId);
+		assertNotNull(lastPostInserted);
 		
-		result =  postDAO.updatePost(lastPostInserted);
+		assertEquals(post.getTitle(), lastPostInserted.getTitle());
+		assertEquals(post.getBody(), lastPostInserted.getBody());
+
 		
-		assertEquals(1, result);
+		//delete post and topic
+		int deletedPostResult =  postDAO.deletePostFromDB(lastPostId);
 		
-		assertEquals(new Integer(lastPostId), lastPostInserted.getId());
-		assertEquals(new Integer(lastTopicId), lastPostInserted.getTopicId());
+		assertTrue(deletedPostResult > 0);
 		
-		//Assert.assertEquals(lastInserted.getCreationDate(), lastInserted.getUpdateDate());
+		Post deletedPost = postDAO.getPost(lastPostId); 
+		assertNull(deletedPost);
 		
-		topics =  topicDAO.getAllTopics();
+		//delete topic
+		int deletedTopicRessult = topicDAO.deleteTopicFromDB(lastTopicId);
+		assertTrue(deletedTopicRessult > 0);
 		
-	//	logger.log(Level.INFO, "topics new size: " + topics.size());
+		Topic deletedTopic =  topicDAO.getTopic(lastTopicId);
+		assertNull(deletedTopic);
 		
-		assertEquals(topicsSize+1, topics.size());
-		
-		posts =  postDAO.getAllPosts();
-		
-	//	logger.log(Level.INFO, "posts new size: " + posts.size());
-		
-		assertEquals(postsSize+1, posts.size());
-		
+
 	}
 	
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testUpdate() {
+	public void updateTopicTest() {
 
 		logger.log(Level.INFO, "TopicDAOTest.testUpdate()");
 		
+		//add a new topic first
 		Topic topic =  new Topic();
-		topic.setTitle("New topic to update");
+		topic.setTitle("New topic to add");
 		topic.setCreatorId(1);
-
-		int result = topicDAO.addTopic(topic);
 		
-		assertEquals(1, result);
+		int topicAddedResult = topicDAO.addTopic(topic);
+		
+		assertEquals(1, topicAddedResult);
 		int lastTopicId =  topicDAO.getLastInsertedTopicId();
 
 		assertNotEquals(0, lastTopicId);
 		
 		//get the just added topic 
-		topic =  topicDAO.getTopic(lastTopicId);
+		Topic addedTopic =  topicDAO.getTopic(lastTopicId);
 		
-		assertNotNull(topic);
+		assertNotNull(addedTopic);
 		
 		String titleBeforeUpdate =  topic.getTitle();
 	//	String updateDate =  topic.getUpdateDate();
 		
 		String updatedTitle = titleBeforeUpdate + " updated";
 		
-		topic.setTitle(updatedTitle);
-		
-		//Take a pause for 3 seconds to be sure that the update date will be different from the previous one
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		addedTopic.setTitle(updatedTitle);
 		
 		//update topic
-		result = topicDAO.updateTopic(topic);
+		int updatedTopicResult = topicDAO.updateTopic(addedTopic);
 		
-		assertEquals(1, result);
+		assertEquals(1, updatedTopicResult);
 		
 		Topic updatedTopic =  topicDAO.getTopic(lastTopicId);
 		
 		assertNotNull(updatedTopic);
 		
 		assertEquals(updatedTopic.getTitle(), updatedTitle);
-
-		//verify that
-		//assertNotEquals(updatedTopic.getUpdateDate(), updateDate);
+		
+		//delete topic from db
+		int deletedTopicRessult = topicDAO.deleteTopicFromDB(lastTopicId);
+		assertTrue(deletedTopicRessult > 0);
+		
+		Topic deletedTopic =  topicDAO.getTopic(lastTopicId);
+		assertNull(deletedTopic);
 
 		
 	}
@@ -220,43 +218,57 @@ public class TopicDAOTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testDelete() {
+	public void toggleTopicTest() {
 		
 		logger.log(Level.INFO, "TopicDAOTest.tesDelete()");
 				
+		//add a new topic first
 		Topic topic =  new Topic();
-		topic.setTitle("New topic to delete");
+		topic.setTitle("New topic to add");
 		topic.setCreatorId(1);
-
-		int result = topicDAO.addTopic(topic);
+		topic.setIsOpen((byte) 1);
 		
-		assertEquals(1, result);
+		int topicAddedResult = topicDAO.addTopic(topic);
 		
-		List<Topic> openedTopics =  topicDAO.getAllOpenTopics();
-		assertNotNull(openedTopics);
-		int openedTopicsSize =  openedTopics.size();
-		
-		List<Topic> allTopics =  topicDAO.getAllTopics();
-		assertNotNull(allTopics);
-		int allTopicsSize =  allTopics.size();
-		
-		
+		assertEquals(1, topicAddedResult);
 		int lastTopicId =  topicDAO.getLastInsertedTopicId();
-		
-		Topic lastInserted =  topicDAO.getTopic(lastTopicId);
-		
-		assertEquals(lastInserted.getId(), new Integer(lastTopicId));
-		
-		result = topicDAO.openCloseTopic(lastTopicId, (byte)0);
 
-		assertEquals(1, result);
+		assertNotEquals(0, lastTopicId);
 		
-		openedTopics =  topicDAO.getAllOpenTopics();
-		allTopics =  topicDAO.getAllTopics();
+		//get the just added topic 
+		Topic addedTopic =  topicDAO.getTopic(lastTopicId);
 		
-		assertNotEquals(openedTopicsSize, openedTopics.size());
-		assertEquals(allTopicsSize, allTopics.size());
+		assertNotNull(addedTopic);
+		assertTrue(addedTopic.getIsOpen() == 1);
+	
+		
+		int closeTopicResult = topicDAO.openCloseTopic(lastTopicId, (byte)0);
 
+		assertEquals(1, closeTopicResult);
+		
+		Topic closedTopic =  topicDAO.getTopic(lastTopicId);
+		
+		assertNotNull(closedTopic);
+		assertTrue(closedTopic.getIsOpen() == 0);
+		
+		
+		//reopen topic
+		int openTopicResult = topicDAO.openCloseTopic(lastTopicId, (byte)1);
+
+		assertEquals(1, closeTopicResult);
+		
+		Topic openTopic =  topicDAO.getTopic(lastTopicId);
+		
+		assertNotNull(openTopic);
+		assertTrue(openTopic.getIsOpen() == 1);;
+
+		
+		//delete topic from db
+		int deletedTopicRessult = topicDAO.deleteTopicFromDB(lastTopicId);
+		assertTrue(deletedTopicRessult > 0);
+		
+		Topic deletedTopic =  topicDAO.getTopic(lastTopicId);
+		assertNull(deletedTopic);
 	}
 	
 	
@@ -264,7 +276,7 @@ public class TopicDAOTest {
 	//*********************************************************************************************************************
 	
 	@Test
-	public void testErrors() {
+	public void getErrorsTest() {
 
 		
 		logger.log(Level.INFO, "TopicDAOTest.testErrors()");
@@ -328,25 +340,7 @@ public class TopicDAOTest {
 		Post post =  new Post();
 		post.setTitle("A new post to add");
 		post.setBody(null);//erreur body ne peut être nul
-		post.setUserId(3);
-		
-		
-		List<Topic> topics =  topicDAO.getAllTopics();
-				
-		assertNotNull(topics);
-		
-		int topicsSize =  topics.size();
-		
-		
-	//	logger.log(Level.INFO, "topics size: " + topicsSize);
-		
-		
-		List<Post> posts =  postDAO.getAllPosts();
-		
-		assertNotNull(posts);
-		
-		int postsSize =  posts.size();
-		
+		post.setUserId(3);		
 		
 	//	logger.log(Level.INFO, "posts size: " + postsSize);
 
@@ -362,20 +356,6 @@ public class TopicDAOTest {
 		assertEquals(lastTopicId, topicDAO.getLastInsertedTopicId());
 		assertEquals(lastPostId, postDAO.getLastInsertedPostId());
 		
-		
-		topics =  topicDAO.getAllTopics();		
-		//la taille des topics est toujours la même
-		assertEquals(topicsSize, topics.size());
-		logger.log(Level.INFO, "topics new size: " + topics.size());
-		
-		posts =  postDAO.getAllPosts();
-		//la taille des posts est toujours la même
-		assertEquals(postsSize, posts.size());
-		
-	//	logger.log(Level.INFO, "posts new size: " + posts.size());
-		
-		//rollback effectué avec succès
-	//	logger.log(Level.INFO, "rollback effectué avec succès!");
 	}
 	
 	

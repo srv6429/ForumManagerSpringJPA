@@ -21,14 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /********************************************************************************************************************************************
- * 
- * @author daristote
- * 
- * Description:
- *  
- *  Classe qui permet d'accéder à la base de données pour créer, mettre à jour et récupérer les données des 'topics' (thèmes de discussion)
- * 
- *  
+ * <br>
+ * @author daristote<br>
+ * <br>
+ * Description:<br>
+ * <br>
+ * Classe qui permet d'accéder à la base de données pour créer, mettre à jour et récupérer les données des 'topics' (thèmes de discussion)<br>
+ * <br>
  *
  ********************************************************************************************************************************************/
 
@@ -59,20 +58,18 @@ public class TopicDAOImpl implements TopicDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction getAllTopicss()
-	 * 
-	 * Permet d'obtenir tous les tuples de la table topic
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation
-	 * 
-	 * Utilisation de la @NamedQuery  "Topic.findAll" définie dans la classe Topic
-	 * 
-	 * param: aucun
-	 * 
-	 * @return: une liste contenant des Objets de type Topic qui ont été instanciés pour chaque tuple de la table 'topic'
-	 * 
+	 * Fonction qui permet d'obtenir tous les tuples de la table topic<br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation<br>
+	 * <br>
+	 * Utilisation de la @NamedQuery  "Topic.findAll" définie dans la classe Topic<br>
+	 * <br>
+	 * param: aucun<br>
+	 * <br>
+	 * @return: une liste contenant des Objets de type Topic qui ont été instanciés pour chaque tuple de la table 'topic'<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@Override
@@ -114,19 +111,18 @@ public class TopicDAOImpl implements TopicDAO{
 	//*********************************************************************************************************************
     
 	/**********************************************************************************************************************
-	 * Fonction getAllOpenTopics()
-	 * 
-	 * Permet d'obtenir tous les topics actifs de la table 'topic' 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation
-	 * 
-	 * Utilisation de la @NamedQuery  "Topic.findAll" définie dans la classe Topic
-	 * 
-	 * param: aucun
-	 * 
-	 * @return: une liste contenant des objets de type Topic dont le statut ('is_open = 1') est ouvert
+	 * Fonction qui permet d'obtenir tous les topics actifs de la table 'topic' <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * Utilisation de TypedQuery qui permet de vérifier le bon type à la compilation<br>
+	 * <br>
+	 * Utilisation de la @NamedQuery  "Topic.findAll" définie dans la classe Topic<br>
+	 * <br>
+	 * param: aucun<br>
+	 * <br>
+	 * @return: une liste contenant des objets de type Topic dont le statut ('is_open = 1') est ouvert<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -172,18 +168,17 @@ public class TopicDAOImpl implements TopicDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction getTopic(int)
-	 * Permet d'obtenir un topic de la table 'topic' dont l'identifiant est le paramètre 'id' 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * Utilisation de la fonction EntityManager.'find()'  avec le paramètre id et le nom de la classe pour vérifier le type
-	 * 
-	 * 
-	 * @param id :(int): l'identifiant du topic
-	 * 
-	 * @return: - un objet de type Topic
-	 * 			- null si l'id n'est pas trouvé dans la bd
+	 * Fonction qui permet d'obtenir un topic de la table 'topic' dont l'identifiant est le paramètre 'id' <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * Utilisation de la fonction EntityManager.'find()'  avec le paramètre id et le nom de la classe pour vérifier le type<br>
+	 * <br>
+	 * @param id :(int): l'identifiant du topic<br>
+	 * <br>
+	 * @return: - un objet de type Topic<br>
+	 * 			- null si l'id n'est pas trouvé dans la bd<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -226,17 +221,16 @@ public class TopicDAOImpl implements TopicDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction getLastInsertedTopicId()
-	 * 
-	 * Permet d'obtenir l'identifiant du dernier topic inséré dans de la table 'topic' 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)
-	 * 
-	 * param: aucun
-	 * 
-	 * @return: - un entier représentant l'identifiant (id) du topic
+	 * Fonction qui permet d'obtenir l'identifiant du dernier topic inséré dans de la table 'topic' <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * Utilisation d'une requête SQL pour obtenir l'identifiant le plus grand (max)<br>
+	 * <br>
+	 * param: aucun<br>
+	 * <br>
+	 * @return: - un entier représentant l'identifiant (id) du topic<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -283,19 +277,18 @@ public class TopicDAOImpl implements TopicDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction getLastInsertedOpenTopicId(int)
-	 * 
-	 * Permet d'obtenir l'identifiant du dernier topic ouvert inséré dans de la table 'topic' 
-	 * 
-	 * Semblableà la précédent mais vérifie si le champ 'is_open = 1'
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * Utilisation d'une requête SQL pour obtnir l'identifiant le plus grand (max)
-	 * 
-	 * param: aucun
-	 * 
-	 * @return: - un entier représentant l'identifiant (id) du topic
+	 * Fonction qui permet d'obtenir l'identifiant du dernier topic ouvert inséré dans de la table 'topic' <br>
+	 * <br>
+	 * Semblableà la précédent mais vérifie si le champ 'is_open = 1'<br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * Utilisation d'une requête SQL pour obtnir l'identifiant le plus grand (max)<br>
+	 * <br>
+	 * param: aucun<br>
+	 * <br>
+	 * @return: - un entier représentant l'identifiant (id) du topic<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	@Override
@@ -342,17 +335,16 @@ public class TopicDAOImpl implements TopicDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction addTopic(Topic)
-	 * Permet d'obtenir d'insérer un nouveau topic dans la bd 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * @param topic: Topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le topic  a été créé avec succès
-	 * 					- 0 sinon	
-	 * 
+	 * Fonction qui permet d'obtenir d'insérer un nouveau topic dans la bd <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * @param topic: Topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  <br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête, <br>
+	 * 			i.e.: 	- 1 si le topic  a été créé avec succès<br>
+	 * 					- 0 sinon	<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@Override
@@ -414,30 +406,28 @@ public class TopicDAOImpl implements TopicDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction addTopic(Topic, Post)
-	 * 
-	 * Permet d'insérer un nouveau topic et un post à la fois dans la bd 
-	 * 
-	 * Lors de la création d'un topic, l'utilisateur doit obligatoirement créer un post et ajouter un commentaire
-	 * pour ne pas avoir de topic vide sans post
-	 * 
-	 * On effectue donc deux opérations: on insère d'abor le Topic et si l'opération réussit, on insère le post
-	 * 
-	 * Pour respecter l'atomicité de la transaction selon le principe ACID, si le topic a été enregistré 
-	 * mais qu'une erreur est survenue lors de l'engistrement du post, l'opération entière est annulée par un rollback
-	 * 
-	 * On peut ici profiter des avantages d'une transaction: toutes les opérations ne seront persistées dans la bd
-	 * ou aucune si une étape de l'opération ne peut être complétée
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * @param topic: Topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  
-	 * @param post: Post: un objet de type Post initialisé avec les champs 'title', 'body' et userId
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le topic et post ont été créés avec succès
-	 * 					- 0 sinon	
-	 * 
+	 * Fonction qui permet d'insérer un nouveau topic et un post à la fois dans la bd <br>
+	 * <br>
+	 * Lors de la création d'un topic, l'utilisateur doit obligatoirement créer un post et ajouter un commentaire<br>
+	 * pour ne pas avoir de topic vide sans post<br>
+	 * <br>
+	 * On effectue donc deux opérations: on insère d'abor le Topic et si l'opération réussit, on insère le post<br>
+	 * <br>
+	 * Pour respecter l'atomicité de la transaction selon le principe ACID, si le topic a été enregistré <br>
+	 * mais qu'une erreur est survenue lors de l'engistrement du post, l'opération entière est annulée par un rollback<br>
+	 * <br>
+	 * On peut ici profiter des avantages d'une transaction: toutes les opérations ne seront persistées dans la bd<br>
+	 * ou aucune si une étape de l'opération ne peut être complétée<br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * @param topic: Topic: un objet de type Topic initialisé avec les champs 'title' par l'utilisateur créant le topic  <br>
+	 * @param post: Post: un objet de type Post initialisé avec les champs 'title', 'body' et userId<br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête, <br>
+	 * 			i.e.: 	- 1 si le topic et post ont été créés avec succès<br>
+	 * 					- 0 sinon	<br>
+	 * <br>
 	 **********************************************************************************************************************/
 
 	
@@ -524,17 +514,17 @@ public class TopicDAOImpl implements TopicDAO{
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction updateTopic(int, String)
-	 * Permet de modifier les infos (title) d'un topic 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * @param topicId: int:  un entier représentant l'identifiant du topic à mettre à jour
-	 * @param title: String : le titre à modifier
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
-	 * 					- 0 sinon	
+	 * Fonction qui permet de modifier les infos (title) d'un topic <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * @param topicId: int:  un entier représentant l'identifiant du topic à mettre à jour<br>
+	 * @param title: String : le titre à modifier<br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête, <br>
+	 * 			i.e.: 	- 1 si le changement a été effectué avec succès<br>
+	 * 					- 0 sinon	<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -599,17 +589,16 @@ public class TopicDAOImpl implements TopicDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction updateTopic(Topic)
-	 * Permet de modifier les infos (title) d'un topic 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * @param topic: Topic: le topic avec le titre modifé et l'identifiant du topic à mettre à jour
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
-	 * 					- 0 sinon	
-	 * 
+	 * Fonction qui permet de modifier les infos (title) d'un topic <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * @param topic: Topic: le topic avec le titre modifé et l'identifiant du topic à mettre à jour<br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête, <br>
+	 * 			i.e.: 	- 1 si le changement a été effectué avec succès<br>
+	 * 					- 0 sinon	<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@Override
@@ -671,19 +660,17 @@ public class TopicDAOImpl implements TopicDAO{
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction openCloseTopic(int, byte)
-	 * 
-	 * Permet d'activer ou désactiver un topic en changeant la variable is_open(0 ou 1) de la table topic 
-	 * 
-	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory
-	 * 
-	 * @param topicId (int): l'identifiant du topic
-	 * @param status: (byte): tsatut avec valeur 0 pour désactiver, ou 1 pour activer 
-	 * 
-	 * @return: - un entier représentant le nombre de lignes affectées par la requête, 
-	 * 			i.e.: 	- 1 si le changement a été effectué avec succès
-	 * 					- 0 sinon	
-	 * 
+	 * Fonction qui permet d'activer ou désactiver un topic en changeant la variable is_open(0 ou 1) de la table topic <br>
+	 * <br>
+	 * Obtention d'un objet de type EntityManager créé par EntityManagerFactory<br>
+	 * <br>
+	 * @param topicId (int): l'identifiant du topic<br>
+	 * @param status: (byte): tsatut avec valeur 0 pour désactiver, ou 1 pour activer <br>
+	 * <br>
+	 * @return: - un entier représentant le nombre de lignes affectées par la requête, <br>
+	 * 			i.e.: 	- 1 si le changement a été effectué avec succès<br>
+	 * 					- 0 sinon	<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@Override
@@ -742,5 +729,66 @@ public class TopicDAOImpl implements TopicDAO{
 	
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
+	/**
+	 * Méthode qui effece un topic de la bd<br>
+	 * <br>
+	 * Utilisée uniquement pour les tests<br>
+	 * <br>
+	 * @param topicId : l'identifiant du topic à effacer<br>
+	 * @return une entier correspondant au nombre de lignes affectées par la requête<br>
+	 * <br>
+	 */
+	@Override
+	public int deleteTopicFromDB(int topicId) {
+		
+		logger.log(Level.INFO,"========================> deleteTopicFromDB topic id: " + topicId );
+		
+		//Obtention d'un objet de type EntityManager créé lors dU premier appel et retourné
+		EntityManager em =  entityManagerFactoryBean.getEntityManagerfactory().createEntityManager();
+		
+		int result = 0;
+		
+		EntityTransaction transaction =  null;
+		
+		try {			
+			
+			//obtention d'une transaction
+			transaction =  em.getTransaction();
+			//début de transaction
+			transaction.begin();			
+			
+			//Requête native SQL
+			final String sql =  "delete from topic where id=:id";
+			
+			//Création de la Query
+			Query query = em.createNativeQuery(sql);
+			
+			//Initialisation des paramètres
+			query.setParameter("id", topicId);
+
+			result = query.executeUpdate();
+			
+			//persist
+			transaction.commit();
+			logger.log(Level.INFO, "topic updated ============ > result : " + result);
+			
+			
+		} catch (Exception e) {
+			//rollback et fermeture de la transaction
+			transaction.rollback();
+			logger.log(Level.SEVERE, "Une erreur est survenue lors de la tentative de mise à jour open/close.");
+			//e.printStackTrace();
+		}
+
+		finally {
+			//fermeture de l'EntityManager
+			if(em != null) {
+				em.close();
+			}
+		}
+		
+		return result;
+
+	}
 	
 }

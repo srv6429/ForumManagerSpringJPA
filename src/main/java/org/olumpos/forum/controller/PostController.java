@@ -8,8 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.olumpos.forum.dao.PostDAO;
+import org.olumpos.forum.entity.JSONResponse;
 import org.olumpos.forum.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -21,27 +23,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /************************************************************************************************************************************************
- * 
- * @author daristote
- *
- * Classe qui définit des méthodes qui prennent en charge les requêtes concernant l'affichage, l'ajout et l'édition des posts (commentaires) 
- * 
- * Annotée avec @Controller elle indique au gestionnaire central que les requêtes peuvent être gérées par des méthodes de cette classe
- * 
- * Le chemin (Path) de base est "/posts"
- * 
- * Les autres chemins définis dans cette classe sont relatifs à celui-ci
- * 
- * Le constructeur est annoté avec @Autowired indiquant qu'il doit être appelé lors du déploiement de l'application par le serveur
- * 
- * Cet appel permet d'initialiser les variables globales TopicDAO topicDAO et PostDAO postDAO utilisées pour 
- * accéder à la base de données 
- * 
- * Remarque: on aurait pu simplement placer l'annotation @Autowired devant la déclaration des variables (ex: @Autowired PostDAO postDAO) 
- * ce qui aurait assuré l'injection, i.e. l'initialisation de la variable au déploiement
- * 
+ * <br>
+ * @author daristote<br>
+ * <br>
+ * Classe qui définit des méthodes qui prennent en charge les requêtes concernant l'affichage, l'ajout et l'édition des posts (commentaires)<br>
+ * <br>
+ * Annotée avec @Controller elle indique au gestionnaire central que les requêtes peuvent être gérées par des méthodes de cette classe<br>
+ * <br>
+ * Le chemin (Path) de base est "/posts"<br>
+ * <br>
+ * Les autres chemins définis dans cette classe sont relatifs à celui-ci<br>
+ * <br>
+ * Le constructeur est annoté avec @Autowired indiquant qu'il doit être appelé lors du déploiement de l'application par le serveur<br>
+ * <br>
+ * Cet appel permet d'initialiser les variables globales TopicDAO topicDAO et PostDAO postDAO utilisées pour
+ * accéder à la base de données <br>
+ * <br>
+ * Remarque: on aurait pu simplement placer l'annotation @Autowired devant la déclaration des variables (ex: @Autowired PostDAO postDAO)
+ * ce qui aurait assuré l'injection, i.e. l'initialisation de la variable au déploiement<br>
+ * <br>
  * Toutefois pour tester avec JUnit, on doit initialiser manuellement les membres, ce qui est fait en appelant explicitement le contructeur 
- * de PostController et qui permet, lors de son instanciation d'initialiser les variables globales permettant l'accès à la base  de données.
+ * de PostController et qui permet, lors de son instanciation d'initialiser les variables globales permettant l'accès à la base  de données.<br>
+ *<br>
  *
  *************************************************************************************************************************************************/
 
@@ -69,22 +72,21 @@ public class PostController {
 	
 
 	/**********************************************************************************************************************
-	 * Fonction getPosts(int, Model)
-	 * 
-	 * Permet de gérer un requête '/posts' avec la méthode GET
-	 * 
-	 * Cette méthode récupère la liste de tous les posts ouverts associés au topic dont l'identifiant est spécifié en paramètre
-	 * 
-	 * Le paramètre est annoté de @PathVariable pour spécifier qu'il doit être initialisé avec la valeur passée dans l'url: '/posts/{id}' 
-	 *  
-	 * Appel à la fonction getAllActivePosts() de la classe postDAO
-	 * 
-	 * retourne la liste des posts trouvés
-	 * 
-	 * @param id :  -(int): l'identifiant du topic contenant les posts 
-	 * @param model: représente le modèle de l'application
-	 * @return: - List(Post) postList: la liste contenant tous les posts ouverts associés au topic (id)
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/posts' avec la méthode GET<br>
+	 * <br>
+	 * Cette méthode récupère la liste de tous les posts ouverts associés au topic dont l'identifiant est spécifié en paramètre<br>
+	 * <br>
+	 * Le paramètre est annoté de @PathVariable pour spécifier qu'il doit être initialisé avec la valeur passée dans l'url: '/posts/{id}' <br>
+	 *  <br>
+	 * Appel à la fonction getAllActivePosts() de la classe postDAO<br>
+	 * <br>
+	 * retourne la liste des posts trouvés<br>
+	 * <br>
+	 * @param id :  -(int): l'identifiant du topic contenant les posts <br>
+	 * @param model: représente le modèle de l'application<br>
+	 * @return: - List(Post) postList: la liste contenant tous les posts ouverts associés au topic (id)<br>
+	 * <br>
 	 **********************************************************************************************************************/
 
 	
@@ -120,28 +122,27 @@ public class PostController {
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction add(String, String, int, int, Model)
-	 * 
-	 * Permet de gérer un requête '/addPost/{userId}/{title}/{postTitle}/{comment}' avec la méthode POST
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/addPost/{userId}/{title}/{postTitle}/{comment}' avec la méthode POST<br>
+	 * <br>
 	 * Variante de la suivante mais les paramètres sont insérés dans l'url et récupéres dans les paramètres formels
-	 * de la fonction, i.e. annotés avec @PathVariable
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'ajout d'un post
-	 * 
+	 * de la fonction, i.e. annotés avec @PathVariable<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'ajout d'un post<br>
+	 * <br>
 	 * Le titre du post et le commentaire sont enregistrés dans les paramètres transmis dans l'url
-	 * par la fonction javascipt AJAX 
-	 * 
-	 * L'appel à la fonction postDAO.addPost(Post) retourne un entier (1) si l'opération est réussie, (0) sinon
-	 * 	  
-	 * @param title: le titre du post
-	 * @param comment: le commentaire du post
-	 * @param topicId: l'identifiant du topic
-	 * @param userId: l'identifiant de l'utilisateur
-	 * @param model: le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}": une chaîne représentant un objet de type json, si le post a été enregistré avec succès
-	 * 			- String "{status:error}" sinon
+	 * par la fonction javascipt AJAX <br>
+	 * <br>
+	 * L'appel à la fonction postDAO.addPost(Post) retourne un entier (1) si l'opération est réussie, (0) sinon<br>
+	 * 	  <br>
+	 * @param title: le titre du post<br>
+	 * @param comment: le commentaire du post<br>
+	 * @param topicId: l'identifiant du topic<br>
+	 * @param userId: l'identifiant de l'utilisateur<br>
+	 * @param model: le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{status:ok}": une chaîne représentant un objet de type json, si le post a été enregistré avec succès<br>
+	 * 			- String "{status:error}" sinon<br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -177,30 +178,98 @@ public class PostController {
 
 
 	}
+	//*********************************************************************************************************************
+	//*********************************************************************************************************************
 	
+	
+	/**********************************************************************************************************************
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/addPost/{userId}/{title}/{postTitle}/{comment}' avec la méthode POST<br>
+	 * <br>
+	 * Variante de la suivante mais les paramètres sont insérés dans l'url et récupéres dans les paramètres formels
+	 * de la fonction, i.e. annotés avec @PathVariable<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'ajout d'un post<br>
+	 * <br>
+	 * Le titre du post et le commentaire sont enregistrés dans les paramètres transmis dans l'url
+	 * par la fonction javascipt AJAX <br>
+	 * <br>
+	 * L'appel à la fonction postDAO.addPost(Post) retourne un entier (1) si l'opération est réussie, (0) sinon<br>
+	 * 	  <br>
+	 * @param title: le titre du post<br>
+	 * @param comment: le commentaire du post<br>
+	 * @param topicId: l'identifiant du topic<br>
+	 * @param userId: l'identifiant de l'utilisateur<br>
+	 * @param model: le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{status:ok}": une chaîne représentant un objet de type json, si le post a été enregistré avec succès<br>
+	 * 			- String "{status:error}" sinon<br>
+	 * 
+	 **********************************************************************************************************************/
+//	
+//	@RequestMapping(value = "/addPost/{title}/{comment}/{topicId}/{userId}", method = RequestMethod.POST)//, produces = "application/json;charset=UTF-8")
+//	public ResponseEntity<JSONResponse> add2(@PathVariable String title, @PathVariable String comment, @PathVariable int topicId, @PathVariable int userId, Model model) {
+//
+//		logger.log(Level.INFO, "in addPost annotated with RequestMethod.POST");
+//		
+////		logger.log(Level.INFO, "in addPost annotated with RequestMethod.POST: params title: " + title);
+////		logger.log(Level.INFO, "in addPost annotated with RequestMethod.POST: param postBody:  " + comment);
+////		logger.log(Level.INFO, "in addPost annotated with RequestMethod.POST: param userId:  " + userId);
+////		logger.log(Level.INFO, "in addPost annotated with RequestMethod.POST: param topicId:  " + topicId);
+//		
+//		JSONResponse response =  new JSONResponse();
+//		
+//		//création du post
+//		Post post = new Post();
+//		
+//		//initialisation des champs
+//		post.setTitle(title);
+//		post.setBody(comment);
+//		post.setUserId(userId);
+//		post.setTopicId(topicId);
+//		
+//		//ajout dand la bd
+//		int result = postDAO.addPost(post);
+//			
+//		logger.log(Level.INFO, "in postController.add2 result: " + result);
+//		//succès
+//		if(result > 0 ) {
+//		//	return "{\"status\":\"ok\"}";
+//			response.setStatus("ok");
+//		} else {
+//			//échec
+////			return "{\"status\":\"error\"}";
+//			response.setStatus("error");
+//			
+//		}
+//		
+//		return ResponseEntity.ok(response);
+//		
+//
+//
+//	}
 	//*********************************************************************************************************************
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction addPost(Map(String, String), Model)
-	 * 
-	 * Permet de gérer un requête '/addPost/' avec la méthode POST
-	 * 
+	 * <br>
+	 * Méthode qui permetde gérer un requête '/addPost/' avec la méthode POST<br>
+	 * <br>
 	 * Variante de la précédent mais les paramètres sont trasmis dans un objet json par la fonction javascript AJAX 
-	 * et sont enregistrés dans une collection Map(String, String) annotée avec @PathVariable en tant que paramètre formel de la fonction
-	 * 
-	 * On peut récupérer les paramètres transmis avec les clés-valeurs de la collection
-	 * 
-	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente
-	 * 	 
-	 * L'appel à la fonction postDAO.addPost(Post) retourne un entier (1) si l'opération est réussie, (0) sinon
-	 * 	  
+	 * et sont enregistrés dans une collection Map(String, String) annotée avec @PathVariable en tant que paramètre formel de la fonction<br>
+	 * <br>
+	 * On peut récupérer les paramètres transmis avec les clés-valeurs de la collection<br>
+	 * <br>
+	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente<br>
+	 * 	 <br>
+	 * L'appel à la fonction postDAO.addPost(Post) retourne un entier (1) si l'opération est réussie, (0) sinon<br>
+	 * 	  <br>
 	 * @param params: (Map(String, String)) : 	une collection de type Map contenant les paramètre (titre du post, commentaire, 
-	 * 											l'identifiant du topic, l'identifiant de l'utilisateur)
-	 * @param model: : le modèle de l'application 
-	 * 
-	 * @return: - String "{post:success}" une chaîne représetnant un objet de type json, si le post a été enregistré avec succès
-	 * 			- String "{post:failure}" sinon
+	 * 											l'identifiant du topic, l'identifiant de l'utilisateur)<br>
+	 * @param model: : le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{post:success}" une chaîne représetnant un objet de type json, si le post a été enregistré avec succès<br>
+	 * 			- String "{post:failure}" sinon<br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -245,27 +314,26 @@ public class PostController {
 	//*********************************************************************************************************************
 
 	/**********************************************************************************************************************
-	 * Fonction updatePost(int, String, String, Model)
-	 * 
-	 * Permet de gérer une requête '/updatePost/{id}/{title}/{comment} avec la méthode PUT
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer une requête '/updatePost/{id}/{title}/{comment} avec la méthode PUT<br>
+	 * <br>
 	 * Variante de la suivante mais les paramètre sont insérés dans l'url et sont récupéres dans les paramètres formels
-	 * de la fonction annotés avec @PathVariable
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'édition d'un post
-	 * 
+	 * de la fonction annotés avec @PathVariable<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'édition d'un post<br>
+	 * <br>
 	 * L'identifiant, le titre et le commentaire sont ainsi enregistrés dans les paramètres transmis
-	 * par la fonction javascipt AJAX 
-	 * 	 
-	 * L'appel à la fonction postDAO.updatePost() retourne un entier (1) si l'opération est réussie, (0) sinon
-	 * 	  
-	 * @param id: (int): l'identifiant du post
-	 * @param title: (String): le titre du post
-	 * @param comment: (String): le commentaire du post
-	 * @param model: (Model): le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}": une chaîne représetnant un objet de type json, si le post est modifié avec succès
-	 * 			- String "{status:error}" sinon
+	 * par la fonction javascipt AJAX <br>
+	 * 	 <br>
+	 * L'appel à la fonction postDAO.updatePost() retourne un entier (1) si l'opération est réussie, (0) sinon<br>
+	 * 	  <br>
+	 * @param id: (int): l'identifiant du post<br>
+	 * @param title: (String): le titre du post<br>
+	 * @param comment: (String): le commentaire du post<br>
+	 * @param model: (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: String "{status:ok}": une chaîne représetnant un objet de type json, si le post est modifié avec succès<br>
+	 * 			String "{status:error}" sinon<br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -303,29 +371,28 @@ public class PostController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction updatePost(Map(String, String), Model)
-	 * 
-	 * Permet de gérer un requête '/updatePost' avec la méthode PUT
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/updatePost' avec la méthode PUT<br>
+	 * <br>
 	 * Variante de la précédente mais les paramètres sont trasmis dans un objet json par la fonction javascript AJAX 
-	 * et sont enregistrés dans une collection Map(String, String) annotée avec PathVariable en tant que paramètre formel de la fonction
-	 * 
-	 * On peut récupérer les paramètres transmis avec les clés-valeurs de la collection
-	 * 
-	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente
-	 * 
+	 * et sont enregistrés dans une collection Map(String, String) annotée avec PathVariable en tant que paramètre formel de la fonction<br>
+	 * <br>
+	 * On peut récupérer les paramètres transmis avec les clés-valeurs de la collection<br>
+	 * <br>
+	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente<br>
+	 * <br>
 	 * Le titre du post et le commentaire sont enregistrés dans les paramètres transmis dans l'url
-	 * par la fonction javascipt AJAX: url: "/posts/updatePost?postId="+postId+"&amp;postTitle="+postTitle+"&amp;postBody="+postBody;
+	 * par la fonction javascipt AJAX: url: "/posts/updatePost?postId="+postId+"&amp;postTitle="+postTitle+"&amp;postBody="+postBody;<br>
+	 * <br>
 	 * 
-	 * 
-	 * L'appel à la fonction postDAO.addPost() retourne un entier (1) si l'opération est réussie, (0) sinon
-	 * 	  
+	 * L'appel à la fonction postDAO.addPost() retourne un entier (1) si l'opération est réussie, (0) sinon<br>
+	 * 	  <br>
 	 * @param params: (Map(String, String)) : une collection de type Map contenant les paramètre (titre du post, commentaire, 
-	 * 											l'identifiant du topic, l'identifiant de l'utilisateur)
-	 * @param model: (Model): le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}": une chaîne représetnant un objet de type json, si le post est modifié avec succès
-	 * 			- String "{status:error}" sinon
+	 * 											l'identifiant du topic, l'identifiant de l'utilisateur)<br>
+	 * @param model: (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: String: "{status:ok}": une chaîne représetnant un objet de type json, si le post est modifié avec succès<br>
+	 * 			String: "{status:error}" sinon<br>
 	 * 
 	 **********************************************************************************************************************/
 
@@ -370,27 +437,26 @@ public class PostController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction deletePost(int, Model)
-	 * 
-	 * Permet de gérer une requête '/deletePost/{id}' avec la méthode DELETE
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer une requête '/deletePost/{id}' avec la méthode DELETE<br>
+	 * <br>
 	 * Variante de la suivante mais le paramètre est transmis dans l'url et peut être récupéré dans le paramètre de la fonction
-	 * annoté avec @PathVariable
-	 * 
+	 * annoté avec @PathVariable<br>
+	 * <br>
 	 * Cette méthode est appelée lorsque l'utilisateur qui a créé le post ou un administrateur cliquent sur le bouton 'Retirer'
-	 * 
-	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX: "/deletePost/"+postId 
-	 *  
-	 * L'appel à la fonction postDAO.deletePost(Post) est appelée avec en paramètre le post récupéré de la bd par son identifiant
-	 * 
-	 * On désactive le post en modifiant la valeur de la variable isActive qui est mise à 0 (on ne l'efface pas)
-	 *  
-	 * 	  
-	 * @param id (int): un entier qui représente l'identifiant du topic
-	 * @param model (Model): le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représentant un objet de type json, si le post est modifié avec succès
-	 * 			- String "{status:error}" sinon
+	 * <br>
+	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX: "/deletePost/"+postId<br> 
+	 *  <br>
+	 * L'appel à la fonction postDAO.deletePost(Post) est appelée avec en paramètre le post récupéré de la bd par son identifiant<br>
+	 * <br>
+	 * On désactive le post en modifiant la valeur de la variable isActive qui est mise à 0 (on ne l'efface pas)<br>
+	 *  <br>
+	 * @param id (int): un entier qui représente l'identifiant du topic<br>
+	 * @param model (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: String "{status:ok}" une chaîne représentant un objet de type json, si le post est modifié avec succès<br>
+	 * 			String "{status:error}" sinon<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	//Params vide lorques transféré par json object 
@@ -428,29 +494,28 @@ public class PostController {
 	
 	
 	/**********************************************************************************************************************
-	 * Fonction deletePost(int, Model)
-	 * 
-	 * Permet de gérer un requête '/deletePost/{id}' avec la méthode DELETE
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/deletePost/{id}' avec la méthode DELETE<br>
+	 * <br>
 	 * Variante de la précédente mais le paramètre est transmis dans l'url et peut être récupéré dans le paramètre de la fonction
-	 * annoté avec @PathVariable
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur qui a créé le post ou un administrateur cliquent sur le bouton 'Retirer'
-	 * 
-	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente
-	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX: "/deletePost?postId="+postId 
-	 *  
-	 * L'appel à la fonction postDAO.deletePost(Post) est appelée avec en paramètre le post récupéré de la bd par son idientifiant
-	 * 
-	 * On désactive le post en modifiant la valeur de la variable isActive qui est mise à 0 (on ne l'efface pas)
-	 *  
+	 * annoté avec @PathVariable<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur qui a créé le post ou un administrateur cliquent sur le bouton 'Retirer'<br>
+	 * <br>
+	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente<br>
+	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX: "/deletePost?postId="+postId<br> 
+	 *  <br>
+	 * L'appel à la fonction postDAO.deletePost(Post) est appelée avec en paramètre le post récupéré de la bd par son idientifiant<br>
+	 * <br>
+	 * On désactive le post en modifiant la valeur de la variable isActive qui est mise à 0 (on ne l'efface pas)<br>
+	 *  <br>
 	 * 	  
-	 * @param postId: (String): une chaîne qui représente l'identifiant du topic
-	 * @param model: (Model):  le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représentant un objet de type json, si le post est modifié avec succès
-	 * 			- String "{status:error}" sinon
-	 * 
+	 * @param postId: (String): une chaîne qui représente l'identifiant du topic<br>
+	 * @param model: (Model):  le modèle de l'application <br>
+	 * <br>
+	 * @return: String "{status:ok}" une chaîne représentant un objet de type json, si le post est modifié avec succès<br>
+	 * 			String "{status:error}" sinon<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	@RequestMapping(value = "/deletePost", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
 	public @ResponseBody String delete(@RequestParam String postId, Model model) {

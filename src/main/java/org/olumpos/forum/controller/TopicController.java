@@ -25,27 +25,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /************************************************************************************************************************************************
- * 
- * @author daristote
- * 
- * Classe qui définit des méthodes qui prennent en charge les requêtes concernant l'affichage, l'ajout et l'édition des thèmes 
- * 
- * Annotée avec @Controller elle indique au gestionnaire central que les requêtes peuvent être gérées par des méthodes de cette classe
- * 
- * Le chemin (Path) de base est "/topics"
- * 
- * Les autres chemins définis dans cette classe sont relatifs à celui-ci
- * 
- * Le constructeur est annoté avec @Autowired indiquant qu'il doit être appelé lors du déploiement de l'application par le serveur
- * Cet appel permet d'initialiser les variables globales 'TopicDAO topicDAO' et 'PostDAO postDAO'  utilisées pour 
- * accéder à la base de données 
- * 
- * Remarque: on aurait pu simplement placer l'annotation @Autowired devant la déclaration des variables (ex: @Autowired TopicDAO topicDAO) 
- * ce qui aurait assuré l'injection, i.e. l'initialisation de la variable au déploiement
- * 
- * Toutefois pour tester avec JUnit, on doit initialiser manuellement les membres, ce qui est fait en appelant explicitement le contructeur 
- * de TopicController et qui permet, lors de son instanciation d'initialiser les variables globales permettant l'accès à la base  de données.
- * 
+ * <br>
+ * @author daristote<br>
+ * <br>
+ * Classe qui définit des méthodes qui prennent en charge les requêtes concernant l'affichage, l'ajout et l'édition des thèmes<br> 
+ * <br>
+ * Annotée avec @Controller elle indique au gestionnaire central que les requêtes peuvent être gérées par des méthodes de cette classe<br>
+ * <br>
+ * Le chemin (Path) de base est "/topics"<br>
+ * <br>
+ * Les autres chemins définis dans cette classe sont relatifs à celui-ci<br>
+ * <br>
+ * Le constructeur est annoté avec @Autowired indiquant qu'il doit être appelé lors du déploiement de l'application par le serveur<br>
+ * Cet appel permet d'initialiser les variables globales 'TopicDAO topicDAO' et 'PostDAO postDAO'  utilisées pour <br>
+ * accéder à la base de données <br>
+ * <br>
+ * Remarque: on aurait pu simplement placer l'annotation @Autowired devant la déclaration des variables (ex: @Autowired TopicDAO topicDAO)<br> 
+ * ce qui aurait assuré l'injection, i.e. l'initialisation de la variable au déploiement<br>
+ * <br>
+ * Toutefois pour tester avec JUnit, on doit initialiser manuellement les membres, ce qui est fait en appelant explicitement le contructeur<br> 
+ * de TopicController et qui permet, lors de son instanciation d'initialiser les variables globales permettant l'accès à la base  de données.<br>
+ * <br>
  *
  *************************************************************************************************************************************************/
 
@@ -74,19 +74,19 @@ public class TopicController {
 	//*********************************************************************************************************************
 
 	/**********************************************************************************************************************
-	 * Fonction getTopics(Model)
-	 * 
-	 * Permet de gérer un requête '/topics' avec la méthode GET
-	 * 
-	 * Cette méthode récupère la liste de tous les topics ouverts de la bd
-	 * 
-	 * Appel à la fonction getAllOpenTopics() de la classe topicDAO
-	 * 
-	 * retourne la liste des topics trouvés
-	 * 
-	 * @param:  - model (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - List<Topic> topicList: la liste contenant tous les topic ouverts de la bd
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/topics' avec la méthode GET<br>
+	 * <br>
+	 * Cette méthode récupère la liste de tous les topics ouverts de la bd<br>
+	 * <br>
+	 * Appel à la fonction getAllOpenTopics() de la classe topicDAO<br>
+	 * <br>
+	 * retourne la liste des topics trouvés<br>
+	 * <br>
+	 * @param model: (Model) représente le modèle de l'application<br> 
+	 * <br>
+	 * @return: List<Topic> topicList: la liste contenant tous les topic ouverts de la bd<br>
+	 * <br>
 	 * 
 	 **********************************************************************************************************************/
 	
@@ -113,24 +113,23 @@ public class TopicController {
 
 
 	/**********************************************************************************************************************
-	 * Fonction getTopic(int, Model)
-	 * 
-	 * Permet de gérer un requête '/topic/{id}' avec la méthode GET
-	 * 
-	 * Cette méthode récupére le topic spécifié par l'id transmi dans l'url et affecté au param;tre id
-	 * 
-	 * L'annotation @PathVariable permet d'associer la valeu transmise dans l'url  à la variable paramétrée de la fonction
-	 * 
-	 * Appel à la fonction getTopic(int) de la classe topicDAO
-	 * 
-	 * retourne le topic trouvé ou null si l'id ne correspond pas à un topic ouvert
-	 * 
-	 * @param id: (int): l'idetifiant du topic
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représetnant un objet json, si le topic a été trouvé
-	 * 			- String "{status:error}" sinon
-	 * 
+	 * <br>
+	 * Méthode qui permet  de gérer un requête '/topic/{id}' avec la méthode GET<br>
+	 * <br>
+	 * Cette méthode récupére le topic spécifié par l'id transmi dans l'url et affecté au param;tre id<br>
+	 * <br>
+	 * L'annotation @PathVariable permet d'associer la valeu transmise dans l'url  à la variable paramétrée de la fonction<br>
+	 * <br>
+	 * Appel à la fonction getTopic(int) de la classe topicDAO<br>
+	 * <br>
+	 * retourne le topic trouvé ou null si l'id ne correspond pas à un topic ouvert<br>
+	 * <br>
+	 * @param id: (int): l'idetifiant du topic<br>
+	 * @param model: (Model): représente le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{status:ok}" une chaîne représetnant un objet json, si le topic a été trouvé<br>
+	 * 			- String "{status:error}" sinon<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value = "/topic/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
@@ -157,34 +156,33 @@ public class TopicController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction addTopic(String, String, String, int, Model)
-	 * 
-	 * Permet de gérer un requête '/addTopic/{userId}/{title}/{postTitle}/{comment}' avec la méthode POST
-	 * 
-	 * Variante de la suivante mais les paramètre sont insérés dans l'url et sont récupéres dans les variables/paramètres
-	 * de la fonction, i.e. annotés avec @PathVariable
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'ajout d'un topic
-	 * 
-	 * Un topic ne peut être ajouté sans un premier post
-	 * On effectue donc une opération en deux temps: on insère d'abord le topi puis si c'est réussi on insère le premier post
-	 * On doit donc utiliser une transaction pour s'assurer que les deux ajouts sont effectués avec succès avant de les enregistrer dans la be
-	 * On respecte ainsi le principe de l'atomicité de la transaction
-	 * 
-	 * L'appel à la fonction topicDAO.addTopic() retourne un entier supérieur à 0 si l'opération est réussie
-	 *  
-	 *   On récupère ensuite les derniers topic et post enregistrer pour obtenir leur identifiant et enregistrer l'identifiant du topic
-	 *   dans la table post	 
-	 * 	  
-	 * @param topicTitle: (String): le titre du topic
-	 * @param postTitle: (String): le titre du post
-	 * @param comment: (String): le commentaire du post
-	 * @param userId: (int): l'identifiant de l'utilisateur
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès
-	 * 			- String "{status:error}" sinon
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/addTopic/{userId}/{title}/{postTitle}/{comment}' avec la méthode POST<br>
+	 * <br>
+	 * Variante de la suivante mais les paramètre sont insérés dans l'url et sont récupéres dans les variables/paramètres<br>
+	 * de la fonction, i.e. annotés avec @PathVariable<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'ajout d'un topic<br>
+	 * <br>
+	 * Un topic ne peut être ajouté sans un premier post<br>
+	 * On effectue donc une opération en deux temps: on insère d'abord le topi puis si c'est réussi on insère le premier post<br>
+	 * On doit donc utiliser une transaction pour s'assurer que les deux ajouts sont effectués avec succès avant de les enregistrer dans la be<br>
+	 * On respecte ainsi le principe de l'atomicité de la transaction<br>
+	 * <br>
+	 * L'appel à la fonction topicDAO.addTopic() retourne un entier supérieur à 0 si l'opération est réussie<br>
+	 *  <br>
+	 * On récupère ensuite les derniers topic et post enregistrer pour obtenir leur identifiant et enregistrer l'identifiant du topic<br>
+	 * dans la table post<br>
+	 * <br>	  
+	 * @param topicTitle: (String): le titre du topic<br>
+	 * @param postTitle: (String): le titre du post<br>
+	 * @param comment: (String): le commentaire du post<br>
+	 * @param userId: (int): l'identifiant de l'utilisateur<br>
+	 * @param model: (Model): représente le modèle de l'application<br> 
+	 * <br>
+	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès<br>
+	 * 			- String "{status:error}" sinon<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value = "/addTopic/{topicTitle}/{postTitle}/{comment}/{userId}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -246,39 +244,38 @@ public class TopicController {
 	//*********************************************************************************************************************
 
 	/**********************************************************************************************************************
-	 * Fonction addTopic(Map(String, String), Model)
-	 * 
-	 * Permet de gérer un requête '/addTopic' avec la méthode POST
-	 * 
-	 * Variante de la précédent mais les paramètre sont transmis et enregistrés dans une collection de type Map(String, String)
-	 * avec les clés-valeurs 
-	 * 
-	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente
-	 * 
-	 * Un topic ne peut être ajouté sans un premier post
-	 * On effectue donc une opération en deux temps: on insère d'abord le topic puis si c'est réussi on insère le npremier post
-	 * On doit donc utiliser une transaction pour s'assurer que les deux ajouts sont effectués avec succès avant de les enregistrer dans la be
-	 * On respecte ainsi le principe de l'atomicité de la transaction
-	 * 
-	 * Le titre du nouveau topic, ainsi que le titre du post et le commentaire sont enregistrés dans les paramètres transmis
-	 * par la fonction javascipt AJAX 
-	 * On peut alors les récupérer au moyen d'un objet de type Map(String, String) annoté de @RequestParam pour signifie que les paramètres
-	 * de la requête sont inclus dans la collection
-	 * 
-	 * On peut par la suite récupérer ces valeurs avec les clés c'est-à-dire les noms utilisés pour chacun des paramètres
-	 * lors de la transmission de la requête
-	 * 
-	 *  L'appel à la fonction topicDAO.addTopic() retourne un entier supérieur à 0 si l'opération est réussie
-	 *  
-	 *  On récupère ensuite les derniers topic et post enregistrer pour obtenir leur identifiant et enregistrer l'identifiant du topic
-	 *  dans la table post	 
-	 * 	  
-	 * @param params: (Map(String, String)): une collection de type Map (interface) contenant les clés-valeurs de paramètres
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/addTopic' avec la méthode POST<br>
+	 * <br>
+	 * Variante de la précédent mais les paramètre sont transmis et enregistrés dans une collection de type Map(String, String)<br>
+	 * avec les clés-valeurs <br>
+	 * <br>
+	 * Cette méthode n'est pas utilisée mais a été testée avec succès et peut être une alternative à la précédente<br>
+	 * <br>
+	 * Un topic ne peut être ajouté sans un premier post<br>
+	 * On effectue donc une opération en deux temps: on insère d'abord le topic puis si c'est réussi on insère le npremier post<br>
+	 * On doit donc utiliser une transaction pour s'assurer que les deux ajouts sont effectués avec succès avant de les enregistrer dans la be<br>
+	 * On respecte ainsi le principe de l'atomicité de la transaction<br>
+	 * <br>
+	 * Le titre du nouveau topic, ainsi que le titre du post et le commentaire sont enregistrés dans les paramètres transmis<br>
+	 * par la fonction javascipt AJAX <br>
+	 * On peut alors les récupérer au moyen d'un objet de type Map(String, String) annoté de @RequestParam pour signifie que les paramètres<br>
+	 * de la requête sont inclus dans la collection<br>
+	 * <br>
+	 * On peut par la suite récupérer ces valeurs avec les clés c'est-à-dire les noms utilisés pour chacun des paramètres<br>
+	 * lors de la transmission de la requête<br>
+	 * <br>
+	 *  L'appel à la fonction topicDAO.addTopic() retourne un entier supérieur à 0 si l'opération est réussie<br>
+	 *  <br>
+	 *  On récupère ensuite les derniers topic et post enregistrer pour obtenir leur identifiant et enregistrer l'identifiant du topic<br>
+	 *  dans la table post	 <br>
+	 * <br>	  
+	 * @param params: (Map(String, String)): une collection de type Map (interface) contenant les clés-valeurs de paramètres<br>
+	 * @param model: (Model): représente le modèle de l'application <br>
+	 * <br>
 	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès
 	 * 			- String "{status:error}" sinon
-	 * 
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value = "/addTopic", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -346,31 +343,30 @@ public class TopicController {
 	
 
 	/**********************************************************************************************************************
-	 * Fonction updateTopic(int, String, Model)
-	 * 
-	 * Permet de gérer un requête '/updateTopic/{id}/{title}
-	 * 
-	 * Variante de la suivante mais les paramètre sont insérés dans l'url et sont récupéres dans les variables/paramètres
-	 * de la fonction, i.e. annotés avec @PathVariable
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'édition d'un topic
-	 * 
-	 * Le titre peut être modifié mais seul le créateur du topic ou un administrateur peuvent le faire
-	 * 
-	 * Le titre du nouveau topic, ainsi que son idientifiant sont enregistrés dans les paramètres transmis
-	 * par la fonction javascipt AJAX 
-	 * 
-	 * On peut par la suite récupérer ces valeurs avec les paramètres de la fonction annotés @PathVariable
-	 * 
-	 * L'appel à la fonction topicDAO.updateTopic() retourne un entier supérieur à 0 si l'opération est réussie
-	 * 	  
-	 * @param id (int): l'identifiant du topic
-	 * @param title: (String): le titre du topic
-	 * @param model: (Model): le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès
-	 * 			- String "{status:error}" sinon
-	 * 
+	 * <br>
+	 * Méthode qui permet  de gérer un requête '/updateTopic/{id}/{title}<br>
+	 * <br>
+	 * Variante de la suivante mais les paramètre sont insérés dans l'url et sont récupéres dans les variables/paramètres<br>
+	 * de la fonction, i.e. annotés avec @PathVariable<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur soumet le formulaire d'édition d'un topic<br>
+	 * <br>
+	 * Le titre peut être modifié mais seul le créateur du topic ou un administrateur peuvent le faire<br>
+	 * <br>
+	 * Le titre du nouveau topic, ainsi que son idientifiant sont enregistrés dans les paramètres transmis<br>
+	 * par la fonction javascipt AJAX <br>
+	 * <br>
+	 * On peut par la suite récupérer ces valeurs avec les paramètres de la fonction annotés @PathVariable<br>
+	 * <br>
+	 * L'appel à la fonction topicDAO.updateTopic() retourne un entier supérieur à 0 si l'opération est réussie<br>
+	 * 	  <br>
+	 * @param id (int): l'identifiant du topic<br>
+	 * @param title: (String): le titre du topic<br>
+	 * @param model: (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès<br>
+	 * 			- String "{status:error}" sinon<br>
+	 * <br>
 	 **********************************************************************************************************************/
 
 	@RequestMapping(value = "/updateTopic/{id}/{title}", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
@@ -401,36 +397,35 @@ public class TopicController {
 	
 
 	/**********************************************************************************************************************
-	 * Fonction updateTopic(Map(String, String), Model)
-	 * 
-	 * Permet de gérer un requête '/updateTopic' avec la méthode PUT
-	 * 
-	 * Variante de la précédente mais les paramètres sont transmis et enregistrés dans une collection de type Map(String, String)
-	 * avec les clés-valeurs 
-	 * 
-	 * Cette méthode n'ests pas utilisée masi elle permet d'illusterer qu'il est possible de passer les paramètre dans l'url mais
-	 * de facon classique, c'est-à-dire avec un point d'interrogtion devant la liste des paramètres qui sont définis individuellement par une
-	 * paire de clé-valeur, associées par un symbole d'égalité ('=') et séparées par un '&amp;' 
-	 * 
-	 * La requête pourrait être: "/topics/updateTopic?topicId=4&amp;topicTitle="Un%20nouveau%20titre"
-	 * 	 
-	 * Le titre du nouveau topic, ainsi que son idientifiant sont enregistrés dans les paramètres transmis
-	 * par la fonction javascipt AJAX 
-	 * 
-	 * On peut alors les récupérer au moyen d'un objet de type Map(String, String) annoté de @RequestParam pour signifie que les paramètres
-	 * de la requête sont inclus dans la collection
-	 * 
-	 * On peut par la suite récupérer ces valeurs avec les clés c'est-à-dire les noms utilisés pour chacun des paramètres
-	 * lors de la transmission de la requête
-	 * 
-	 *  L'appel à la fonction topicDAO.updateTopic() retourne un entier supérieur à 0 si l'opération est réussie
-	 * 	  
-	 * @param params: (Map(String, String)): une collection de type Map (interface) contenant les clés-valeurs de paramètres
-	 * @param model: (Model): le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès
-	 * 			- String "{status:error}" sinon
-	 * 
+	 * <br>
+	 * Méthode qui permet  de gérer un requête '/updateTopic' avec la méthode PUT<br>
+	 * <br>
+	 * Variante de la précédente mais les paramètres sont transmis et enregistrés dans une collection de type Map(String, String)<br>
+	 * avec les clés-valeurs <br>
+	 * <br>
+	 * Cette méthode n'ests pas utilisée masi elle permet d'illusterer qu'il est possible de passer les paramètre dans l'url mais<br>
+	 * de facon classique, c'est-à-dire avec un point d'interrogtion devant la liste des paramètres qui sont définis individuellement par une<br>
+	 * paire de clé-valeur, associées par un symbole d'égalité ('=') et séparées par un '&amp;' <br>
+	 * <br>
+	 * La requête pourrait être: "/topics/updateTopic?topicId=4&amp;topicTitle="Un%20nouveau%20titre"<br>
+	 * 	 <br>
+	 * Le titre du nouveau topic, ainsi que son idientifiant sont enregistrés dans les paramètres transmis<br>
+	 * par la fonction javascipt AJAX <br>
+	 * <br>
+	 * On peut alors les récupérer au moyen d'un objet de type Map(String, String) annoté de @RequestParam pour signifie que les paramètres<br>
+	 * de la requête sont inclus dans la collection<br>
+	 * <br>
+	 * On peut par la suite récupérer ces valeurs avec les clés c'est-à-dire les noms utilisés pour chacun des paramètres<br>
+	 * lors de la transmission de la requête<br>
+	 * <br>
+	 *  L'appel à la fonction topicDAO.updateTopic() retourne un entier supérieur à 0 si l'opération est réussie<br>
+	 * 	  <br>
+	 * @param params: (Map(String, String)): une collection de type Map (interface) contenant les clés-valeurs de paramètres<br>
+	 * @param model: (Model): le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès<br>
+	 * 			- String "{status:error}" sinon<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value = "/updateTopic", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
@@ -457,26 +452,24 @@ public class TopicController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction delete(int, Model)
-	 * 
-	 * Permet de gérer un requête '/deleteTopic/{id}' avec la méthode DELETE
-	 * 
-	 * Variante de la suivante mais le paramètre est transmis dans l'url et peut être récupéré dans le paramètre de la fonction
-	 * annoté avec @PathVariable
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur qui a créé le topic pu un administrateur clique sur le bouton 'Retirer'
-	 * 
-	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX 
-	 *  
-	 * L'appel à la fonction topicDAO.openCloseTopic() eest appelée avec en paramètre un byte de valeur 0 pour désactiver le topic (on ne l'efface pas)
-	 *  
-	 * 	  
-	 * @param id: (int): un entier qui représente l'identifiant du topic
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès
-	 * 			- String "{status:error}" sinon
-	 * 
+	 * <br>
+	 * Méthode qui permet  de gérer un requête '/deleteTopic/{id}' avec la méthode DELETE<br>
+	 * <br>
+	 * Variante de la suivante mais le paramètre est transmis dans l'url et peut être récupéré dans le paramètre de la fonction<br>
+	 * annoté avec @PathVariable<br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur qui a créé le topic pu un administrateur clique sur le bouton 'Retirer'<br>
+	 * <br>
+	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX <br>
+	 *  <br>
+	 * L'appel à la fonction topicDAO.openCloseTopic() eest appelée avec en paramètre un byte de valeur 0 pour désactiver le topic (on ne l'efface pas)<br>
+	 *  <br>
+	 * @param id: (int): un entier qui représente l'identifiant du topic<br>
+	 * @param model: (Model): représente le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès<br>
+	 * 			- String "{status:error}" sinon<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	
 	@RequestMapping(value = "/deleteTopic/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
@@ -500,26 +493,24 @@ public class TopicController {
 	//*********************************************************************************************************************
 	
 	/**********************************************************************************************************************
-	 * Fonction delete(String, Model)
-	 * 
-	 * Permet de gérer un requête '/deleteTopic' avec la méthode DELETE
-	 * 
-	 * Variante de la précédente mais le paramètres est transmis et enregistré dans un objet de type String, et non une collection 
-	 * de type Map(String, String avec les clés-valeurs, puisqu'on a seulement un paramètre 
-	 * 
-	 * Cette méthode est appelée lorsque l'utilisateur qui a créé le topic pu un administrateur clique sur le bouton 'Effacer'
-	 * 
-	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX et est annoté de @RequestParam comme paramètre de la fonction
-	 *  
+	 * <br>
+	 * Méthode qui permet de gérer un requête '/deleteTopic' avec la méthode DELETE<br>
+	 * <br>
+	 * Variante de la précédente mais le paramètres est transmis et enregistré dans un objet de type String, et non une collection <br>
+	 * de type Map(String, String avec les clés-valeurs, puisqu'on a seulement un paramètre <br>
+	 * <br>
+	 * Cette méthode est appelée lorsque l'utilisateur qui a créé le topic pu un administrateur clique sur le bouton 'Effacer'<br>
+	 * <br>
+	 * L'identifiant est enregistré dans le paramètre transmis par la fonction javascipt AJAX et est annoté de @RequestParam comme paramètre de la fonction<br>
+	 *  <br>
 	 * L'appel à la fonction topicDAO.openCloseTopic() eest appelée avec en paramètre un byte de valeur 0 pour désactiver le topic (on ne l'efface pas)
-	 *  
-	 * 	  
-	 * @param topicId: (String): une chaîne qui représente l'identifiant du topic qu'on convertit en entier
-	 * @param model: (Model): représente le modèle de l'application 
-	 * 
-	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès
-	 * 			- String "{status:error}" sinon
-	 * 
+	 * 	 <br> 
+	 * @param topicId: (String): une chaîne qui représente l'identifiant du topic qu'on convertit en entier<br>
+	 * @param model: (Model): représente le modèle de l'application <br>
+	 * <br>
+	 * @return: - String "{status:ok}" une chaîne représetnant un objet de type json, si les topic et post ont été enregistrés avec succès<br>
+	 * 			- String "{status:error}" sinon<br>
+	 * <br>
 	 **********************************************************************************************************************/
 	//Params vide lorques transféré par json object
 	@RequestMapping(value = "/deleteTopic", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")

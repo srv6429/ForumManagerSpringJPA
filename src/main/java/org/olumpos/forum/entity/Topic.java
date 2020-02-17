@@ -3,67 +3,64 @@ package org.olumpos.forum.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.olumpos.forum.util.ForumDateFormatter;
-
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * The persistent class for the post database table.
- * 
- * Créée par JPA tool de Eclipse
- * Modifié par: Donald Michon
- * 
- * @Description:
- * 
- * Classe de type Entity associée à la table 'topic' du schema 'blog' 
- * 
- * Le champs représentent ceux de la table
- * 
- * Les méthodes ('getter' et 'setter') sont utilisées pour initialiser les valeurs et les récupérer lorsque nécessaire
- *
- * Lorsque le nom des champs n'est pas le même que celui du champ correspondant de la table, 
- * l'annotation @Column est placée devant la déclaration avec le nom approprié de la table
- * 
- * Les champs annotés avec @Transient signifient qu'ils ne sont pas associés à un champ de la table
- * 
- * Le type des champs qui correspondent à des dates (i.e. creationDate et updateDate) ont été modifiés
- * 
- * Lors de la création automatique de la classe, ce type était 'sql.Timestamp', ce qui correspont 
- * au type approprié défini dans la table de la base de données.
- *  
- * Toufetois, il s'est avéré plus facile de gérer ces champs en modifiant le type en String.
- * 
- * Les requêtes définies ici en tant que @NamedQuery sont utiliés dans le fichier d'accès à la bd, (e.g. topicDAO) et 
- * sont référencées directement par le nom associé en utilisant l'instruction: "query.createNamedQuery(name, class)" 
- * où  'name' est le nom donné pour référencer la requête,  et 'class' le nom de la classe qui conserve la requête nommée, 
- * en l'occurrence Post.class
- * 
- * La classe doit implémenter l'interface 'Serializable' pour permettre le transfert des données (valeurs des champs) d'un objet sous forme de texte sérialisé vers la bd
- * 
- * Chaque topic de la base de données possèdent une clé étrangère: 
- * 		1. une première, 'user_id', reliant le topic à son créateur par la clé primaire (id) de la table 'user'
- * 
- * Il s'agit du nom défini dans la table de la base de données qui a été redéfini ici par userId
- * 
- * Ainsi chaque topic ne peut avoir qu'un seul créateur
- * 
- * L'annotation @ManytoOne permet de relier un topic à son créateur étant donnée qu'un utilisateur peut créer plusieurs topics 
- * 
- * Ainsi lorsqu'on recherhe les topic on obtient du même coup l'utilisateur qui L'a créé par identifiant et 
- * un objet de type User est créé automatiquement alors que les champs appropirés sont initialisés avec cet objet
- * 
- * On peut ainsi obtenir toutes les données concernant les utilisateurs concernés
- * Heureusement, pour des questions de sécurité les mots de passe sont encodés.
- * 
- * On pourrait également ignorer le champs 'password' ou l'annoter avec @Transient et utiliser une Native Query (requête SQL) au lieu d'une pseudo requête HQL
- * pour idenitifer un utilisateur lors de la connection avec le mot de passe.
- * 
- * L'annotation @OneToMany devant List<Post> posts illustre que le topic est référencé par tous les posts associés avec le champ 'topicFK' de la classe Ppst
- * C'est ainsi qu'o peut relier tous les posts au topic associé 
- * 
+ * The persistent class for the post database table.<br>
+ * <br>
+ * Créée par JPA tool de Eclipse<br>
+ * Modifié par: Donald Michon<br>
+ * <br>
+ * Description:<br>
+ * <br>
+ * Classe de type Entity associée à la table 'topic' du schema 'blog'<br> 
+ * <br>
+ * Le champs représentent ceux de la table<br>
+ * <br>
+ * Les méthodes ('getter' et 'setter') sont utilisées pour initialiser les valeurs et les récupérer lorsque nécessaire<br>
+ *<br>
+ * Lorsque le nom des champs n'est pas le même que celui du champ correspondant de la table,<br> 
+ * l'annotation @Column est placée devant la déclaration avec le nom approprié de la table<br>
+ * <br>
+ * Les champs annotés avec @Transient signifient qu'ils ne sont pas associés à un champ de la table<br>
+ * <br>
+ * Le type des champs qui correspondent à des dates (i.e. creationDate et updateDate) ont été modifiés<br>
+ * <br>
+ * Lors de la création automatique de la classe, ce type était 'sql.Timestamp', ce qui correspont<br> 
+ * au type approprié défini dans la table de la base de données.<br>
+ *  <br>
+ * Toufetois, il s'est avéré plus facile de gérer ces champs en modifiant le type en String.<br>
+ * <br>
+ * Les requêtes définies ici en tant que @NamedQuery sont utiliés dans le fichier d'accès à la bd, (e.g. topicDAO) et<br> 
+ * sont référencées directement par le nom associé en utilisant l'instruction: "query.createNamedQuery(name, class)" <br>
+ * où  'name' est le nom donné pour référencer la requête,  et 'class' le nom de la classe qui conserve la requête nommée,<br> 
+ * en l'occurrence Post.class<br>
+ * <br>
+ * La classe doit implémenter l'interface 'Serializable' pour permettre le transfert des données (valeurs des champs) d'un objet sous forme de texte sérialisé vers la bd<br>
+ * <br>
+ * Chaque topic de la base de données possèdent une clé étrangère:<br> 
+ * 		1. une première, 'user_id', reliant le topic à son créateur par la clé primaire (id) de la table 'user'<br>
+ * <br>
+ * Il s'agit du nom défini dans la table de la base de données qui a été redéfini ici par userId<br>
+ * <br>
+ * Ainsi chaque topic ne peut avoir qu'un seul créateur<br>
+ * <br>
+ * L'annotation @ManytoOne permet de relier un topic à son créateur étant donnée qu'un utilisateur peut créer plusieurs topics<br> 
+ * <br>
+ * Ainsi lorsqu'on recherhe les topic on obtient du même coup l'utilisateur qui L'a créé par identifiant et<br> 
+ * un objet de type User est créé automatiquement alors que les champs appropirés sont initialisés avec cet objet<br>
+ * <br>
+ * On peut ainsi obtenir toutes les données concernant les utilisateurs concernés<br>
+ * Heureusement, pour des questions de sécurité les mots de passe sont encodés.<br>
+ * <br>
+ * On pourrait également ignorer le champs 'password' ou l'annoter avec @Transient et utiliser une Native Query (requête SQL) au lieu d'une pseudo requête HQL<br>
+ * pour idenitifer un utilisateur lors de la connection avec le mot de passe.<br>
+ * <br>
+ * L'annotation @OneToMany devant List&lt;Post&gt; posts illustre que le topic est référencé par tous les posts associés avec le champ 'topicFK' de la classe Ppst<br>
+ * C'est ainsi qu'o peut relier tous les posts au topic associé <br>
+ * <br>
  */
 @Entity(name = "Topic") //nom de l'entité, facultatif si le nom correspond au nom de la classe
 @Table(name="topic") //nom de la table associée dans la bd
